@@ -1,0 +1,28 @@
+{
+    "configurations": [
+        {
+            "name": "Win",
+            "includePath": [
+                "${workspaceFolder}/libs/cmsis/include",
+                "${workspaceFolder}/libs/ST/system/include",
+                "${workspaceFolder}/libs/ST//low_layer/include",
+                "${workspaceFolder}/include"
+            ],
+            "browse": {
+                "path": [
+                    "${workspaceFolder}"
+                ],
+                "limitSymbolsToIncludedHeaders": false,
+                "databaseFilename": ""
+            },
+            "defines": [
+                "STM32F405xx"
+            ],
+            "compilerPath": "C:/tools/gcc-arm-none-eabi-8-2018-q4-major-win32/bin/arm-none-eabi-gcc.exe",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "clang-x64"
+        }
+    ],
+    "version": 4
+}
