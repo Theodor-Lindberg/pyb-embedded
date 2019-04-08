@@ -3,14 +3,13 @@
         {
             "name": "Win",
             "includePath": [
+                "${workspaceFolder}/include",
                 "${workspaceFolder}/libs/cmsis/include",
-                "${workspaceFolder}/libs/ST/system/include",
-                "${workspaceFolder}/libs/ST//low_layer/include",
-                "${workspaceFolder}/include"
+                "${workspaceFolder}/libs/ST/system/include"
             ],
             "browse": {
                 "path": [
-                    "${workspaceFolder}"
+                    "${workspaceFolder}/"
                 ],
                 "limitSymbolsToIncludedHeaders": false,
                 "databaseFilename": ""
@@ -18,7 +17,7 @@
             "defines": [
                 "STM32F405xx"
             ],
-            "compilerPath": "C:/tools/gcc-arm-none-eabi-8-2018-q4-major-win32/bin/arm-none-eabi-gcc.exe",
+            "compilerPath": "C:/tools/gcc-arm-none-eabi-8-2018-q4-major-win32/bin/arm-none-eabi-gcc.exe -mcpu=cortex-m4 --specs=nano.specs --specs=nosys.specs",
             "cStandard": "c11",
             "cppStandard": "c++17",
             "intelliSenseMode": "clang-x64"

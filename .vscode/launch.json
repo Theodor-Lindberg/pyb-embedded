@@ -7,7 +7,7 @@
         {
             "name": "Cortex Debug",
             "cwd": "${workspaceRoot}",
-            "executable": "${workspaceRoot}/build//src/STM32F4Template.elf",
+            "executable": "${workspaceRoot}/build/src/blink.elf",
             "armToolchainPath": "C:/Program Files (x86)/GNU Tools ARM Embedded/8 2018-q4-major/bin",
             "svdFile": "${workspaceRoot}/docs/processor/STM32F405.svd",
             "device": "STM32F405RG",

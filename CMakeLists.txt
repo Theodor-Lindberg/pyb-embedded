@@ -1,14 +1,26 @@
 cmake_minimum_required (VERSION 3.10.2)
 
-set(app_name blink)
+# set the build type
+if(NOT CMAKE_BUILD_TYPE) 
+    set(CMAKE_BUILD_TYPE Release)
+endif(NOT CMAKE_BUILD_TYPE)
 
-project(${app_name} C CXX ASM)
+if(CMAKE_BUILD_TYPE MATCHES Debug)
+  message("Debug build.")
+elseif(CMAKE_BUILD_TYPE MATCHES Release)
+  message("Release build.")
+endif()
+
+# Project specific settings
+set(application_name "blink")
+
+project (${application_name} C CXX ASM)
 
 # STM32-specific settings
 set(DEVICE_FAMILY STM32F405xx)
 
 # Used linker file (just for testing)
-get_filename_component(LINKER_SCRIPT linker/stm32f405.ld ABSOLUTE)
+get_filename_component(LINKER_SCRIPT linker/stm32f407vgt.ld ABSOLUTE)
 
 # add libraries
 add_subdirectory(libs)

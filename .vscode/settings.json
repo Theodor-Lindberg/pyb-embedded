@@ -1,4 +1,15 @@
 {
     "cortex-debug.JLinkGDBServerPath": "C:/Program Files (x86)/SEGGER/JLink_V644c/JLinkGDBServerCL.exe",
     "cmake.cmakePath": "C:/Program Files (x86)/Microsoft Visual Studio/2017/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/bin/cmake.exe",
+    "C_Cpp.intelliSenseEngineFallback": "Disabled",
+    "files.associations": {
+        "test.h": "c",
+        "t.h": "c",
+        "stm32f4xx.h": "c",
+        "stm32f405xx.h": "c",
+        "core_cm4.h": "c",
+        "cmsis_version.h": "c",
+        "stdint.h": "c",
+        "_intsup.h": "c"
+    },
 }
