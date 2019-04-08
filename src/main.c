@@ -16,16 +16,17 @@ void turnLedOn(void) {
 }
 
 void turnLedOff(void) {
-	GPIOB->ODR |= GPIO_ODR_OD4;
+	GPIOB->ODR &= ~(GPIO_ODR_OD4);
 }
 
 int isButtonPressed(void) {
-	return GPIOB->IDR & GPIO_IDR_ID3;
+	return !(GPIOB->IDR & GPIO_IDR_ID3);
 }
 
 void setupLed(void) {
 	// Set port B4 to general purpose output mode
-	GPIOB->MODER &= ~(GPIO_MODER_MODE4_1);
+	GPIOB->MODER &= ~(GPIO_MODER_MODE4);
+	GPIOB->MODER |= GPIO_MODER_MODE4_0;
 
 	// Output push-pull
 	GPIOB->OTYPER &= ~(GPIO_OTYPER_OT4);
@@ -45,7 +46,7 @@ void setupButton(void) {
 	GPIOB->PUPDR &= GPIO_PUPDR_PUPD3_0;
 }
 
-void main()
+int main()
 {
 	// Enable the GPIO clock for port B
 	RCC->AHB1ENR |= RCC_AHB1ENR_GPIOBEN;
