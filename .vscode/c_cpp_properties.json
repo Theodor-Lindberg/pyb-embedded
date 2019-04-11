@@ -4,19 +4,21 @@
             "name": "Win",
             "includePath": [
                 "${workspaceFolder}/include",
+                "${workspaceFolder}/include/drivers",
                 "${workspaceFolder}/libs/cmsis/include",
                 "${workspaceFolder}/libs/ST/system/include"
             ],
             "browse": {
+                "databaseFilename": "${workspaceRoot}/.vscode/.browse.VC.db",
                 "path": [
-                    "${workspaceFolder}/"
+                    "${workspaceRoot}"
                 ],
-                "limitSymbolsToIncludedHeaders": false,
-                "databaseFilename": ""
+                "limitSymbolsToIncludedHeaders":true
             },
             "defines": [
                 "STM32F405xx"
             ],
+            
             "compilerPath": "C:/tools/gcc-arm-none-eabi-8-2018-q4-major-win32/bin/arm-none-eabi-gcc.exe -mcpu=cortex-m4 --specs=nano.specs --specs=nosys.specs",
             "cStandard": "c11",
             "cppStandard": "c++17",

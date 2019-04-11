@@ -1,16 +1,5 @@
 #include "stm32f4xx.h"
 
-void delay (int a)
-{
-    volatile int i,j;
-
-    for (i=0 ; i < a ; i++)
-    {
-        j++;
-    }
-    return;
-}
-
 void turnLedOn(void) {
 	GPIOB->ODR |= GPIO_ODR_OD4;
 }
@@ -43,7 +32,20 @@ void setupButton(void) {
 	GPIOB->MODER &= ~(GPIO_MODER_MODE3);
 
 	// Pull upp
-	GPIOB->PUPDR &= GPIO_PUPDR_PUPD3_0;
+	GPIOB->PUPDR &= ~(GPIO_PUPDR_PUPD3);
+	GPIOB->PUPDR |= GPIO_PUPDR_PUPD3_0;
+}
+
+void EXTI3_IRQHandler(void) {
+	if (EXTI->PR & EXTI_PR_PR3) {
+		// Clear interrupt flag
+		EXTI->PR |= EXTI_PR_PR3;
+		// Disable other interrupts
+		NVIC_DisableIRQ(EXTI3_IRQn);
+		GPIOB->ODR ^= GPIO_ODR_OD4;
+		// Enable interrupts again
+		NVIC_EnableIRQ(EXTI3_IRQn);
+	}
 }
 
 int main()
@@ -53,17 +55,21 @@ int main()
 	setupLed();
 	setupButton();
 
+	// Enable the System Configuration Controller clock
+	RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;
+
+	// Enable interrupt line for port B3
+	SYSCFG->EXTICR[0] = SYSCFG_EXTICR1_EXTI3_PB;
+
+	// Interuppt line is not masked
+	EXTI->IMR = EXTI_IMR_IM3;
+
+	// Trigger on falling edge
+	EXTI->FTSR |= EXTI_FTSR_TR3;
+
+	NVIC_SetPriority(EXTI3_IRQn, 0);
+	NVIC_EnableIRQ(EXTI3_IRQn);
 	
 	while(1) {
-		// Turn LED on
-		if (isButtonPressed()) {
-			turnLedOn();
-			delay(500000);
-			turnLedOff();
-			delay(500000);
-		}
-		else {
-			turnLedOn();
-		}
 	}
 }
