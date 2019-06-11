@@ -89,7 +89,7 @@ This is a list of all the softwares and their versions that I currently use:
     * Cortex Debug *0.2.6*
 * CMake *3.12.18081601-MSVC_2*
 * GNU Make *3.81*
-* GNU Tool ARM Embedded *8.2.1*  
+* GNU Tool ARM Embedded *7.3.1*  
 * Segger JLink *4.66c*  
 * Segger JLink EDU Mini, Firmware: *compiled Mar 15 2019 12:47:02*, Hardware: *1.00*
 
