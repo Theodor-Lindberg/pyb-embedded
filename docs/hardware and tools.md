@@ -1,11 +1,11 @@
 # Hardware and tools  
-## The pyboard hardware
+## The Pyboard Hardware
 * [PYBv1.1 schematics and layout][pyb]
 * The microcontroller: [STM32F405RGT6][stm32f405rgt6]
 * The accelerometer: [Freescale MMA7660FC][mma7660fc]
 * The LDO voltage regulator: [Microchip MCP1802][mcp1802]  
   
-## Debug probes
+## Debug Probes
 * [Segger J-Link EDU mini][jlink]
 * [ST-LINK V2][stlink]
 
