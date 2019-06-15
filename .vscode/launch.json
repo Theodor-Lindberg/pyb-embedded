@@ -9,7 +9,7 @@
             "cwd": "${workspaceRoot}",
             "executable": "${workspaceRoot}/build/src/blink.elf",
             "armToolchainPath": "C:/Program Files (x86)/GNU Tools ARM Embedded/7 2018-q2-update/bin",
-            "svdFile": "${workspaceRoot}/docs/processor/STM32F405.svd",
+            "svdFile": "${workspaceRoot}/STM32F405.svd",
             "device": "STM32F405RG",
             "request": "launch",
             "type": "cortex-debug",
