@@ -22,6 +22,13 @@ set(DEVICE_FAMILY STM32F405xx)
 # Used linker file (just for testing)
 get_filename_component(LINKER_SCRIPT linker/stm32f407vgt.ld ABSOLUTE)
 
+# additional compiler options: use size-optimized version of library in release build, use -O0 in debug build
+if(CMAKE_BUILD_TYPE MATCHES Debug)
+  set(opt_level -O0)
+else()
+  set(opt_level -Os)
+endif()
+
 # add libraries
 add_subdirectory(libs)
 

@@ -1,12 +1,5 @@
 set(sources main.c)
 
-# GCC optimization level: use -O0 in debug build, otherwise -O2
-if(CMAKE_BUILD_TYPE MATCHES Debug)
-  set(opt_level -O0)
-else()
-  set(opt_level -Os)
-endif()
-
 # set some project constants
 set(elf_file ${application_name}.elf)
 set(bin_file ${application_name}.bin)
@@ -14,11 +7,9 @@ set(hex_file ${application_name}.hex)
 set(map_file ${application_name}.map)
 set(lss_file ${application_name}.lss)
 
-
 # add sources to elf file
 add_executable(${elf_file} ${sources})
-target_link_libraries(${elf_file} PUBLIC stm32f4_system)
-
+target_link_libraries(${elf_file} LINK_PUBLIC system_lib hal_lib)
 
 # set additional for compiler and linker: optimization and generate map file
 set(additional_compiler_flags ${opt_level})
@@ -41,4 +32,6 @@ add_custom_target(${lss_file} DEPENDS ${elf_file} COMMAND ${ARM_OBJDUMP_EXECUTAB
 # create binary and hex files
 add_custom_target(${hex_file} DEPENDS ${elf_file} COMMAND ${ARM_OBJCOPY_EXECUTABLE} -Oihex ${elf_file} ${hex_file})
 add_custom_target(${bin_file} DEPENDS ${elf_file} COMMAND ${ARM_OBJCOPY_EXECUTABLE} -Obinary ${elf_file} ${bin_file})
+
+# show memory usage
 add_custom_target(${application_name} ALL DEPENDS ${elf_file}-size ${bin_file} ${hex_file} ${lss_file})

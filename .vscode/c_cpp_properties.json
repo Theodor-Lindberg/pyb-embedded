@@ -3,10 +3,9 @@
         {
             "name": "Win",
             "includePath": [
-                "${workspaceFolder}/include",
-                "${workspaceFolder}/include/drivers",
-                "${workspaceFolder}/libs/cmsis/include",
-                "${workspaceFolder}/libs/ST/system/include"
+                "${workspaceFolder}/libs/cmsis/inc",
+                "${workspaceFolder}/libs/ST/system/inc",
+                "${workspaceFolder}/libs/ST/hal/inc"
             ],
             "browse": {
                 "databaseFilename": "${workspaceRoot}/.vscode/.browse.VC.db",

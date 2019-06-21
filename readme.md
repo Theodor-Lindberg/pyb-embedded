@@ -92,6 +92,8 @@ This is a list of all the softwares and their versions that I currently use:
 * GNU Tool ARM Embedded *7.3.1*  
 * Segger JLink *4.66c*  
 * Segger JLink EDU Mini, Firmware: *compiled Mar 15 2019 12:47:02*, Hardware: *1.00*
+* CMSIS *5-5.5.1*
+* ST *1.24.0*
 
 [micropython-wiki]:https://github.com/micropython/micropython/wiki/Programming-Debugging-the-pyboard-using-ST-Link-v2#Hardware-Setup  
 [segger-download]:https://www.segger.com/downloads/jlink/#J-LinkSoftwareAndDocumentationPack
