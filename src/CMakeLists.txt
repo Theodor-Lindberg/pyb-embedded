@@ -1,4 +1,6 @@
-set(sources main.c)
+set(sources main.cpp
+            DigitalOut.cpp
+            BoardLEDs.cpp)
 
 # set some project constants
 set(elf_file ${application_name}.elf)
@@ -10,6 +12,7 @@ set(lss_file ${application_name}.lss)
 # add sources to elf file
 add_executable(${elf_file} ${sources})
 target_link_libraries(${elf_file} LINK_PUBLIC system_lib hal_lib)
+target_include_directories(${elf_file} PUBLIC ../inc)
 
 # set additional for compiler and linker: optimization and generate map file
 set(additional_compiler_flags ${opt_level})

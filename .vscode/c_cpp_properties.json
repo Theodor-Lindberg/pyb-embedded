@@ -3,6 +3,7 @@
         {
             "name": "Win",
             "includePath": [
+                "${workspaceFolder}/inc",
                 "${workspaceFolder}/libs/cmsis/inc",
                 "${workspaceFolder}/libs/ST/system/inc",
                 "${workspaceFolder}/libs/ST/hal/inc"

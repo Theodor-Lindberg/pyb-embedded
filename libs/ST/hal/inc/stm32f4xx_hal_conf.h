@@ -34,10 +34,12 @@
 /**
   * @brief This is the list of modules to be used in the HAL driver 
   */
+ /*
 #define HAL_MODULE_ENABLED  
 #define HAL_ADC_MODULE_ENABLED
-#define HAL_CAN_MODULE_ENABLED
-/* #define HAL_CAN_LEGACY_MODULE_ENABLED */
+#define HAL_CAN_MODULE_ENABLED*/
+/* #define HAL_CAN_LEGACY_MODULE_ENABLED */ 
+/*
 #define HAL_CRC_MODULE_ENABLED
 #define HAL_CEC_MODULE_ENABLED
 #define HAL_CRYP_MODULE_ENABLED
@@ -82,7 +84,7 @@
 #define HAL_SPDIFRX_MODULE_ENABLED
 #define HAL_DFSDM_MODULE_ENABLED
 #define HAL_LPTIM_MODULE_ENABLED
-#define HAL_MMC_MODULE_ENABLED
+#define HAL_MMC_MODULE_ENABLED*/
 
 /* ########################## HSE/HSI Values adaptation ##################### */
 /**
