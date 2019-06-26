@@ -1,17 +1,5 @@
 #include "BoardLEDs.hpp"
-
-int isButtonPressed(void) {
-	return !(GPIOB->IDR & GPIO_IDR_ID3);
-}
-
-void setupButton(void) {
-	// Set port B3 as input
-	GPIOB->MODER &= ~(GPIO_MODER_MODE3);
-
-	// Pull upp
-	GPIOB->PUPDR &= ~(GPIO_PUPDR_PUPD3);
-	GPIOB->PUPDR |= GPIO_PUPDR_PUPD3_0;
-}
+#include "BoardButton.hpp"
  
 extern "C" void EXTI3_IRQHandler(void) {
 	if (EXTI->PR & EXTI_PR_PR3) {
@@ -20,7 +8,7 @@ extern "C" void EXTI3_IRQHandler(void) {
 		// Disable other interrupts
 		NVIC_DisableIRQ(EXTI3_IRQn);
 
-		Board::get_blue_led().toggle();
+		Board::get_board_led(Board::LED::BLUE).toggle();
 
 		// Enable interrupts again
 		NVIC_EnableIRQ(EXTI3_IRQn);
@@ -29,10 +17,14 @@ extern "C" void EXTI3_IRQHandler(void) {
 
 int main()
 {
-	// Enable the GPIO clock for port B
+	// Enable the GPIO clock for port A and B
 	RCC->AHB1ENR |= RCC_AHB1ENR_GPIOBEN;
+	RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
 
-	setupButton();
+	Board::get_board_led(Board::LED::BLUE).write(false);
+	Board::get_board_led(Board::LED::GREEN).write(false);
+	Board::get_board_led(Board::LED::YELLOW).write(false);
+	Board::get_board_led(Board::LED::RED).write(false);
 
 	// Enable the System Configuration Controller clock
 	RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;

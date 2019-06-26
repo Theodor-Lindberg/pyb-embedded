@@ -1,6 +1,9 @@
 set(sources main.cpp
             DigitalOut.cpp
-            BoardLEDs.cpp)
+            DigitalIn.cpp
+            Button.cpp
+            BoardLEDs.cpp
+            BoardButton.cpp)
 
 # set some project constants
 set(elf_file ${application_name}.elf)

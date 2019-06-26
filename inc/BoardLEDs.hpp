@@ -2,11 +2,9 @@
 #include "DigitalOut.hpp"
 
 namespace Board {
-    DigitalOut& get_blue_led();
+    enum LED {
+        BLUE, GREEN, YELLOW, RED
+        };
 
-    DigitalOut& get_green_led();
-
-    DigitalOut& get_yellow_led();
-
-    DigitalOut& get_red_led();
+    DigitalOut& get_board_led(const LED led);
 }
