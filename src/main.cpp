@@ -1,5 +1,6 @@
 #include "BoardLEDs.hpp"
 #include "BoardButton.hpp"
+#include "SEGGER_RTT.h"
  
 extern "C" void EXTI3_IRQHandler(void) {
 	if (EXTI->PR & EXTI_PR_PR3) {
@@ -21,7 +22,7 @@ int main()
 	RCC->AHB1ENR |= RCC_AHB1ENR_GPIOBEN;
 	RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
 
-	Board::get_board_led(Board::LED::BLUE).write(false);
+	/*/Board::get_board_led(Board::LED::BLUE).write(false);
 	Board::get_board_led(Board::LED::GREEN).write(false);
 	Board::get_board_led(Board::LED::YELLOW).write(false);
 	Board::get_board_led(Board::LED::RED).write(false);
@@ -39,8 +40,17 @@ int main()
 	EXTI->FTSR |= EXTI_FTSR_TR3;
 
 	NVIC_SetPriority(EXTI3_IRQn, 0);
-	NVIC_EnableIRQ(EXTI3_IRQn);
+	NVIC_EnableIRQ(EXTI3_IRQn);*/
+	Button user_button = Board::get_board_button();
+	bool pressed = false;
 
 	while(1) {
+		if (user_button.is_pressed() && !pressed) {
+			pressed = true;
+			SEGGER_RTT_printf(0, "The button was pressed!\n\n");
+		}
+		else if (!user_button.is_pressed()) {
+			pressed = false;
+		}
 	}
 }

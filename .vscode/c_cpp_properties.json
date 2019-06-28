@@ -6,7 +6,9 @@
                 "${workspaceFolder}/inc",
                 "${workspaceFolder}/libs/cmsis/inc",
                 "${workspaceFolder}/libs/ST/system/inc",
-                "${workspaceFolder}/libs/ST/hal/inc"
+                "${workspaceFolder}/libs/ST/hal/inc",
+                "${workspaceFolder}/libs/SEGGER/RTT",
+                "${workspaceFolder}/libs/SEGGER/Syscalls"
             ],
             "browse": {
                 "databaseFilename": "${workspaceRoot}/.vscode/.browse.VC.db",
