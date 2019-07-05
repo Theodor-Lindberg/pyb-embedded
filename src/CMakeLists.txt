@@ -1,43 +1,59 @@
-set(sources main.cpp
-            DigitalOut.cpp
-            DigitalIn.cpp
-            Button.cpp
-            BoardLEDs.cpp
-            BoardButton.cpp)
+if(NOT ${build_tests})
+    set(sources main.cpp
+                hal/target/DigitalOut.cpp
+                hal/target/DigitalIn.cpp
+                utilities/Button.cpp
+                utilities/BoardLEDs.cpp
+                utilities/BoardButton.cpp)
 
-# set some project constants
-set(elf_file ${application_name}.elf)
-set(bin_file ${application_name}.bin)
-set(hex_file ${application_name}.hex)
-set(map_file ${application_name}.map)
-set(lss_file ${application_name}.lss)
+    set(includes hal/target
+                utilities)
 
-# add sources to elf file
-add_executable(${elf_file} ${sources})
-target_link_libraries(${elf_file} LINK_PUBLIC system_lib hal_lib rtt_lib)
-target_include_directories(${elf_file} PUBLIC ../inc)
+    # set some project constants
+    set(elf_file ${application_name}.elf)
+    set(bin_file ${application_name}.bin)
+    set(hex_file ${application_name}.hex)
+    set(map_file ${application_name}.map)
+    set(lss_file ${application_name}.lss)
 
-# set additional for compiler and linker: optimization and generate map file
-set(additional_compiler_flags ${opt_level})
-set(additional_linker_flags -Wl,-Map=${map_file},--cref,--no-warn-mismatch)
-target_compile_options(${elf_file} PRIVATE ${additional_compiler_flags})
-target_link_libraries(${elf_file} PRIVATE ${additional_linker_flags})
+    # add sources to elf file
+    add_executable(${elf_file} ${sources})
+    target_include_directories(${elf_file} PRIVATE ${includes})
+    target_link_libraries(${elf_file} LINK_PUBLIC system_lib hal_lib rtt_lib)
 
-# remove unused sections
-target_link_libraries(${elf_file} PUBLIC "-g -Wl,--gc-sections")
+    # set additional for compiler and linker: optimization and generate map file
+    set(additional_compiler_flags ${opt_level})
+    set(additional_linker_flags -Wl,-Map=${map_file},--cref,--no-warn-mismatch)
+    target_compile_options(${elf_file} PRIVATE ${additional_compiler_flags})
+    target_link_libraries(${elf_file} PRIVATE ${additional_linker_flags})
 
-# link with linker file
-target_link_libraries(${elf_file} PUBLIC -T${LINKER_SCRIPT})
+    # remove unused sections
+    target_link_libraries(${elf_file} PUBLIC "-g -Wl,--gc-sections")
 
-# show size of resulting firmware image
-add_custom_target(${elf_file}-size DEPENDS ${elf_file} COMMAND ${ARM_SIZE_EXECUTABLE} -B ${elf_file})
+    # link with linker file
+    target_link_libraries(${elf_file} PUBLIC -T${LINKER_SCRIPT})
 
-# generate extended listing
-add_custom_target(${lss_file} DEPENDS ${elf_file} COMMAND ${ARM_OBJDUMP_EXECUTABLE} -S ${elf_file} > ${lss_file})
+    # show size of resulting firmware image
+    add_custom_target(${elf_file}-size DEPENDS ${elf_file} COMMAND ${ARM_SIZE_EXECUTABLE} -B ${elf_file})
 
-# create binary and hex files
-add_custom_target(${hex_file} DEPENDS ${elf_file} COMMAND ${ARM_OBJCOPY_EXECUTABLE} -Oihex ${elf_file} ${hex_file})
-add_custom_target(${bin_file} DEPENDS ${elf_file} COMMAND ${ARM_OBJCOPY_EXECUTABLE} -Obinary ${elf_file} ${bin_file})
+    # generate extended listing
+    add_custom_target(${lss_file} DEPENDS ${elf_file} COMMAND ${ARM_OBJDUMP_EXECUTABLE} -S ${elf_file} > ${lss_file})
 
-# show memory usage
-add_custom_target(${application_name} ALL DEPENDS ${elf_file}-size ${bin_file} ${hex_file} ${lss_file})
+    # create binary and hex files
+    add_custom_target(${hex_file} DEPENDS ${elf_file} COMMAND ${ARM_OBJCOPY_EXECUTABLE} -Oihex ${elf_file} ${hex_file})
+    add_custom_target(${bin_file} DEPENDS ${elf_file} COMMAND ${ARM_OBJCOPY_EXECUTABLE} -Obinary ${elf_file} ${bin_file})
+
+    # show memory usage
+    add_custom_target(${application_name} ALL DEPENDS ${elf_file}-size ${bin_file} ${hex_file} ${lss_file})
+else()
+    set(sources hal/desktop/DigitalIn.cpp
+                utilities/Button.cpp)
+
+    set(includes hal/desktop
+                utilities)
+            
+    set(lib app_lib)
+    add_library(${lib} ${sources})
+    target_include_directories(${lib} PUBLIC ${includes})
+    target_compile_options(${lib} PRIVATE ${opt_level})
+endif()

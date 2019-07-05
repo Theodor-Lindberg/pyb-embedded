@@ -1,5 +1,5 @@
 #pragma once
-#include "stm32f4xx.h"
+#include "Pin.hpp"
 
 class GPIO {
     protected:

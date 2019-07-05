@@ -82,18 +82,19 @@ To flash and debug from Visual Studio Code the [Cortex Debug-extension][cortex-d
 
 ## 4 Software Revisions  
 This is a list of all the softwares and their versions that I currently use:  
-* Visual Studio Code *1.35.1*  
+* Visual Studio Code *1.36.0*  
     * C/C++ *0.23.1*  
     * CMake *0.0.17*
     * Cmake Tools *1.1.3*
     * Cortex Debug *0.2.7*
+    * Catch2 and Google Test Explorer *2.5.0*
 * CMake *3.12.18081601-MSVC_2*
 * GNU Make *3.81*
 * GNU Tool ARM Embedded *7.3.1*  
 * Segger JLink *4.66c*  
 * Segger JLink EDU Mini, Firmware: *compiled Mar 15 2019 12:47:02*, Hardware: *1.00*
 * CMSIS *5-5.5.1*
-* ST *1.24.0*
+* ST Low Level library *1.24.0*
 
 [micropython-wiki]:https://github.com/micropython/micropython/wiki/Programming-Debugging-the-pyboard-using-ST-Link-v2#Hardware-Setup  
 [segger-download]:https://www.segger.com/downloads/jlink/#J-LinkSoftwareAndDocumentationPack
