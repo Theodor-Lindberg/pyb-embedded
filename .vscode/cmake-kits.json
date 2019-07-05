@@ -1,0 +1,6 @@
+[
+    {
+        "name": "GCC 7.3.1 Cortex M4",
+        "toolchainFile": "../CMake/GNU-ARM-Toolchain.cmake"
+    }
+]

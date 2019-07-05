@@ -1,9 +1,11 @@
 {
     "configurations": [
         {
-            "name": "Win",
+            "name": "ARM",
             "includePath": [
-                "${workspaceFolder}/inc",
+                "${workspaceFolder}/src",
+                "${workspaceFolder}/src/hal/target",
+                "${workspaceFolder}/src/utilities",
                 "${workspaceFolder}/libs/cmsis/inc",
                 "${workspaceFolder}/libs/ST/system/inc",
                 "${workspaceFolder}/libs/ST/hal/inc",
@@ -11,7 +13,6 @@
                 "${workspaceFolder}/libs/SEGGER/Syscalls"
             ],
             "browse": {
-                "databaseFilename": "${workspaceRoot}/.vscode/.browse.VC.db",
                 "path": [
                     "${workspaceRoot}"
                 ],
@@ -20,12 +21,38 @@
             "defines": [
                 "STM32F405xx"
             ],
-            
-            "compilerPath": "C:/tools/gcc-arm-none-eabi-8-2018-q4-major-win32/bin/arm-none-eabi-gcc.exe -mcpu=cortex-m4 --specs=nano.specs --specs=nosys.specs",
+            "compilerPath": "\"C:/Program Files (x86)/GNU Tools Arm Embedded/7 2018-q2-update/bin/arm-none-eabi-gcc.exe\" -mcpu=cortex-m4 --specs=nano.specs --specs=nosys.specs",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "clang-x64"
+        },
+        {
+            "name": "Desktop",
+            "includePath": [
+                "${workspaceFolder}/src",
+                "${workspaceFolder}/src/hal/desktop",
+                "${workspaceFolder}/src/utilities",
+                "${workspaceFolder}/tests",
+                "${workspaceFolder}/libs/cmsis/inc",
+                "${workspaceFolder}/libs/ST/system/inc",
+                "${workspaceFolder}/libs/ST/hal/inc",
+                "${workspaceFolder}/libs/SEGGER/RTT",
+                "${workspaceFolder}/libs/SEGGER/Syscalls"
+            ],
+            "browse": {
+                "path": [
+                    "${workspaceRoot}"
+                ],
+                "limitSymbolsToIncludedHeaders":true
+            },
+            "defines": [
+                "STM32F405xx"
+            ],
             "cStandard": "c11",
             "cppStandard": "c++17",
             "intelliSenseMode": "clang-x64"
         }
+
     ],
     "version": 4
 }
