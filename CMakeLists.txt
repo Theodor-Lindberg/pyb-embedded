@@ -29,12 +29,12 @@ if(NOT ${build_tests})
   # add libraries
   add_subdirectory(libs)
 
-    # add main project
-    add_subdirectory(src)
+  # add main project
+  add_subdirectory(src)
 else()
   project(${application_name} C CXX)
 
-    # add main project as a library
-    add_subdirectory(src)
+  # add main project as a library
+  add_subdirectory(src)
   add_subdirectory(tests)
 endif()

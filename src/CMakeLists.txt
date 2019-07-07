@@ -1,13 +1,20 @@
+if(${build_tests})
+    set(platform desktop)
+else()
+    set(platform target)
+endif()
+
+set(common_src  hal/${platform}/DigitalOut.cpp
+                hal/${platform}/DigitalIn.cpp
+                utilities/Button.cpp)
+
+set(common_inc  hal/${platform}
+                utilities)
+
 if(NOT ${build_tests})
     set(sources main.cpp
-                hal/target/DigitalOut.cpp
-                hal/target/DigitalIn.cpp
-                utilities/Button.cpp
                 utilities/BoardLEDs.cpp
                 utilities/BoardButton.cpp)
-
-    set(includes hal/target
-                utilities)
 
     # set some project constants
     set(elf_file ${application_name}.elf)
@@ -17,8 +24,8 @@ if(NOT ${build_tests})
     set(lss_file ${application_name}.lss)
 
     # add sources to elf file
-    add_executable(${elf_file} ${sources})
-    target_include_directories(${elf_file} PRIVATE ${includes})
+    add_executable(${elf_file} ${sources} ${common_src})
+    target_include_directories(${elf_file} PRIVATE ${common_inc})
     target_link_libraries(${elf_file} LINK_PUBLIC system_lib hal_lib rtt_lib)
 
     # set additional for compiler and linker: optimization and generate map file
@@ -45,15 +52,9 @@ if(NOT ${build_tests})
 
     # show memory usage
     add_custom_target(${application_name} ALL DEPENDS ${elf_file}-size ${bin_file} ${hex_file} ${lss_file})
-else()
-    set(sources hal/desktop/DigitalIn.cpp
-                utilities/Button.cpp)
-
-    set(includes hal/desktop
-                utilities)
-            
+else()        
     set(lib app_lib)
-    add_library(${lib} ${sources})
-    target_include_directories(${lib} PUBLIC ${includes})
+    add_library(${lib} ${common_src})
+    target_include_directories(${lib} PUBLIC ${common_inc})
     target_compile_options(${lib} PRIVATE ${opt_level})
 endif()
