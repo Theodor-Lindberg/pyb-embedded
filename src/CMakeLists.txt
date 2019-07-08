@@ -22,9 +22,14 @@ if(NOT ${build_tests})
     set(hex_file ${application_name}.hex)
     set(map_file ${application_name}.map)
     set(lss_file ${application_name}.lss)
+    set(out_directory ../../bin/project/${CMAKE_BUILD_TYPE}/)
+
+    add_custom_target(make_out_dir ALL
+        COMMAND ${CMAKE_COMMAND} -E make_directory ${out_directory})
 
     # add sources to elf file
     add_executable(${elf_file} ${sources} ${common_src})
+    add_dependencies(${elf_file} make_out_dir)
     target_include_directories(${elf_file} PRIVATE ${common_inc})
     target_link_libraries(${elf_file} LINK_PUBLIC system_lib hal_lib rtt_lib)
 
@@ -52,6 +57,33 @@ if(NOT ${build_tests})
 
     # show memory usage
     add_custom_target(${application_name} ALL DEPENDS ${elf_file}-size ${bin_file} ${hex_file} ${lss_file})
+
+    # copy output to the bin directory
+    add_custom_command(TARGET ${elf_file} 
+                   POST_BUILD
+                   COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:${elf_file}>  ${out_directory}
+                   COMMENT "Copying elf file to output directory")
+
+     add_custom_command(TARGET ${bin_file} 
+                   POST_BUILD
+                   COMMAND ${CMAKE_COMMAND} -E copy ${bin_file}  ${out_directory}
+                   COMMENT "Copying bin file to output directory")
+
+    add_custom_command(TARGET ${hex_file} 
+                   POST_BUILD
+                   COMMAND ${CMAKE_COMMAND} -E copy ${hex_file}  ${out_directory}
+                   COMMENT "Copying bin file to output directory")
+
+    add_custom_command(TARGET ${lss_file} 
+                   POST_BUILD
+                   COMMAND ${CMAKE_COMMAND} -E copy ${lss_file}  ${out_directory}
+                   COMMENT "Copying lss file to output directory")
+
+    add_custom_command(TARGET ${elf_file} 
+                   POST_BUILD
+                   COMMAND ${CMAKE_COMMAND} -E copy ${map_file}  ${out_directory}
+                   COMMENT "Copying map file to output directory")
+
 else()        
     set(lib app_lib)
     add_library(${lib} ${common_src})
