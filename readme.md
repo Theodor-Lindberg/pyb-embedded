@@ -14,7 +14,7 @@
 I have not yet decided what the code should do, but the philosophy of the project is to be stable, scalable with good test coverage, continuous integration, documentation and be as independent as possible from operating systems, editors and build tools.
   
 ## 2 Configuring And Building The Project
-The project uses CMake so many different build systems can be targeted but I personally use Unix Makefiles from Visual Studio Code. 
+The project uses CMake so many different build systems can be targeted but I personally use Unix Makefiles from Visual Studio Code. The build variants are *App* and *Tests*, each with Debug and Release. *App* is the main project and should be built with the *GCC 7.3.1 Cortex M4* kit, *Tests* builds the unit tests to run on the desktop. To get the best intellisense and syntax highlighting choose the *ARM* configuration when developing for target and the *Desktop* configuration otherwise.
 
 ### 2.1 Command Line With Unix Makefiles  
 To build from the command line write the following from the repository root.  
@@ -32,7 +32,7 @@ make
 ```  
 
 ### 2.2 Visual Studio Code With Unix Makefiles  
-To build from Visual Studio Code the [CMake Tools-extension][cmake-tools] must be installed. If you don't have CMake in your *path* variable you can specify the `cmake.cmakePath` in the *settings.json* file. You can then select build variant and build from the blue menu bar at the bottom in Visual Studio Code.  
+To build from Visual Studio Code the [CMake Tools-extension][cmake-tools] must be installed. If you don't have CMake in your *path* variable you can specify the `cmake.cmakePath` in the *settings.json* file. You can then select build variant and kit from the blue menu bar at the bottom in Visual Studio Code.  
 
 ## 3 Flashing And Debugging  
 Flashing and debugging can be done using many different tools but I will only explain two different tools. 
@@ -83,11 +83,11 @@ To flash and debug from Visual Studio Code the [Cortex Debug-extension][cortex-d
 ## 4 Software Revisions  
 This is a list of all the softwares and their versions that I currently use:  
 * Visual Studio Code *1.36.0*  
-    * C/C++ *0.23.1*  
+    * C/C++ *0.24.0*  
     * CMake *0.0.17*
     * Cmake Tools *1.1.3*
-    * Cortex Debug *0.2.7*
-    * Catch2 and Google Test Explorer *2.5.0*
+    * Cortex Debug *0.3.1*
+    * Catch2 and Google Test Explorer *2.6.1*
 * CMake *3.12.18081601-MSVC_2*
 * GNU Make *3.81*
 * GNU Tool ARM Embedded *7.3.1*  
@@ -95,6 +95,7 @@ This is a list of all the softwares and their versions that I currently use:
 * Segger JLink EDU Mini, Firmware: *compiled Mar 15 2019 12:47:02*, Hardware: *1.00*
 * CMSIS *5-5.5.1*
 * ST Low Level library *1.24.0*
+* Catch2 *2.9.1*
 
 [micropython-wiki]:https://github.com/micropython/micropython/wiki/Programming-Debugging-the-pyboard-using-ST-Link-v2#Hardware-Setup  
 [segger-download]:https://www.segger.com/downloads/jlink/#J-LinkSoftwareAndDocumentationPack
