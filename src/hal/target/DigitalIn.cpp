@@ -1,6 +1,8 @@
 #include "DigitalIn.hpp"
 #include "stm32f4xx_ll_gpio.h"
 
+GPIO_DEF_DECLARATION
+
 DigitalIn::DigitalIn(const Pin pin):
 GPIO(pin.GPIOx, pin.number) {
     LL_GPIO_SetPinMode(GPIOx, pin.number, PinMode::INPUT);

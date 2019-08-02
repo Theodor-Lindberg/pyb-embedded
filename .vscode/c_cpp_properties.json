@@ -14,17 +14,18 @@
             ],
             "browse": {
                 "path": [
-                    "${workspaceRoot}"
+                    "${workspaceFolder}/**"
                 ],
                 "limitSymbolsToIncludedHeaders":true
             },
             "defines": [
-                "STM32F405xx"
+                "STM32F405xx",
+                "USE_FULL_LL_DRIVER"
             ],
-            "compilerPath": "\"C:/Program Files (x86)/GNU Tools Arm Embedded/7 2018-q2-update/bin/arm-none-eabi-gcc.exe\" -mcpu=cortex-m4 --specs=nano.specs --specs=nosys.specs",
+            "compilerPath": "\"C:/Program Files (x86)/GNU Tools Arm Embedded/7 2018-q2-update/bin/arm-none-eabi-g++.exe\" -mcpu=cortex-m4 --specs=nano.specs --specs=nosys.specs",
             "cStandard": "c11",
             "cppStandard": "c++17",
-            "intelliSenseMode": "clang-x64"
+            "intelliSenseMode": "gcc-x64"
         },
         {
             "name": "Desktop",
@@ -41,7 +42,7 @@
             ],
             "browse": {
                 "path": [
-                    "${workspaceRoot}"
+                    "${workspaceFolder}/**"
                 ],
                 "limitSymbolsToIncludedHeaders":true
             },

@@ -18,7 +18,7 @@
         {
             "name": "Cortex Debug",
             "cwd": "${workspaceRoot}",
-            "executable": "${workspaceRoot}/bin/Debug/proj.elf",
+            "executable": "${workspaceRoot}/bin/project/Debug/proj.elf",
             "armToolchainPath": "C:/Program Files (x86)/GNU Tools ARM Embedded/7 2018-q2-update/bin",
             "svdFile": "${workspaceRoot}/STM32F405.svd",
             "device": "STM32F405RG",

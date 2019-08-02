@@ -13,6 +13,7 @@ set(common_inc  hal/${platform}
 
 if(NOT ${build_tests})
     set(sources main.cpp
+                hal/${platform}/USART_Driver.cpp
                 utilities/BoardLEDs.cpp
                 utilities/BoardButton.cpp)
 
