@@ -9,6 +9,6 @@ add_library(${lib} ${sources})
 
 target_include_directories(${lib} PUBLIC ${includes})
 
-target_compile_definitions(${lib} PUBLIC ${DEVICE_FAMILY})
+target_compile_definitions(${lib} PUBLIC ${DEVICE_FAMILY} ${OSCILLATOR_SETTINGS})
 
 target_compile_options(${lib} PRIVATE ${opt_level})

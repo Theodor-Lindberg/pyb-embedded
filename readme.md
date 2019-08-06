@@ -83,11 +83,13 @@ To flash and debug from Visual Studio Code the [Cortex Debug-extension][cortex-d
 ## 4 Software Revisions  
 This is a list of all the softwares and their versions that I currently use:  
 * Visual Studio Code *1.36.0*  
-    * C/C++ *0.24.0*  
+    * C/C++ *0.24.1*  
     * CMake *0.0.17*
     * Cmake Tools *1.1.3*
     * Cortex Debug *0.3.1*
-    * Catch2 and Google Test Explorer *2.6.1*
+    * Catch2 and Google Test Explorer *2.6.6*
+    * Better Comments *2.0.5*
+    * Doxygen Documentation Generator *0.5.0*
 * CMake *3.12.18081601-MSVC_2*
 * GNU Make *3.81*
 * GNU Tool ARM Embedded *7.3.1*  
