@@ -40,9 +40,11 @@ install:
 
 before_script:
   - pwd
+  - ls
+  - ls cmake
   - arm-none-eabi-g++ --version && cmake --version && make --version # Print the versions used
   - mkdir build && cd build # Create and enter build directory
-  - cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -Dbuild_tests=false -D"CMAKE_TOOLCHAIN_FILE=../CMake/GNU-ARM-Toolchain.cmake" ../ # Build in release mode
+  - cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -Dbuild_tests=false -D"CMAKE_TOOLCHAIN_FILE=../cmake/GNU-ARM-Toolchain.cmake" ../ # Build in release mode
 
 script:
   - make
