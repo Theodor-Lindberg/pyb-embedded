@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Theodor-Lindberg/pyb-embedded.svg?branch=master)](https://travis-ci.org/Theodor-Lindberg/pyb-embedded)
+
 ## Table of contents  
 1. [About](#1-About)
 2. [Configuring And Building The Project](#2-Configuring-And-Building-The-Project)  
@@ -103,3 +105,4 @@ This is a list of all the softwares and their versions that I currently use:
 [segger-download]:https://www.segger.com/downloads/jlink/#J-LinkSoftwareAndDocumentationPack
 [cortex-debug]:https://marketplace.visualstudio.com/items?itemName=marus25.cortex-debug
 [cmake-tools]:https://marketplace.visualstudio.com/items?itemName=vector-of-bool.cmake-tools
+[build_status]:https://travis-ci.org/Theodor-Lindberg/pyb-embedded.svg?branch=master
