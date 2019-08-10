@@ -2,7 +2,7 @@
 #include "DigitalOut.hpp"
 
 namespace Board {
-    enum LED {
+    enum class LED {
         BLUE, GREEN, YELLOW, RED
         };
 

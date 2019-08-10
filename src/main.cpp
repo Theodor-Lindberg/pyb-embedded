@@ -1,14 +1,7 @@
 #include "stm32f4xx_ll_system.h"
 #include "stm32f4xx_ll_rcc.h"
-#include "stm32f4xx_ll_gpio.h"
 #include "BoardLEDs.hpp"
 #include "DigitalOut.hpp"
-/*
- * Temporary code to test the new PLL source.
- * The calculated SystemCoreClock is 168000000, a LED and a pin (for probing) are
- * toggled every 500ms second giving a frequency of 1Hz with a 50% duty cycle.
- TODO: Check with an oscilloscope that this is correct before proceeding with USART development.
-*/
 
 GPIO_DEF_DECLARATION
 
@@ -28,18 +21,15 @@ void DelayMS(__IO uint32_t time);
 int main()
 {
 	SystemClock_Config();
-	if (SysTick_Config(SystemCoreClock/1000U)) { // Trigger interrupt every millisecond
+	if (SysTick_Config(SystemCoreClock / 1000U)) { // Trigger interrupt every millisecond
 		while (true);
 	}
 
 	// Enable the GPIO clock for port B
 	RCC->AHB1ENR |= RCC_AHB1ENR_GPIOBEN;
 
-	DigitalOut probe_pin(static_cast<GPIO_Def*>(GPIOB), LL_GPIO_PIN_0, LL_GPIO_SPEED_FREQ_LOW, LL_GPIO_PULL_DOWN); // Pin Y11
-
 	while(1) {
 		Board::get_board_led(Board::LED::BLUE).toggle();
-		probe_pin.toggle();
 		DelayMS(500U);
 	}
 }

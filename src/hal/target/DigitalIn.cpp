@@ -5,8 +5,8 @@ GPIO_DEF_DECLARATION
 
 DigitalIn::DigitalIn(const Pin pin):
 GPIO(pin.GPIOx, pin.number) {
-    LL_GPIO_SetPinMode(GPIOx, pin.number, PinMode::INPUT);
-    LL_GPIO_SetPinPull(GPIOx, pin.number, pin.pull);
+    LL_GPIO_SetPinMode(GPIOx, pin.number, static_cast<uint32_t>(PinMode::INPUT));
+    LL_GPIO_SetPinPull(GPIOx, pin.number, static_cast<uint32_t>(pin.pull));
 }
 
 bool DigitalIn::read() {

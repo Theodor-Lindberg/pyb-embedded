@@ -1,19 +1,19 @@
 #include <stdint.h>
 
-enum PinMode {
+enum class PinMode {
     INPUT = 0,
     OUTPUT,
     ALTERNATE,
     ANALOG
 };
 
-enum Pull {
+enum class Pull {
     NO = 0,
     UP,
     DOWN
 };
 
-enum Speed {
+enum class Speed {
     LOW = 0,
     MEDIUM,
     HIGH,
@@ -32,3 +32,4 @@ struct Pin {
     Pin(GPIO_Def* GPIOx, uint32_t number, PinMode mode, Pull pull, Speed speed):
     GPIOx(GPIOx), number(number), mode(mode), pull(pull), speed(speed) {}
 };
+
