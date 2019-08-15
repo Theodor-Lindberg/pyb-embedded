@@ -32,10 +32,13 @@ if(NOT ${build_tests})
     add_executable(${elf_file} ${sources} ${common_src})
     add_dependencies(${elf_file} make_out_dir)
     target_include_directories(${elf_file} PRIVATE ${common_inc})
-    target_link_libraries(${elf_file} LINK_PUBLIC system_lib hal_lib rtt_lib)
+    target_link_libraries(${elf_file} PRIVATE system_lib hal_lib rtt_lib)
 
-    # set additional for compiler and linker: optimization and generate map file
-    set(additional_compiler_flags ${opt_level})
+    # set additional for compiler and linker: warnings and generate map file
+    if (${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
+        set(W_FLAGS -Wall -Wextra -Wshadow -Wcast-align -Wunused -Woverloaded-virtual -Wpedantic -Wconversion -Wsign-conversion -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wnull-dereference -Wuseless-cast)
+    endif()
+    set(additional_compiler_flags ${W_FLAGS})
     set(additional_linker_flags -Wl,-Map=${map_file},--cref,--no-warn-mismatch)
     target_compile_options(${elf_file} PRIVATE ${additional_compiler_flags})
     target_link_libraries(${elf_file} PRIVATE ${additional_linker_flags})

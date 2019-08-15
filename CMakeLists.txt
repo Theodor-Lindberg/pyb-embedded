@@ -8,19 +8,15 @@ if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release)
 endif()
 
-if(CMAKE_BUILD_TYPE MATCHES Debug)
-  set(opt_level -O0)
-elseif(CMAKE_BUILD_TYPE MATCHES Release)
-  set(opt_level -Os)
-else()
-  message(SEND_ERROR "Unkown build type")
-endif()
-
 # STM32-specific settings
 set(DEVICE_FAMILY STM32F405xx)
 
 # Project specific settings
 set(application_name "proj")
+
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 if(NOT ${build_tests})
   project(${application_name} C CXX ASM)

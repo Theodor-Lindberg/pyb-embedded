@@ -3,6 +3,8 @@ notifications:
 
 sudo: false
 
+language: minimal
+
 matrix:
   fast_finish: true
   include:
@@ -11,8 +13,6 @@ matrix:
 
 install:
   # Set up GNU ARM Embedded Toolchain
-  - ls
-  - pwd
   - pushd .
   - cd ~ 
   - mkdir arm-gcc-toolchain
@@ -39,9 +39,6 @@ install:
   - cd ${TRAVIS_BUILD_DIR}
 
 before_script:
-  - pwd
-  - ls
-  - ls cmake
   - arm-none-eabi-g++ --version && cmake --version && make --version # Print the versions used
   - mkdir build && cd build # Create and enter build directory
   - cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -Dbuild_tests=false -D"CMAKE_TOOLCHAIN_FILE=../cmake/GNU-ARM-Toolchain.cmake" ../ # Build in release mode
