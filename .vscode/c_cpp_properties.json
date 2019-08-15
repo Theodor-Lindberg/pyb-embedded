@@ -46,14 +46,9 @@
                 ],
                 "limitSymbolsToIncludedHeaders":true
             },
-            "defines": [
-                "STM32F405xx"
-            ],
             "cStandard": "c11",
-            "cppStandard": "c++17",
-            "intelliSenseMode": "clang-x64"
+            "cppStandard": "c++17"
         }
-
     ],
     "version": 4
 }
