@@ -8,19 +8,37 @@ language: minimal
 matrix:
   fast_finish: true
   include:
-    - name: 7-2018-q2
-      env: GCC_URL=https://developer.arm.com/-/media/Files/downloads/gnu-rm/7-2018q2/gcc-arm-none-eabi-7-2018-q2-update-linux.tar.bz2?revision=bc2c96c0-14b5-4bb4-9f18-bceb4050fee7?product=GNU%20Arm%20Embedded%20Toolchain,64-bit,,Linux,7-2018-q2-update
+    # Main Application Release
+    - os: linux
+      env: BUILD_TYPE=Release BUILD_TESTS=FALSE ENABLE_COVERAGE=FALSE TARGET=App TOOLCHAIN=GNU-ARM-Toolchain
+
+    # Main Application Debug
+    - os: linux
+      env: BUILD_TYPE=Debug BUILD_TESTS=FALSE ENABLE_COVERAGE=FALSE TARGET=App TOOLCHAIN=GNU-ARM-Toolchain
+
+    # Unit tests Debug with code coverage
+    - os: linux
+      env: BUILD_TYPE=Release BUILD_TESTS=TRUE ENABLE_COVERAGE=TRUE TARGET=Tests TOOLCHAIN=GCC
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-7
 
 install:
   # Set up GNU ARM Embedded Toolchain
-  - pushd .
-  - cd ~ 
-  - mkdir arm-gcc-toolchain
-  - wget -O $HOME/arm-gcc-toolchain/gcc.tar.bz2 $GCC_URL
-  - cd arm-gcc-toolchain
-  - tar -jxf gcc.tar.bz2 --strip=1
-  - popd
-  - export PATH=$HOME/arm-gcc-toolchain/bin:$PATH
+  - |
+    if [ "${TOOLCHAIN}" == "GNU-ARM-Toolchain" ]; then
+      pushd .
+      cd ~ 
+      mkdir arm-gcc-toolchain
+      wget -O $HOME/arm-gcc-toolchain/gcc.tar.bz2 https://developer.arm.com/-/media/Files/downloads/gnu-rm/7-2018q2/gcc-arm-none-eabi-7-2018-q2-update-linux.tar.bz2?revision=bc2c96c0-14b5-4bb4-9f18-bceb4050fee7?product=GNU%20Arm%20Embedded%20Toolchain,64-bit,,Linux,7-2018-q2-update
+      cd arm-gcc-toolchain
+      tar -jxf gcc.tar.bz2 --strip=1
+      popd
+      export PATH=$HOME/arm-gcc-toolchain/bin:$PATH
+    fi
   # Set up CMake
   # first we create a directory for the CMake binaries
   - DEPS_DIR="${TRAVIS_BUILD_DIR}/deps"
@@ -39,9 +57,17 @@ install:
   - cd ${TRAVIS_BUILD_DIR}
 
 before_script:
-  - arm-none-eabi-g++ --version && cmake --version && make --version # Print the versions used
-  - mkdir build && cd build # Create and enter build directory
-  - cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -Dbuild_tests=false -D"CMAKE_TOOLCHAIN_FILE=../cmake/GNU-ARM-Toolchain.cmake" ../ # Build in release mode
+  - |
+    if [ "${TOOLCHAIN}" == "GNU-ARM-Toolchain" ]; then
+      arm-none-eabi-g++ --version
+    fi
+  - cmake --version && make --version # Print the versions used
+  - mkdir build/$TARGET && cd build/$TARGET # Create and enter build directory
+  - cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=$BUILD_TYPE -Dbuild_tests:BOOL=$BUILD_TESTS -DENABLE_COVERAGE:BOOL=$ENABLE_COVERAGE -D"CMAKE_TOOLCHAIN_FILE=../../cmake/${TOOLCHAIN}.cmake" ../../
 
 script:
   - make
+  - |
+    if [ "${TOOLCHAIN}" == "GCC" ]; then
+      ./tests/proj_test
+    fi
