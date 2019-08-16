@@ -1,4 +1,6 @@
 [![Build Status](https://travis-ci.org/Theodor-Lindberg/pyb-embedded.svg?branch=master)](https://travis-ci.org/Theodor-Lindberg/pyb-embedded)
+[![codecov](https://codecov.io/gh/Theodor-Lindberg/pyb-embedded/branch/master/graph/badge.svg)](https://codecov.io/gh/Theodor-Lindberg/pyb-embedded)
+[![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)](https://opensource.org/licenses/MPL-2.0)
 
 ## Table of contents  
 1. [About](#1-About)
@@ -10,7 +12,8 @@
     3.2 [Software Setup](#3.2-Software-Setup)  
     3.3 [Flashing Using J-Link Commander](#3.3-Flashing-Using-J-Link-Commander)  
     3.4 [Debugging from Visual Studio Code](#3.4-Debugging-from-Visual-Studio-Code)
-4. [Software Revisions](#4-Software-Revisions)  
+4. [Continuous Integration](#4-Continuous-Integration)
+5. [Software Revisions](#4-Software-Revisions)  
   
 ## 1 About  
 I have not yet decided what the code should do, but the philosophy of the project is to be stable, scalable with good test coverage, continuous integration, documentation and be as independent as possible from operating systems, editors and build tools.
@@ -19,17 +22,25 @@ I have not yet decided what the code should do, but the philosophy of the projec
 The project uses CMake so many different build systems can be targeted but I personally use Unix Makefiles from Visual Studio Code. The build variants are *App* and *Tests*, each with Debug and Release. *App* is the main project and should be built with the *GCC 7.3.1 Cortex M4* kit, *Tests* builds the unit tests to run on the desktop. To get the best intellisense and syntax highlighting choose the *ARM* configuration when developing for target and the *Desktop* configuration otherwise.
 
 ### 2.1 Command Line With Unix Makefiles  
-To build from the command line write the following from the repository root.  
-For a release build write:  
+To build from the command line write the following from the repository root. The flags that are expected to be passed are:  
+* `-G`: The CMake generator to use.
+* `-D CMAKE_TOOLCHAIN_FILE`: The toolchain file to use. `[GCC.cmake|GNU-ARM-Toolchain.cmake]`
+* `-D CMAKE_BUILD_TYPE`: Optimization level, if test coverage is enabled the `Debug` option should be used. `[Release|Debug]`
+* `-D build_tests:BOOL`: If set to true only the tests will be compiled.
+* `-D ENABLE_COVERAGE:BOOL`: If set to true files with coverage information are generated, only works with the `GCC` toolchain.  
+
+After compiling a *bin* directory is created in the root directory and the output will be copied to here.
+
+Example of building the main application in release:  
 ```  
-mkdir build
-cd build && cmake -G "Unix Makefiles" -D "CMAKE_TOOLCHAIN_FILE=../CMake/GNU-ARM-Toolchain.cmake" ../  
+mkdir build && cd build
+cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -Dbuild_tests:BOOL=FALSE -DENABLE_COVERAGE:BOOL=FALSE -D"CMAKE_TOOLCHAIN_FILE=../cmake/GNU-ARM-Toolchain.cmake" ../  
 make  
 ```
-or for a debug build write:  
+Example of building tests with coverage:  
 ```  
-mkdir build
-cd build && cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -D "CMAKE_TOOLCHAIN_FILE=../CMake/GNU-ARM-Toolchain.cmake" ../  
+mkdir build && cd build
+cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -Dbuild_tests:BOOL=TRUE -DENABLE_COVERAGE:BOOL=TRUE -D"CMAKE_TOOLCHAIN_FILE=../cmake/GCC.cmake" ../   
 make  
 ```  
 
@@ -80,11 +91,14 @@ The *Segger J-Link Software* must be installed and can be downloaded from [here]
 You are now done and your program should be running.  
 
 ### 3.4 Debugging from Visual Studio Code  
-To flash and debug from Visual Studio Code the [Cortex Debug-extension][cortex-debug] must be installed. If you don't have the J-Link software in your path variable you can specify it using the `cortex-debug.JLinkGDBServerPath` in the *setting.json* file, note that it has to be the full path to your *JLinkGDBServerCL*.
+To flash and debug from Visual Studio Code the [Cortex Debug-extension][cortex-debug] must be installed. If you don't have the J-Link software in your path variable you can specify it using the `cortex-debug.JLinkGDBServerPath` in the *setting.json* file, note that it has to be the full path to your *JLinkGDBServerCL*.  
+  
+## 4 Continuous Integration  
+The project uses the hosted continuous integration service Travis CI. Right now only builds on Ubuntu are run. 
 
-## 4 Software Revisions  
+## 5 Software Revisions  
 This is a list of all the softwares and their versions that I currently use:  
-* Visual Studio Code *1.37.0*  
+* Visual Studio Code *1.37.1*  
     * C/C++ *0.24.1*  
     * CMake *0.0.17*
     * Cmake Tools *1.1.3*
@@ -92,9 +106,11 @@ This is a list of all the softwares and their versions that I currently use:
     * Catch2 and Google Test Explorer *2.6.6*
     * Better Comments *2.0.5*
     * Doxygen Documentation Generator *0.5.0*
+    * Travis CI Status *1.1.0*
 * CMake *3.12.18081601-MSVC_2*
 * GNU Make *3.81*
 * GNU ARM Embedded Toolchain *7.3.1*  
+* GNU (gcc and g++) *7.4.0*
 * Segger JLink *4.66c*  
 * Segger JLink EDU Mini, Firmware: *compiled Mar 15 2019 12:47:02*, Hardware: *1.00*
 * CMSIS *5-5.5.1*
