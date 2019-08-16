@@ -62,7 +62,7 @@ before_script:
       arm-none-eabi-g++ --version
     fi
   - cmake --version && make --version # Print the versions used
-  - mkdir build/$TARGET && cd build/$TARGET # Create and enter build directory
+  - mkdir -p build/$TARGET && cd build/$TARGET # Create and enter build directory
   - cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=$BUILD_TYPE -Dbuild_tests:BOOL=$BUILD_TESTS -DENABLE_COVERAGE:BOOL=$ENABLE_COVERAGE -D"CMAKE_TOOLCHAIN_FILE=../../cmake/${TOOLCHAIN}.cmake" ../../
 
 script:
