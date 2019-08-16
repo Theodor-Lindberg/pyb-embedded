@@ -15,7 +15,7 @@ TEST_CASE( "Button pressed active low", "[single-file]" ) {
     DigitalIn di(1);
     di.set(true);
     Button button(di, false);
-    REQUIRE(button.is_pressed() == false);
+    REQUIRE(button.is_pressed() == true);
     di.set(false);
     REQUIRE(button.is_pressed());
     di.set(true);
