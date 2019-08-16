@@ -68,6 +68,12 @@ before_script:
 script:
   - make
   - |
-    if [ "${TOOLCHAIN}" == "GCC" ]; then
+    if [ "${BUILD_TESTS}" == "TRUE" ]; then
       ./tests/proj_test
+    fi
+
+after_success:
+  - |
+    if [ "${ENABLE_COVERAGE}" == "TRUE" ]; then
+      bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
     fi
