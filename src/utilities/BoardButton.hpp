@@ -2,5 +2,5 @@
 #include "Button.hpp"
 
 namespace Board {
-    Button& get_board_button();
+	Button& get_board_button();
 }

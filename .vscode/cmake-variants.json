@@ -1,38 +1,40 @@
 {
-    "buildType": {
-        "default": "app_release",
-        "description": "Optimization level",
-        "choices": {
-            "app_debug": {
-                "short": "Debug",
-                "long": "Build with debugging information",
-                "buildType": "Debug"
-            },
-            "app_release": {
-                "short": "Release",
-                "long": "Build with optimization",
-                "buildType": "Release"
-            }
-        }
-    },
-    "app": {
-        "default": "yes",
-        "description": "Build main application",
-        "choices": {
-            "yes": {
-                "short": "App",
-                "long": "Main application",
-                "settings": {
-                    "build_tests": false
-                }
-            },
-            "no": {
-                "short": "Tests",
-                "long": "Unit tests",
-                "settings": {
-                    "build_tests": true
-                }
-            }
-        }
-    }
+	"buildType": {
+		"default": "app_release",
+		"description": "Optimization level",
+		"choices": {
+			"app_debug": {
+				"short": "Debug",
+				"long": "Build with debugging information",
+				"buildType": "Debug"
+			},
+			"app_release": {
+				"short": "Release",
+				"long": "Build with optimization",
+				"buildType": "Release"
+			}
+		}
+	},
+	"app": {
+		"default": "yes",
+		"description": "Build main application",
+		"choices": {
+			"yes": {
+				"short": "App",
+				"long": "Main application",
+				"settings": {
+					"build_tests": false,
+					"ENABLE_COVERAGE": false
+				}
+			},
+			"no": {
+				"short": "Tests",
+				"long": "Unit tests",
+				"settings": {
+					"build_tests": true,
+					"ENABLE_COVERAGE": false
+				}
+			}
+		}
+	}
 }

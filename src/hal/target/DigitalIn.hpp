@@ -2,7 +2,7 @@
 #include "GPIO.hpp"
 
 class DigitalIn: public GPIO {
-    public:
-    DigitalIn(const Pin pin);
-    bool read();
+	public:
+	DigitalIn(const Pin pin);
+	bool read();
 };

@@ -1,54 +1,54 @@
 {
-    "configurations": [
-        {
-            "name": "ARM",
-            "includePath": [
-                "${workspaceFolder}/src",
-                "${workspaceFolder}/src/hal/target",
-                "${workspaceFolder}/src/utilities",
-                "${workspaceFolder}/libs/cmsis/inc",
-                "${workspaceFolder}/libs/ST/system/inc",
-                "${workspaceFolder}/libs/ST/hal/inc",
-                "${workspaceFolder}/libs/SEGGER/RTT",
-                "${workspaceFolder}/libs/SEGGER/Syscalls"
-            ],
-            "browse": {
-                "path": [
-                    "${workspaceFolder}/**"
-                ],
-                "limitSymbolsToIncludedHeaders":true
-            },
-            "defines": [
-                "STM32F405xx",
-                "USE_FULL_LL_DRIVER"
-            ],
-            "compilerPath": "\"C:/Program Files (x86)/GNU Tools Arm Embedded/7 2018-q2-update/bin/arm-none-eabi-g++.exe\" -mcpu=cortex-m4 --specs=nano.specs --specs=nosys.specs",
-            "cStandard": "c11",
-            "cppStandard": "c++17",
-            "intelliSenseMode": "gcc-x64"
-        },
-        {
-            "name": "Desktop",
-            "includePath": [
-                "${workspaceFolder}/src",
-                "${workspaceFolder}/src/hal/desktop",
-                "${workspaceFolder}/src/utilities",
-                "${workspaceFolder}/tests",
-                "${workspaceFolder}/libs/cmsis/inc",
-                "${workspaceFolder}/libs/ST/system/inc",
-                "${workspaceFolder}/libs/ST/hal/inc",
-                "${workspaceFolder}/libs/SEGGER/RTT",
-                "${workspaceFolder}/libs/SEGGER/Syscalls"
-            ],
-            "browse": {
-                "path": [
-                    "${workspaceFolder}/**"
-                ],
-                "limitSymbolsToIncludedHeaders":true
-            },
-            "cStandard": "c11",
-            "cppStandard": "c++17"
-        }
-    ],
-    "version": 4
+	"configurations": [
+		{
+			"name": "ARM",
+			"includePath": [
+				"${workspaceFolder}/src",
+				"${workspaceFolder}/src/hal/target",
+				"${workspaceFolder}/src/utilities",
+				"${workspaceFolder}/libs/cmsis/inc",
+				"${workspaceFolder}/libs/ST/system/inc",
+				"${workspaceFolder}/libs/ST/hal/inc",
+				"${workspaceFolder}/libs/SEGGER/RTT",
+				"${workspaceFolder}/libs/SEGGER/Syscalls"
+			],
+			"browse": {
+				"path": [
+					"${workspaceFolder}/**"
+				],
+				"limitSymbolsToIncludedHeaders":true
+			},
+			"defines": [
+				"STM32F405xx",
+				"USE_FULL_LL_DRIVER"
+			],
+			"compilerPath": "\"C:/Program Files (x86)/GNU Tools Arm Embedded/7 2018-q2-update/bin/arm-none-eabi-g++.exe\" -mcpu=cortex-m4 --specs=nano.specs --specs=nosys.specs",
+			"cStandard": "c11",
+			"cppStandard": "c++17",
+			"intelliSenseMode": "gcc-x64"
+		},
+		{
+			"name": "Desktop",
+			"includePath": [
+				"${workspaceFolder}/src",
+				"${workspaceFolder}/src/hal/desktop",
+				"${workspaceFolder}/src/utilities",
+				"${workspaceFolder}/tests",
+				"${workspaceFolder}/libs/cmsis/inc",
+				"${workspaceFolder}/libs/ST/system/inc",
+				"${workspaceFolder}/libs/ST/hal/inc",
+				"${workspaceFolder}/libs/SEGGER/RTT",
+				"${workspaceFolder}/libs/SEGGER/Syscalls"
+			],
+			"browse": {
+				"path": [
+					"${workspaceFolder}/**"
+				],
+				"limitSymbolsToIncludedHeaders":true
+			},
+			"cStandard": "c11",
+			"cppStandard": "c++17"
+		}
+	],
+	"version": 4
 }

@@ -1,30 +1,36 @@
 {
-    "cortex-debug.JLinkGDBServerPath": "C:/Program Files (x86)/SEGGER/JLink_V644c/JLinkGDBServerCL.exe",
-    "cmake.cmakePath": "C:/Program Files (x86)/Microsoft Visual Studio/2017/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/bin/cmake.exe",
-    "shellLauncher.shells.windows": [
-        {
-            "shell": "C:\\Windows\\System32\\cmd.exe",
-            "label": "cmd"
-        },
-        {
-            "shell": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
-            "label": "PowerShell"
-        },
-        {
-            "shell": "C:\\Program Files\\Git\\bin\\bash.exe",
-            "label": "Git bash"
-        },
-        {
-            "shell": "C:\\Windows\\System32\\bash.exe",
-            "label": "WSL Bash"
-        }
-    ],
-    "files.exclude": {
-        "**/.git": true,         // this is a default value
-        "Debug": true    
-    },
-    "search.exclude": {
-       "Debug": true
-    },
-    "C_Cpp.intelliSenseEngine": "Default"
+	"cortex-debug.JLinkGDBServerPath": "C:/Program Files (x86)/SEGGER/JLink_V644c/JLinkGDBServerCL.exe",
+	"cmake.buildDirectory" : "${workspaceRoot}/build/${buildType}",
+	"shellLauncher.shells.windows": [
+		{
+			"shell": "C:\\Windows\\System32\\cmd.exe",
+			"label": "cmd"
+		},
+		{
+			"shell": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"label": "PowerShell"
+		},
+		{
+			"shell": "C:\\Program Files\\Git\\bin\\bash.exe",
+			"label": "Git bash"
+		},
+		{
+			"shell": "C:\\Windows\\System32\\bash.exe",
+			"label": "WSL Bash"
+		}
+	],
+	"files.exclude": {
+		"**/.git": true,         // this is a default value
+		"Debug": true    
+	},
+	"search.exclude": {
+		"Debug": true
+	},
+	"C_Cpp.intelliSenseEngine": "Default",
+	"files.associations": {
+		"array": "cpp",
+		"string_view": "cpp"
+	},
+	"editor.tabSize": 4,
+	"editor.insertSpaces": false
 }

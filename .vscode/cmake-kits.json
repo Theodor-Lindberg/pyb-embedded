@@ -1,6 +1,10 @@
 [
-    {
-        "name": "GCC 7.3.1 Cortex M4",
-        "toolchainFile": "../CMake/GNU-ARM-Toolchain.cmake"
-    }
+	{
+		"name": "GCC 7.3.1 Cortex M4",
+		"toolchainFile": "../../cmake/GNU-ARM-Toolchain.cmake"
+	},
+	{
+		"name": "GCC 7.4.0",
+		"toolchainFile": "../../cmake/GCC.cmake" 
+	}
 ]
