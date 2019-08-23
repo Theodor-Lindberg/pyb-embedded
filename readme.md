@@ -99,10 +99,11 @@ The project uses the hosted continuous integration service Travis CI. Right now 
 ## 5 Software Revisions  
 This is a list of all the softwares and their versions that I currently use:  
 * Visual Studio Code *1.37.1*  
-    * C/C++ *0.24.1*  
+    * C/C++ *0.25.0*  
     * CMake *0.0.17*
     * Cmake Tools *1.1.3*
     * Cortex Debug *0.3.1*
+    * Test Explorer UI *2.14.3*
     * Catch2 and Google Test Explorer *2.6.6*
     * Better Comments *2.0.5*
     * Doxygen Documentation Generator *0.5.0*

@@ -127,7 +127,6 @@ bool SerialDriver::initialize(BAUDRATE baudrate, DIRECTION direction, DATAWIDTH 
 	close();
 
 	if (LL_USART_Init(USARTx, &init_def) != ErrorStatus::SUCCESS) {
-		///LL_APB2_GRP1_DisableClock(LL_APB2_GRP1_PERIPH_USART6);
 		return false;
 	}
 
@@ -135,7 +134,7 @@ bool SerialDriver::initialize(BAUDRATE baudrate, DIRECTION direction, DATAWIDTH 
 }
 
 bool SerialDriver::de_init() {
-	LL_USART_DeInit(USARTx);
+	return LL_USART_DeInit(USARTx) == ErrorStatus::SUCCESS;
 }
 
 void SerialDriver::open() {

@@ -1,7 +1,7 @@
 cmake_minimum_required (VERSION 3.10.2)
 message("Build type: " ${CMAKE_BUILD_TYPE})
 message("Build tests: " ${build_tests})
-message("Run with test coverage: " ${ENABLE_COVERAGE}})
+message("Run with test coverage: " ${ENABLE_COVERAGE})
 
 # set the build type
 if(NOT CMAKE_BUILD_TYPE) 
