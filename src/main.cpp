@@ -1,7 +1,7 @@
 #include "BoardLEDs.hpp"
 #include "DigitalOut.hpp"
 #include "HwInitialize.hpp"
-#include "USART_Driver.hpp"
+#include "mb_slave.hpp"
 
 volatile uint32_t Timing_DelayMS; // Timing delay in millseconds.
 
@@ -16,17 +16,12 @@ extern "C" void SysTick_Handler(void) {
 void SystemClock_Config();
 void DelayMS(volatile uint32_t time);
 
-const char* const  message = "Hello\n";
-
 int main() {
 	HwInitialize();
-	SerialDriver ser = SerialDriver::get_instance(DRIVER_PORT::USART_6);
-
-	ser.open();
+	ModbusSlave mb(SerialDriver::get_instance(DRIVER_PORT::USART_6), 130, BAUDRATE::RATE_9600, STOPBITS::SB_1, PARITY::NONE);
+	mb.open();
 
 	while(1) {
-		ser.print(reinterpret_cast<const uint8_t*>(message));
-		DelayMS(1000U);
 	}
 }
 
