@@ -1,6 +1,9 @@
 #pragma once
 #include <stdint.h>
 
+class IUsartHook;
+class vector;
+
 enum class DRIVER_PORT {
 	USART_1,
 	USART_2,
@@ -55,18 +58,21 @@ enum class OVERSAMPLING {
 class SerialDriver {
 	public:
 	static SerialDriver& get_instance(DRIVER_PORT driver_port);
-	bool initialize(BAUDRATE baudrate, DIRECTION direction, DATAWIDTH datawidth, STOPBITS stopbits, PARITY parity, HWCONTROL hw_control, OVERSAMPLING over_sampling);
+	bool initialize(BAUDRATE baudrate, DIRECTION direction, DATAWIDTH datawidth, STOPBITS stopbits, PARITY parity, HWCONTROL hw_control, OVERSAMPLING over_sampling, IUsartHook* const usart_it_hook);
 	bool de_init();
 	void open();
 	void close();
 	void write(uint8_t byte);
-	void send(const uint8_t* data, uint32_t count);
+	void send(const uint8_t* data, uint32_t start, uint32_t end);
 	void print(const uint8_t* str);
+	uint8_t read();
 	bool set_baudrate(BAUDRATE baudrate);
+	void rx_callback();
 	private:
 	struct USART_Def;
 	#define USART_DEF_DECLARATION struct SerialDriver::USART_Def : public USART_TypeDef {};
 	USART_Def* const USARTx;
+	IUsartHook* usart_it_hook;
 	SerialDriver(USART_Def* const USARTx);
 	void wait_ready_to_send();
 };

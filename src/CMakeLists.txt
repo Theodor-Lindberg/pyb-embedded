@@ -16,7 +16,10 @@ if(NOT ${build_tests})
 				hal/${platform}/USART_Driver.cpp
 				utilities/BoardLEDs.cpp
 				utilities/BoardButton.cpp
-				hal/${platform}/HwInitialize.cpp)
+				hal/${platform}/HwInitialize.cpp
+				modbus/mb_slave.cpp)
+		
+	set(includes modbus)
 
 	# set some project constants
 	set(elf_file ${application_name}.elf)
@@ -32,7 +35,7 @@ if(NOT ${build_tests})
 	# add sources to elf file
 	add_executable(${elf_file} ${sources} ${common_src})
 	add_dependencies(${elf_file} make_out_dir)
-	target_include_directories(${elf_file} PRIVATE ${common_inc})
+	target_include_directories(${elf_file} PRIVATE ${includes} ${common_inc})
 	target_link_libraries(${elf_file} PRIVATE system_lib hal_lib rtt_lib)
 
 	# set additional for compiler and linker: warnings and generate map file

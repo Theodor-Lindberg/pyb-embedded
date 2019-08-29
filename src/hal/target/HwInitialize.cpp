@@ -8,8 +8,6 @@ void HwInitialize() {
 	SystemClock_Config();
 	SystemTick_Config();
 	UsartPins_Config(DRIVER_PORT::USART_6);
-	SerialDriver usart6 = SerialDriver::get_instance(DRIVER_PORT::USART_6);
-	usart6.initialize(BAUDRATE::RATE_9600, DIRECTION::RX_TX, DATAWIDTH::B8, STOPBITS::SB_1, PARITY::NONE, HWCONTROL::NONE, OVERSAMPLING::B16);
 }
 
 void SystemClock_Config() {
@@ -65,8 +63,8 @@ void UsartPins_Config(DRIVER_PORT driver_port) {
 			LL_GPIO_SetPinMode(GPIOC, LL_GPIO_PIN_7, LL_GPIO_MODE_ALTERNATE);
 			LL_GPIO_SetAFPin_0_7(GPIOC, LL_GPIO_PIN_7, LL_GPIO_AF_8);
 			LL_GPIO_SetPinSpeed(GPIOC, LL_GPIO_PIN_7, LL_GPIO_SPEED_FREQ_HIGH);
-			LL_GPIO_SetPinOutputType(GPIOC, LL_GPIO_PIN_7, LL_GPIO_MODE_INPUT);
-			LL_GPIO_SetPinPull(GPIOC, LL_GPIO_PIN_7, LL_GPIO_PULL_NO);
+			LL_GPIO_SetPinOutputType(GPIOC, LL_GPIO_PIN_7, LL_GPIO_OUTPUT_PUSHPULL);
+			LL_GPIO_SetPinPull(GPIOC, LL_GPIO_PIN_7, LL_GPIO_PULL_UP);
 			break;
 		default:
 			 __builtin_unreachable();

@@ -15,7 +15,7 @@ set(DEVICE_FAMILY STM32F405xx)
 # Project specific settings
 set(application_name "proj")
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_C_STANDARD 11)
@@ -27,7 +27,7 @@ if(NOT ${build_tests})
   get_filename_component(LINKER_SCRIPT linker/stm32f407vgt.ld ABSOLUTE)
 
   if(${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
-    set(W_FLAGS -Wall -Wextra -Wshadow -Wcast-align -Wunused -Woverloaded-virtual -Wpedantic -Wconversion -Wsign-conversion -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wnull-dereference -Wuseless-cast)
+    set(W_FLAGS -Wall -Wextra -Wcast-align -Wunused -Woverloaded-virtual -Wpedantic -Wconversion -Wsign-conversion -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wnull-dereference -Wuseless-cast)
   endif()
 
   # add libraries
@@ -39,7 +39,7 @@ else()
   project(${application_name} C CXX)
 
   if(${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
-    set(W_FLAGS -Wall -Wextra -Wshadow -Wcast-align -Wunused -Woverloaded-virtual -Wpedantic -Wconversion -Wsign-conversion -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wnull-dereference -Wuseless-cast)
+    set(W_FLAGS -Wall -Wextra -Wcast-align -Wunused -Woverloaded-virtual -Wpedantic -Wconversion -Wsign-conversion -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wnull-dereference -Wuseless-cast)
     if(${ENABLE_COVERAGE})
       set(TEST_FLAGS --coverage)
       set(CMAKE_CXX_OUTPUT_EXTENSION_REPLACE 1)
