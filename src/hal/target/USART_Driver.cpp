@@ -2,7 +2,7 @@
 #include "IUsartHook.hpp"
 #include "stm32f4xx_ll_usart.h"
 
-USART_DEF_DECLARATION
+struct SerialDriver::USART_Def : public USART_TypeDef {};
 
 /**
  * @brief Get a singleton instance of a serial driver.
@@ -10,26 +10,26 @@ USART_DEF_DECLARATION
  * @param driver_port The USART/UART port to get.
  * @return SerialDriver& A reference to the instance.
  */
-SerialDriver& SerialDriver::get_instance(DRIVER_PORT driver_port) { 
-	switch(driver_port) {
+SerialDriver* SerialDriver::get_instance(DRIVER_PORT driver_port) { 
+switch(driver_port) {
 		case DRIVER_PORT::USART_1:
 			static SerialDriver usart1(static_cast<USART_Def*>(USART1));
-			return usart1;
+			return &usart1;
 		case DRIVER_PORT::USART_2:
 			static SerialDriver usart2(static_cast<USART_Def*>(USART2));
-			return usart2;
+			return &usart2;
 		case DRIVER_PORT::USART_3:
 			static SerialDriver usart3(static_cast<USART_Def*>(USART3));
-			return usart3;
+			return &usart3;
 		case DRIVER_PORT::UART_4:
 			static SerialDriver uart4(static_cast<USART_Def*>(UART4));
-			return uart4;
+			return &uart4;
 		case DRIVER_PORT::UART_5:
 			static SerialDriver uart5(static_cast<USART_Def*>(UART5));
-			return uart5;
+			return &uart5;
 		case DRIVER_PORT::USART_6:
 			static SerialDriver usart6(static_cast<USART_Def*>(USART6));
-			return usart6;
+			return &usart6;
 		default:
 			 __builtin_unreachable();
 			 break;
@@ -169,6 +169,7 @@ bool SerialDriver::de_init() {
  */
 void SerialDriver::open() {
 	LL_USART_Enable(USARTx);
+	message_to_send = (uint8_t*)"Theo";
 }
 
 /**
@@ -195,16 +196,32 @@ void SerialDriver::write(uint8_t data) {
  * @param start The first index to send from.
  * @param end The last index to send from.
  */
-void SerialDriver::send(const uint8_t* data_buffer, uint32_t start, uint32_t end) {
+bool SerialDriver::send(const uint8_t* data_buffer, uint32_t start, uint32_t end) {
 	while (start <= end) {
 		write(data_buffer[start++]);
 	}
+	return true;
 }
 
-void SerialDriver::print(const uint8_t* str) {
+bool SerialDriver::send_async(const uint8_t* data_buffer, uint32_t start, uint32_t end) {
+	if (is_sending_async()) {	// Only one message can be sent asynchronosly
+		return false;
+	}
+	message_last_index = static_cast<const uint8_t*>(data_buffer + end - start - 1U);
+	message_to_send = static_cast<const uint8_t*>(data_buffer + start);
+	LL_USART_EnableIT_TC(USARTx);
+	return true;
+}
+
+bool SerialDriver::print(const uint8_t* str) {
 	while (*str != 0) {
 		write(*(str++));
 	}
+	return true;
+}
+
+bool SerialDriver::is_sending_async() {
+	return LL_USART_IsEnabledIT_TC(USARTx);
 }
 
 bool SerialDriver::set_baudrate(BAUDRATE baudrate) {
@@ -225,11 +242,16 @@ bool SerialDriver::set_baudrate(BAUDRATE baudrate) {
 }
 
 void SerialDriver::rx_callback() {
-	volatile bool t = LL_USART_IsActiveFlag_FE(USARTx);
-	volatile bool a = LL_USART_IsActiveFlag_NE(USARTx);
-	volatile bool b = LL_USART_IsActiveFlag_ORE(USARTx);
-	volatile bool c = LL_USART_IsActiveFlag_PE(USARTx);
 	usart_it_hook->rx_it_hook();
+}
+
+void SerialDriver::tc_it() {
+	if (message_to_send == message_last_index) {
+		LL_USART_DisableIT_TC(USARTx);
+	}
+	else {
+		write(*(message_to_send++));
+	}
 }
 
 SerialDriver::SerialDriver(USART_Def* const USARTx) : USARTx(USARTx) { }
@@ -242,6 +264,38 @@ uint8_t SerialDriver::read() {
 	return LL_USART_ReceiveData8(USARTx);
 }
 
+USART_TypeDef* get_type_def(DRIVER_PORT driver_port) {
+		switch(driver_port) {
+		case DRIVER_PORT::USART_1:
+			return USART1;
+		case DRIVER_PORT::USART_2:
+			return USART2;
+		case DRIVER_PORT::USART_3:
+			return USART3;
+		case DRIVER_PORT::UART_4:
+			return UART4;
+		case DRIVER_PORT::UART_5:
+			return UART5;
+		case DRIVER_PORT::USART_6:
+			return USART6;
+		default:
+			 __builtin_unreachable();
+			 break;
+	}
+}
+
+void handle_interrupt(DRIVER_PORT driver_port) {
+	USART_TypeDef* usart = get_type_def(driver_port);
+
+	if (LL_USART_IsActiveFlag_RXNE(usart)) {
+		SerialDriver::get_instance(driver_port)->rx_callback();
+	}
+	else if (LL_USART_IsActiveFlag_TC(usart)) {
+		SerialDriver::get_instance(driver_port)->tc_it();
+	}
+}
+
 extern "C" void USART6_IRQHandler(void) {
-	SerialDriver::get_instance(DRIVER_PORT::USART_6).rx_callback();
+	handle_interrupt(DRIVER_PORT::USART_6);
+	NVIC_ClearPendingIRQ(USART6_IRQn);
 }

@@ -1,3 +1,5 @@
+#pragma once
+
 enum class DRIVER_PORT;
 
 /**
