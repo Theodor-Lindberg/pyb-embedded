@@ -18,8 +18,6 @@ void DelayMS(volatile uint32_t time);
 
 int main() {
 	HwInitialize();
-	ModbusSlave mb(SerialDriver::get_instance(DRIVER_PORT::USART_6), 130, BAUDRATE::RATE_9600, STOPBITS::SB_1, PARITY::NONE);
-	mb.open();
 
 	while(1) {
 	}
