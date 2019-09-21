@@ -8,6 +8,7 @@ void HwInitialize() {
 	SystemClock_Config();
 	SystemTick_Config();
 	UsartPins_Config(DRIVER_PORT::USART_6);
+	Timer_Config();
 }
 
 void SystemClock_Config() {
@@ -34,6 +35,10 @@ void SystemTick_Config() {
 	if (SysTick_Config(SystemCoreClock / 1000U)) { // Trigger interrupt every millisecond
 		while (true);
 	}
+}
+
+void Timer_Config() {
+	RCC->APB1ENR |= RCC_APB1ENR_TIM7EN;
 }
 
 void UsartPins_Config(DRIVER_PORT driver_port) { 

@@ -11,29 +11,28 @@ struct SerialDriver::USART_Def : public USART_TypeDef {};
  * @return SerialDriver& A reference to the instance.
  */
 SerialDriver* SerialDriver::get_instance(DRIVER_PORT driver_port) { 
-switch(driver_port) {
-		case DRIVER_PORT::USART_1:
-			static SerialDriver usart1(static_cast<USART_Def*>(USART1));
-			return &usart1;
-		case DRIVER_PORT::USART_2:
-			static SerialDriver usart2(static_cast<USART_Def*>(USART2));
-			return &usart2;
-		case DRIVER_PORT::USART_3:
-			static SerialDriver usart3(static_cast<USART_Def*>(USART3));
-			return &usart3;
-		case DRIVER_PORT::UART_4:
-			static SerialDriver uart4(static_cast<USART_Def*>(UART4));
-			return &uart4;
-		case DRIVER_PORT::UART_5:
-			static SerialDriver uart5(static_cast<USART_Def*>(UART5));
-			return &uart5;
-		case DRIVER_PORT::USART_6:
-			static SerialDriver usart6(static_cast<USART_Def*>(USART6));
-			return &usart6;
-		default:
-			 __builtin_unreachable();
-			 break;
-	}
+	switch(driver_port) {
+			case DRIVER_PORT::USART_1:
+				static SerialDriver usart1(static_cast<USART_Def*>(USART1));
+				return &usart1;
+			case DRIVER_PORT::USART_2:
+				static SerialDriver usart2(static_cast<USART_Def*>(USART2));
+				return &usart2;
+			case DRIVER_PORT::USART_3:
+				static SerialDriver usart3(static_cast<USART_Def*>(USART3));
+				return &usart3;
+			case DRIVER_PORT::UART_4:
+				static SerialDriver uart4(static_cast<USART_Def*>(UART4));
+				return &uart4;
+			case DRIVER_PORT::UART_5:
+				static SerialDriver uart5(static_cast<USART_Def*>(UART5));
+				return &uart5;
+			case DRIVER_PORT::USART_6:
+				static SerialDriver usart6(static_cast<USART_Def*>(USART6));
+				return &usart6;
+			default:
+				return nullptr;
+		}
 }
 
 /**
@@ -169,7 +168,6 @@ bool SerialDriver::de_init() {
  */
 void SerialDriver::open() {
 	LL_USART_Enable(USARTx);
-	message_to_send = (uint8_t*)"Theo";
 }
 
 /**
@@ -207,8 +205,8 @@ bool SerialDriver::send_async(const uint8_t* data_buffer, uint32_t start, uint32
 	if (is_sending_async()) {	// Only one message can be sent asynchronosly
 		return false;
 	}
-	message_last_index = static_cast<const uint8_t*>(data_buffer + end - start - 1U);
-	message_to_send = static_cast<const uint8_t*>(data_buffer + start);
+	message_last_index = data_buffer + end - start - 1U;
+	message_to_send = (data_buffer + start);
 	LL_USART_EnableIT_TC(USARTx);
 	return true;
 }
@@ -264,7 +262,7 @@ uint8_t SerialDriver::read() {
 	return LL_USART_ReceiveData8(USARTx);
 }
 
-USART_TypeDef* get_type_def(DRIVER_PORT driver_port) {
+static USART_TypeDef* get_type_def(DRIVER_PORT driver_port) {
 		switch(driver_port) {
 		case DRIVER_PORT::USART_1:
 			return USART1;

@@ -6,10 +6,11 @@
 
 class ModbusSlave : IUsartHook, ITimerHook {
 	public:
-	ModbusSlave(SerialDriver* const serial_driver);
-	ModbusSlave(SerialDriver* const serial_driver, uint8_t ID, BAUDRATE baudrate, STOPBITS stop_bits, PARITY parity);
+	ModbusSlave(SerialDriver* const serial_driver, TIMER tim);
+	ModbusSlave(SerialDriver* const serial_driver, TIMER tim, uint8_t ID, BAUDRATE baudrate, STOPBITS stop_bits, PARITY parity);
 	void open();
 	void close();
+	void set_id(uint8_t ID);
 	void process_packet();
 	virtual void rx_it_hook();
 	virtual void timer_it_hook();

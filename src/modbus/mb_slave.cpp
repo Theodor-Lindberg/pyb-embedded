@@ -2,10 +2,18 @@
 #include "Timer.hpp"
 #include <limits>
 
-ModbusSlave::ModbusSlave(SerialDriver* const serial_driver, uint8_t id, BAUDRATE baudrate, STOPBITS stop_bits, PARITY parity) :
-serial_driver(serial_driver), mb_id(id) {
+ModbusSlave::ModbusSlave(SerialDriver* const serial_driver, TIMER tim, uint8_t id, BAUDRATE baudrate, STOPBITS stop_bits, PARITY parity) :
+serial_driver(serial_driver), timer(Timer(tim, this)), mb_id(id) {
 	timer.set_interval(calculate_end_frame(baudrate));
 	serial_driver->initialize(baudrate, DIRECTION::RX_TX, DATAWIDTH::B8, stop_bits, parity, HWCONTROL::NONE, OVERSAMPLING::B16, this);
+}
+
+ModbusSlave::ModbusSlave(SerialDriver* const serial_driver, TIMER tim) : serial_driver(serial_driver), timer(Timer(tim, this)) {
+
+}
+
+ModbusSlave::Exception ModbusSlave::handle_fc1() {
+	return Exception::Acknowledge;
 }
 
 void ModbusSlave::open() {
@@ -18,8 +26,8 @@ void ModbusSlave::close() {
 	serial_driver->close();
 }
 
-ModbusSlave::ModbusSlave(SerialDriver* const serial_driver) : serial_driver(serial_driver) {
-
+void ModbusSlave::set_id(uint8_t ID) {
+	mb_id = ID;
 }
 
 void ModbusSlave::rx_it_hook() {
@@ -92,8 +100,4 @@ bool ModbusSlave::is_package_valid() const {
 	const uint16_t received_crc = static_cast<uint16_t>((recieve_buffer[receive_index - 2U] << __CHAR_BIT__) | (recieve_buffer[receive_index - 1U]));
 	const uint16_t calculated_crc = calculate_crc(recieve_buffer, receive_index);
 	return (received_crc == calculated_crc);
-}
-
-ModbusSlave::Exception ModbusSlave::handle_fc1() {
-	return Exception::Acknowledge;
 }

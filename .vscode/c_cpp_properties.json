@@ -34,6 +34,7 @@
 				"${workspaceFolder}/src",
 				"${workspaceFolder}/src/hal/desktop",
 				"${workspaceFolder}/src/utilities",
+				"${workspaceFolder}/src/modbus",
 				"${workspaceFolder}/tests",
 				"${workspaceFolder}/libs/cmsis/inc",
 				"${workspaceFolder}/libs/ST/system/inc",

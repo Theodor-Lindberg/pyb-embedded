@@ -16,6 +16,13 @@ enum class INPUT_CONTACT : uint16_t {
 };
 
 /**
+ * @brief Analog Output Holding Register
+ */
+enum class OUTPUT_REGISTER : uint16_t {
+	NUMBER_OF_REGISTERS		// The number of analog output holding registers
+};
+
+/**
  * @brief Analog Input Register
  */
 enum class INPUT_REGISTER : uint16_t {
@@ -23,11 +30,4 @@ enum class INPUT_REGISTER : uint16_t {
 	MINOR_VERSION = 0x1U,	// Minor version number of the firmware version
 	PATCH_VERSION = 0x2U,	// Patch version number of the firmware version
 	NUMBER_OF_REGISTERS		// The number of analog input registers
-};
-
-/**
- * @brief Analog Output Holding Register
- */
-enum class OUTPUT_REGISTER : uint16_t {
-	NUMBER_OF_REGISTERS		// The number of analog output holding registers
 };
