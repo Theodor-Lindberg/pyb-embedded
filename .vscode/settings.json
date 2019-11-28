@@ -29,7 +29,10 @@
 	"C_Cpp.intelliSenseEngine": "Default",
 	"files.associations": {
 		"array": "cpp",
-		"string_view": "cpp"
+		"string_view": "cpp",
+		"limits": "cpp",
+		"vector": "cpp",
+		"string": "cpp"
 	},
 	"editor.tabSize": 4,
 	"editor.insertSpaces": false

@@ -6,10 +6,12 @@ endif()
 
 set(common_src  hal/${platform}/DigitalOut.cpp
 				hal/${platform}/DigitalIn.cpp
-				utilities/Button.cpp)
+				utilities/Button.cpp
+				modbus/ModbusSlaveCom.cpp)
 
 set(common_inc  hal/${platform}
-				utilities)
+				utilities
+				modbus)
 
 if(NOT ${build_tests})
 	set(sources main.cpp

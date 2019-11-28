@@ -1,5 +1,6 @@
 set(sources CatchMain.cpp
-            ButtonTest.cpp)
+            ButtonTest.cpp
+            ModbusTests.cpp)
 
 set(test_file ${application_name}_test)
 add_executable(${test_file} ${sources})

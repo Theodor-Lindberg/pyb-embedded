@@ -1,8 +1,9 @@
 [![Build Status](https://travis-ci.org/Theodor-Lindberg/pyb-embedded.svg?branch=master)](https://travis-ci.org/Theodor-Lindberg/pyb-embedded)
 [![codecov](https://codecov.io/gh/Theodor-Lindberg/pyb-embedded/branch/master/graph/badge.svg)](https://codecov.io/gh/Theodor-Lindberg/pyb-embedded)
+[![Coverity Scan Build Status](https://img.shields.io/coverity/scan/19217.svg)](https://scan.coverity.com/projects/theodor-lindberg-pyb-embedded)
 [![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)](https://opensource.org/licenses/MPL-2.0)
 
-## Table of contents  
+## Table of Contents  
 1. [About](#1-About)
 2. [Configuring And Building The Project](#2-Configuring-And-Building-The-Project)  
     2.1 [Command Line With Unix Makefiles](#2.1-Command-Line-With-Unix-Makefiles)  
@@ -99,14 +100,15 @@ The project uses the hosted continuous integration service Travis CI. Right now 
 ## 5 Software Revisions  
 This is a list of all the softwares and their versions that I currently use:  
 * Visual Studio Code *1.37.1*  
-    * C/C++ *0.25.0*  
+    * C/C++ *0.26.1*  
     * CMake *0.0.17*
-    * Cmake Tools *1.1.3*
-    * Cortex Debug *0.3.1*
-    * Test Explorer UI *2.14.3*
-    * Catch2 and Google Test Explorer *2.6.6*
+    * Cmake Tools *1.2.2*
+    * Cortex Debug *0.3.4*
+    * Test Explorer UI *2.14.6*
+    * Catch2 and Google Test Explorer *2.7.6*
+    * Code Runner *0.0.15*
     * Better Comments *2.0.5*
-    * Doxygen Documentation Generator *0.5.0*
+    * Doxygen Documentation Generator *0.5.2*
     * Travis CI Status *1.1.0*
 * CMake *3.12.18081601-MSVC_2*
 * GNU Make *3.81*
