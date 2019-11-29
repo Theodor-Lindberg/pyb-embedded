@@ -99,7 +99,7 @@ The project uses the hosted continuous integration service Travis CI. Right now 
 
 ## 5 Software Revisions  
 This is a list of all the softwares and their versions that I currently use:  
-* Visual Studio Code *1.37.1*  
+* Visual Studio Code *1.40.2*  
     * C/C++ *0.26.1*  
     * CMake *0.0.17*
     * Cmake Tools *1.2.2*

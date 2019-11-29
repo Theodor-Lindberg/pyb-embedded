@@ -1,12 +1,12 @@
 #include "ModbusSlaveCom.hpp"
 
 uint8_t* ModbusComLayer::get_response(const uint8_t* package, unsigned& length, uint8_t mb_id) {
-	if ((length < MIN_PACKAGE_SIZE) || (package[ID_IDX] != mb_id) || (calculate_checksum(package, length))) {
+	if ((length < MIN_PACKAGE_SIZE) || ((package[ID_IDX] != BROADCAST_ID) && (package[ID_IDX] != mb_id)) || (calculate_checksum(package, length))) {
 		length = 0;
 		return nullptr;
 	}
 
-		switch (package[FC_IDX]) {
+	switch (package[FC_IDX]) {
 		case static_cast<uint8_t>(FC::FC01):
 			break;
 		case static_cast<uint8_t>(FC::FC02):
@@ -16,7 +16,7 @@ uint8_t* ModbusComLayer::get_response(const uint8_t* package, unsigned& length, 
 		case static_cast<uint8_t>(FC::FC04):
 			break;
 		case static_cast<uint8_t>(FC::FC05):
-			
+			return new uint8_t[1];
 			break;
 		case static_cast<uint8_t>(FC::FC06):
 			break;
@@ -25,9 +25,18 @@ uint8_t* ModbusComLayer::get_response(const uint8_t* package, unsigned& length, 
 		case static_cast<uint8_t>(FC::FC16):
 			break;
 		default:
-			// Exception::Illegal_Function
+			return send_exception(Exception::Illegal_Function, package[FC_IDX], package, mb_id);
 			break;
 	}
+}
+
+uint8_t* ModbusComLayer::send_exception(Exception ex, uint8_t fc, const uint8_t* package, uint8_t id) {
+	uint8_t* response = new uint8_t[8];
+	response[ID_IDX] = id;
+	response[FC_IDX] = fc | static_cast<uint8_t>(Exception::Indicator_Mask);
+	response[EX_IDX] = static_cast<uint8_t>(ex);
+	*(reinterpret_cast<uint16_t*>(&response[EX_IDX + 1])) = calculate_checksum(response, EX_IDX + 1);
+	return response;
 }
 
 /**
