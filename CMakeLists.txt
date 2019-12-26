@@ -1,7 +1,12 @@
 cmake_minimum_required (VERSION 3.10.2)
+
+# Options
+option(GEN_DOCS "Generate documentation" ON)
+
 message("Build type: " ${CMAKE_BUILD_TYPE})
 message("Build tests: " ${build_tests})
 message("Run with test coverage: " ${ENABLE_COVERAGE})
+message("Generate documentation: " ${GEN_DOCS})
 
 # set the build type
 if(NOT CMAKE_BUILD_TYPE) 
@@ -51,3 +56,8 @@ else()
   add_subdirectory(src)
   add_subdirectory(tests)
 endif()
+
+# Generate Doxygen documentation
+if (GEN_DOCS)
+    add_subdirectory(docs)
+endif (GEN_DOCS)
