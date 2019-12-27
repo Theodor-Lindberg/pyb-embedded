@@ -2,6 +2,7 @@
 [![codecov](https://codecov.io/gh/Theodor-Lindberg/pyb-embedded/branch/master/graph/badge.svg)](https://codecov.io/gh/Theodor-Lindberg/pyb-embedded)
 [![Coverity Scan Build Status](https://img.shields.io/coverity/scan/19217.svg)](https://scan.coverity.com/projects/theodor-lindberg-pyb-embedded)
 [![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)](https://opensource.org/licenses/MPL-2.0)
+[![Documentation](https://codedocs.xyz/Theodor-Lindberg/pyb-embedded.svg)](https://codedocs.xyz/Theodor-Lindberg/pyb-embedded/)
 
 ## Table of Contents  
 1. [About](#1-About)

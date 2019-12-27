@@ -23,7 +23,7 @@ matrix:
 
     # Unit tests Debug with code coverage
     - os: linux
-      env: BUILD_TYPE=Release BUILD_TESTS=TRUE ENABLE_COVERAGE=TRUE TARGET=Tests TOOLCHAIN=GCC
+      env: BUILD_TYPE=Debug BUILD_TESTS=TRUE ENABLE_COVERAGE=TRUE TARGET=Tests TOOLCHAIN=GCC
       addons:
         apt:
           sources:
