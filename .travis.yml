@@ -10,11 +10,7 @@ matrix:
   include:
     # Main Application Release
     - os: linux
-      env: BUILD_TYPE=Release BUILD_TESTS=FALSE ENABLE_COVERAGE=FALSE TARGET=App TOOLCHAIN=GNU-ARM-Toolchain GEN_DOCS=TRUE
-      addons:
-        apt:
-          packages:
-            - doxygen
+      env: BUILD_TYPE=Release BUILD_TESTS=FALSE ENABLE_COVERAGE=FALSE TARGET=App TOOLCHAIN=GNU-ARM-Toolchain GEN_DOCS=FALSE
 
     # Main Application Debug
     - os: linux
