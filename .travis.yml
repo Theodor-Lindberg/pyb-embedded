@@ -5,6 +5,7 @@ sudo: false
 
 language: minimal
 
+# safelist
 branches:
   only:
     - master
