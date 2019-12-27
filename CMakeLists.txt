@@ -36,7 +36,7 @@ if(NOT ${build_tests})
   endif()
 
   # add libraries
-  add_subdirectory(libs)
+  add_subdirectory(third_party)
 
   # add main project
   add_subdirectory(src)

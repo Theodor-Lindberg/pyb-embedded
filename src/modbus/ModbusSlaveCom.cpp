@@ -26,7 +26,6 @@ uint8_t* ModbusComLayer::get_response(const uint8_t* package, unsigned& length, 
 			break;
 		default:
 			return send_exception(Exception::Illegal_Function, package[FC_IDX], package, mb_id);
-			break;
 	}
 }
 
