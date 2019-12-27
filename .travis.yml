@@ -11,13 +11,18 @@ branches:
     - master
     - coverity_scan
 
+env:
+  global:
+   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+   #   via the "travis encrypt" command using the project repo's public key
+   - secure: "Zv7ysinv55XRZn3wkqCff5n+PRqFNxFZN1G3ZEI2KBh/LJ/g0wNQAGSillJD9s0/UBPvFScTDRoXYhIHt8hciSWGnMy+XWGrXpgbnFH2kW2qRwsZyc/aV+XiuNEk+xb/Z+pH/YaLCtoM3nZNwVXPvQerubkJY7+kBkXv+hBUVHWmbesQRyLnUtwnWU/tTRmYQFjJ4InprkNweFiMK55Z88UQNZaDnnfhaA2IMcmkXK4txTGQpP9Wpe3kO4Ok8dVm+998tkhp8E2x9IoMJRaQ1i4OqxcVcye6+iJE2coFgJT1wZ+pUlwvSQmbSBNvyj2gwynrVhVfIRiKDxi+/N2nANhmMIg7VbM1aoEVaCqgbFpcPBLDXyOQzV+wSqXifjZYqsz0x6KwWsi29xRjw2PNXAulovg2X8qdocG7ok6h8Mu9oIIN5XSKqKd0CwIiyxLsRaNFNBRh6Zhfyek3BWLu5eFTYlF0B2XIcIJVRR+zGQwa/rMXKa5o9AcyIb8RGyCxKCkwHzp3J+uTxvWTtzmsZcSzHGNGum/ly+Agl0BL1fXyV4prT1qkn1wDGgXLl79UzpAAWhhlsAw1nqJNGIqJOIBr4SRiVqjKTi7nQUlYsW2vRRe/VHzcErroeUY+nn6MLPgEsTlGumPMHwlt5OjCJDYY5P/ip3pRHLzdmbq/AOs="
+
 matrix:
   fast_finish: true
   include:
     # Main Application Release Coverity Scan
     - os: linux
       env: BUILD_TYPE=Release BUILD_TESTS=FALSE ENABLE_COVERAGE=FALSE TARGET=App TOOLCHAIN=GNU-ARM-Toolchain GEN_DOCS=FALSE
-      - secure: "ocTyuD8VF9lb0rCUjXyPqQkqulb3jH+kAU1kkKwofjzCh0lqd5nS4EEJWzUd2QUsyh2/VCBHa0cPrI1j53j6GwHVCLHFpSULtX3t0cc5IcK6NPfVBnc3zf76bdRBhaDl8m1e/5RxF5elnNem5Qq7jJMvSfAvVYZzFYXYqzY38DtTeDS/MD2mGuK0f1/DQWf6fy92osStO3vVw+WgrV06HtSMOHSXN+SsFt+pvKRqz1g6x2g95mfNl368A6xss36iiE5kI7W4JPJ6LMit7/erDSWuVqjwOIy0xGrqcB2RTsB3JnayOq/DMMtF3sVasCC8uZW6PR/c2+UJJq/zHK0ll5aMz+gDeruCbW1qnbruqoa6VOPaopvaABu0wGWDGF144TmIiWiNbRcsKxomFgIPTqmTJyHWVg+3JIBOJKQk1fhTUQoXmGpPXnXHD8UEX7mDg00lffLED1a9QBBBOhBdXix2WnT7VAxLOcSiFRyVQC7BwvkPZ0NRBKQoaIk4TX/XcHzg7EPIaxnGQn3di6kbfXRNkkJgHskCa/Izo3GOUz45I3ceKkM01AVvEqvzmU0g5G5QYkIdAFQdwyj8upCybLP64Qd7JZg5VlxwF3TTIvyccpyT3/xxnJlThArgPB9yjPNY1ctD3y694H7s2iS0HGZQcXBaQPu3pN770t34GOY="
       before_install:
         - echo -n | openssl s_client -connect https://scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
       addons:
