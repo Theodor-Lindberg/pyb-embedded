@@ -24,17 +24,17 @@ matrix:
     - os: linux
       env: BUILD_TYPE=Release BUILD_TESTS=FALSE ENABLE_COVERAGE=FALSE TARGET=App TOOLCHAIN=GNU-ARM-Toolchain GEN_DOCS=FALSE
       before_install:
-  - echo -n | openssl s_client -connect https://scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
-  addons:
-    coverity_scan:
-      project:
-        name: "Theodor-Lindberg/pyb-embedded"
-        description: "Low level embedded project with a platform agnostic developement environment"
-      notification_email: theodor.lindberg.se@gmail.com
-      build_command_prepend: "cov-configure --template --compiler arm-none-eabi-gcc --comptype gcc --xml-option=skip_file:/third_party/"
-      build_command: "make"
-      branch_pattern: coverity_scan
-    if: branch = coverity_scan
+        - echo -n | openssl s_client -connect https://scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
+      addons:
+        coverity_scan:
+          project:
+            name: "Theodor-Lindberg/pyb-embedded"
+            description: "Low level embedded project with a platform agnostic developement environment"
+          notification_email: theodor.lindberg.se@gmail.com
+          build_command_prepend: "cov-configure --template --compiler arm-none-eabi-gcc --comptype gcc --xml-option=skip_file:/third_party/"
+          build_command: "make"
+          branch_pattern: coverity_scan
+      if: branch = coverity_scan
       before_script: echo "Coverity Scan"
       script: echo "Coverity Scan"
 
