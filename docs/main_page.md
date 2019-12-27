@@ -1,2 +1,2 @@
-## Main Page
-This is the main page of the documentation.
+# Main Page
+This contains the documentation for all the source for the *target*, third party and the desktop hal port is not included here. General documentation for the hardware and tools can also be found here.
