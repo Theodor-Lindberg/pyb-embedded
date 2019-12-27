@@ -5,16 +5,47 @@ sudo: false
 
 language: minimal
 
+branches:
+  only:
+    - master
+    - coverity_scan
+
+env:
+  global:
+   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+   #   via the "travis encrypt" command using the project repo's public key
+   - secure: "cPNEsyS0ccXhB3TNxLuTt6kQHczysFpH8I9U73tnITEJhA5uWTIlcJWKSp68Yfa7uN5SEtDkqEmAyBSpPn1xRlmendAbnXAnY3nmf0Erui3+LD7rP24uaJbicSQMK3P+vX3/gPQDfjxafxAmCf97hSGRz8g7fvNHEtq+bATzZ919iIiZLNDa0b+lEKi6Rdd3NPFTuaGSa7sMDBU+vAqE9QX0bARV97amjQp+WpoZfiPczESJvqSAAaBxFd1xQEE6F41swt8yGKP5GLZ6247jq4ZY+j35y1bN9Q2lvwUruIoTytdgzjaMn1Ed5BTRovdviJNSJtn1pqGTJFgDWynM41zWylgrPagMun0nlX8/4nfrWaTYi79GCra7Fj40RSJdqftHYnD1XXU6V8UBvco0Kg1tm2SMHAlMOQvhVCUkXShnz6KbOTNz01piNSaw8rDiLDEfPATevpWyub8d2iT92QToqy7gx+ISnTwCUUbNh9XU4ht3Cec5ZvpkM56hez/CzQe3ZKBIB7nQq2esyZxy6QRwWkSdYI75zID3B/pdtWc+5AttG7TN7+MsuE0OscaGiETWIA6VR8VgfxzVwqup+EJmiJtJ3FZXPQu77L8hurZ9J02VFO7q1uQH4DmP+MQ9co/f8AFfW/GCze4zfXjPHkW8/lv0L0V6nhyCgpx+3XU="
+
 matrix:
   fast_finish: true
   include:
+    # Main Application Release Coverity Scan
+    - os: linux
+      env: BUILD_TYPE=Release BUILD_TESTS=FALSE ENABLE_COVERAGE=FALSE TARGET=App TOOLCHAIN=GNU-ARM-Toolchain GEN_DOCS=FALSE
+      before_install:
+  - echo -n | openssl s_client -connect https://scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
+  addons:
+    coverity_scan:
+      project:
+        name: "Theodor-Lindberg/pyb-embedded"
+        description: "Low level embedded project with a platform agnostic developement environment"
+      notification_email: theodor.lindberg.se@gmail.com
+      build_command_prepend: "cov-configure --template --compiler arm-none-eabi-gcc --comptype gcc --xml-option=skip_file:/third_party/"
+      build_command: "make"
+      branch_pattern: coverity_scan
+    if: branch = coverity_scan
+      before_script: echo "Coverity Scan"
+      script: echo "Coverity Scan"
+
     # Main Application Release
     - os: linux
       env: BUILD_TYPE=Release BUILD_TESTS=FALSE ENABLE_COVERAGE=FALSE TARGET=App TOOLCHAIN=GNU-ARM-Toolchain GEN_DOCS=FALSE
+      if: branch != coverity_scan
 
     # Main Application Debug
     - os: linux
       env: BUILD_TYPE=Debug BUILD_TESTS=FALSE ENABLE_COVERAGE=FALSE TARGET=App TOOLCHAIN=GNU-ARM-Toolchain
+      if: branch != coverity_scan
 
     # Unit tests Debug with code coverage
     - os: linux
@@ -25,6 +56,7 @@ matrix:
             - ubuntu-toolchain-r-test
           packages:
             - g++-7
+      if: branch != coverity_scan
 
 install:
   # Set up GNU ARM Embedded Toolchain
