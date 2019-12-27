@@ -35,8 +35,6 @@ matrix:
           build_command: "make"
           branch_pattern: coverity_scan
       if: branch = coverity_scan
-      before_script: echo "Coverity Scan"
-      script: echo "Coverity Scan"
 
     # Main Application Release
     - os: linux
