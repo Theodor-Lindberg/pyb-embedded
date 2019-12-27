@@ -1,6 +1,7 @@
-# Directory Structure {#directory_structure}
+# Directory Structure
 
-This is the directory structure that this project uses: 
+This is the directory structure that this project uses:  
+```
 	pyb-embedded/  
 	├───.vscode  
 	├───bin/  
@@ -28,7 +29,7 @@ This is the directory structure that this project uses:
 	│   ├───modbus/  
 	│   └───utilities/  
 	└───tests/  
-
+```
 Here is a brief explanation of each one of them:
 
 | Directory     | Purpose                                                             |
