@@ -5,6 +5,11 @@ sudo: false
 
 language: minimal
 
+addons:
+  apt:
+    packages:
+      - doxygen
+
 matrix:
   fast_finish: true
   include:
