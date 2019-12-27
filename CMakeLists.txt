@@ -1,7 +1,7 @@
 cmake_minimum_required (VERSION 3.10.2)
 
 # Options
-option(GEN_DOCS "Generate documentation" ON)
+option(GEN_DOCS "Generate documentation" OFF)
 
 message("Build type: " ${CMAKE_BUILD_TYPE})
 message("Build tests: " ${build_tests})
