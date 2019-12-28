@@ -23,7 +23,7 @@
 				"short": "App",
 				"long": "Main application",
 				"settings": {
-					"build_tests": false,
+					"BUILD_TESTS": false,
 					"ENABLE_COVERAGE": false
 				}
 			},
@@ -31,7 +31,7 @@
 				"short": "Tests",
 				"long": "Unit tests",
 				"settings": {
-					"build_tests": true,
+					"BUILD_TESTS": true,
 					"ENABLE_COVERAGE": false
 				}
 			}

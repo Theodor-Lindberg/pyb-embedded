@@ -1,4 +1,4 @@
-if(${build_tests})
+if(${BUILD_TESTS})
 	set(platform desktop)
 else()
 	set(platform target)
@@ -13,7 +13,7 @@ set(common_inc  hal/${platform}
 				utilities
 				modbus)
 
-if(NOT ${build_tests})
+if(NOT ${BUILD_TESTS})
 	set(sources main.cpp
 				hal/${platform}/USART_Driver.cpp
 				hal/${platform}/Timer.cpp

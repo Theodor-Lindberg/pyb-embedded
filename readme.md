@@ -28,7 +28,7 @@ To build from the command line write the following from the repository root. The
 * `-G`: The CMake generator to use.
 * `-D CMAKE_TOOLCHAIN_FILE`: The toolchain file to use. `[GCC.cmake|GNU-ARM-Toolchain.cmake]`
 * `-D CMAKE_BUILD_TYPE`: Optimization level, if test coverage is enabled the `Debug` option should be used. `[Release|Debug]`
-* `-D build_tests:BOOL`: If set to true only the tests will be compiled.
+* `-D BUILD_TESTS:BOOL`: If set to true only the tests will be compiled.
 * `-D ENABLE_COVERAGE:BOOL`: If set to true files with coverage information are generated, only works with the `GCC` toolchain.  
 
 After compiling a *bin* directory is created in the root directory and the output will be copied to here.
@@ -36,13 +36,13 @@ After compiling a *bin* directory is created in the root directory and the outpu
 Example of building the main application in release:  
 ```  
 mkdir build && cd build
-cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -Dbuild_tests:BOOL=FALSE -DENABLE_COVERAGE:BOOL=FALSE -D"CMAKE_TOOLCHAIN_FILE=../cmake/GNU-ARM-Toolchain.cmake" ../  
+cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTS:BOOL=FALSE -DENABLE_COVERAGE:BOOL=FALSE -D"CMAKE_TOOLCHAIN_FILE=../cmake/GNU-ARM-Toolchain.cmake" ../  
 make  
 ```
 Example of building tests with coverage:  
 ```  
 mkdir build && cd build
-cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -Dbuild_tests:BOOL=TRUE -DENABLE_COVERAGE:BOOL=TRUE -D"CMAKE_TOOLCHAIN_FILE=../cmake/GCC.cmake" ../   
+cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTS:BOOL=TRUE -DENABLE_COVERAGE:BOOL=TRUE -D"CMAKE_TOOLCHAIN_FILE=../cmake/GCC.cmake" ../   
 make  
 ```  
 

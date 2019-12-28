@@ -1,10 +1,12 @@
 cmake_minimum_required (VERSION 3.10.2)
 
 # Options
+option(BUILD_TESTS "Build unit tests" OFF)
+option(ENABLE_COVERAGE "Generate test coverage" OFF)
 option(GEN_DOCS "Generate documentation" OFF)
 
 message("Build type: " ${CMAKE_BUILD_TYPE})
-message("Build tests: " ${build_tests})
+message("Build tests: " ${BUILD_TESTS})
 message("Run with test coverage: " ${ENABLE_COVERAGE})
 message("Generate documentation: " ${GEN_DOCS})
 
@@ -27,7 +29,7 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS OFF)
 
-if(NOT ${build_tests})
+if(NOT ${BUILD_TESTS})
   project(${application_name} C CXX ASM)
   get_filename_component(LINKER_SCRIPT linker/stm32f407vgt.ld ABSOLUTE)
 
