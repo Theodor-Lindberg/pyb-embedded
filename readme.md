@@ -1,8 +1,8 @@
 [![Build Status](https://travis-ci.org/Theodor-Lindberg/pyb-embedded.svg?branch=master)](https://travis-ci.org/Theodor-Lindberg/pyb-embedded)
-[![codecov](https://codecov.io/gh/Theodor-Lindberg/pyb-embedded/branch/master/graph/badge.svg)](https://codecov.io/gh/Theodor-Lindberg/pyb-embedded)
-[![Coverity Scan Build Status](https://img.shields.io/coverity/scan/19217.svg)](https://scan.coverity.com/projects/theodor-lindberg-pyb-embedded)
+[![codecov](https://codecov.io/gh/Theodor-Lindberg/pyb-embedded/branch/master/graph/badge.svg)][codecov]
+[![Coverity Scan Build Status](https://img.shields.io/coverity/scan/19217.svg)][coverity]
 [![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)](https://opensource.org/licenses/MPL-2.0)
-[![Documentation](https://codedocs.xyz/Theodor-Lindberg/pyb-embedded.svg)](https://codedocs.xyz/Theodor-Lindberg/pyb-embedded/)
+[![Documentation](https://codedocs.xyz/Theodor-Lindberg/pyb-embedded.svg)][codedocs]
 
 ## Table of Contents  
 1. [About](#1-About)
@@ -96,25 +96,25 @@ You are now done and your program should be running.
 To flash and debug from Visual Studio Code the [Cortex Debug-extension][cortex-debug] must be installed. If you don't have the J-Link software in your path variable you can specify it using the `cortex-debug.JLinkGDBServerPath` in the *setting.json* file, note that it has to be the full path to your *JLinkGDBServerCL*.  
   
 ## 4 Continuous Integration  
-The project uses the hosted continuous integration service Travis CI. Right now only builds on Ubuntu are run. 
+The project uses the hosted continuous integration service Travis CI and is triggered when pushing to the `master` and `coverity_scan` branches. Travis builds on the `master` branch the main application in both `Relase` and `Debug`, unit tests with test coverage are also run and uploaded to [Codecov][codecov]. Static code analysis is automatically performed with [Coverity][coverity] when pushing to the `coverity_scan` branch. Documentation generated with *doxygen* is refreshed on [Codedocs][codedocs] with every build. At the moment only builds on Linux are run. 
 
 ## 5 Software Revisions  
 This is a list of all the softwares and their versions that I currently use:  
 * Visual Studio Code *1.40.2*  
-    * C/C++ *0.26.1*  
+    * C/C++ *0.26.2*  
     * CMake *0.0.17*
-    * Cmake Tools *1.2.2*
+    * Cmake Tools *1.2.3*
     * Cortex Debug *0.3.4*
-    * Test Explorer UI *2.14.6*
-    * Catch2 and Google Test Explorer *2.7.6*
-    * Code Runner *0.0.15*
+    * Test Explorer UI *2.15.0*
+    * Catch2 and Google Test Explorer *2.7.14*
+    * Code Runner *0.9.15*
     * Better Comments *2.0.5*
     * Doxygen Documentation Generator *0.5.2*
     * Travis CI Status *1.1.0*
 * CMake *3.12.18081601-MSVC_2*
 * GNU Make *3.81*
 * GNU ARM Embedded Toolchain *7.3.1*  
-* GNU (gcc and g++) *7.4.0*
+* GNU gcc and g++ *7.4.0*
 * Segger JLink *4.66c*  
 * Segger JLink EDU Mini, Firmware: *compiled Mar 15 2019 12:47:02*, Hardware: *1.00*
 * CMSIS *5-5.5.1*
@@ -126,3 +126,6 @@ This is a list of all the softwares and their versions that I currently use:
 [cortex-debug]:https://marketplace.visualstudio.com/items?itemName=marus25.cortex-debug
 [cmake-tools]:https://marketplace.visualstudio.com/items?itemName=vector-of-bool.cmake-tools
 [build_status]:https://travis-ci.org/Theodor-Lindberg/pyb-embedded.svg?branch=master
+[codecov]:https://codecov.io/gh/Theodor-Lindberg/pyb-embedded
+[coverity]:https://scan.coverity.com/projects/theodor-lindberg-pyb-embedded
+[codedocs]:https://codedocs.xyz/Theodor-Lindberg/pyb-embedded/
