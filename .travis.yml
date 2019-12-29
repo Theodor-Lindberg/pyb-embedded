@@ -57,6 +57,24 @@ matrix:
             - g++-7
       if: branch != coverity_scan
 
+    # Main Application Release SonarCloud Scan
+    - os: linux
+      dist: trusty
+      env: BUILD_TYPE=Release BUILD_TESTS=FALSE ENABLE_COVERAGE=FALSE TARGET=App TOOLCHAIN=GNU-ARM-Toolchain GEN_DOCS=FALSE
+      addons:
+        sonarcloud:
+          organization: "theodor-lindberg"
+          token:
+            secure: Z7fCBvDqzcflnwwd6a1KOuz8NAeScq2kG37QTEyAHj6lk/J1BVS2/naYg8RTFhENMMRFg/Y9uoI9QVO0bCvpQsAT84SqOTVVNo8TxL3jk+JTq7cd6W3LXdSMh0vwkaKGoIuy5RFLYurZB53rpyBIoRvBmSxxEautNwbbQ4DFI2IMzOzctHW/lCzlSD5/F1Ht/zCT+gPiMiWXR0v6OYM5LRYfu/GsFEd/Sd4oFrmozZCmo+ozVJoG0pTCNmr7zMxvZHWGC64wya4RdgYbZj19OjbD40YHjJfhKoCTsSLHO/MHhJQdfvXckjQuCjF4vXYNhod413JY4LMmZhfIiXlBKzrKEqJnqz1FoBAmgR3Tr74KBSUnpIgLJbZyp45vH+4hrWBxenBqqrLZwR+oXnHl0QySFFSlFhTaf5iIIV2dTv2iOKTvD4fpPMrZxT58/pCVyg/6M/Ku1cdz7gUSW2slzmWmoRrBkkht8oUMEpfce3vGX6625XEHyvq9d0MSI57kaEdTKDhwXMkfn3vr4WcqGL+AW0y+RYWCalkpg5ojctpMDx8bITAx6vpiYzMwPTEg+EgT+1Wycs3+E6GgoN4KNuF7A7wG54mvUYb68WHl6cTm/XGX/2mGPg55CespQBzWMiF0fbO7uGJMQBbib/MZBcYUjmrU6RLWzNxA9hPHKq0=
+      script:
+        # Wraps the compilation with the Build Wrapper to generate configuration (used
+        # later by the SonarQube Scanner) into the "bw-output" folder
+        - build-wrapper-linux-x86-64 --out-dir bw-output make
+        # And finally run the SonarQube analysis - read the "sonar-project.properties"
+        # file to see the specific configuration
+        - sonar-scanner
+      if: branch = master
+
 install:
   # Set up GNU ARM Embedded Toolchain
   - |
