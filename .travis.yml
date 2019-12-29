@@ -65,7 +65,7 @@ matrix:
         sonarcloud:
           organization: "theodor-lindberg"
           token:
-            secure: "g06VMSWYpFexjXwq71mcsjfvpNOOn6i3GYPKom2opb7V4UcONB6Fsnv1QKrvS66v5BTOSY2ebY6Uea7ZCZgGEJTqDi/3eU7UznJZuH5PnCVtuvK/h20MQxCgi+VmfJuCcXWY9mxy8rCqmlZj2GnxJRCsW2eg6/js0+wO3m7fnEsjimDjWkgXoxh/h3n8Wni/XmXRBJESahq0JtLX9eBsD5lIkxnwe0nae+D6lqiSyt+tdCYKp9d79SPNgILDJeLLtSdl4gPNaOCIdkiTTA9Axh8+cRxhb11uNCib4SZMzecpKpHXUNzdzkY7tfutpxHc0iYE/0zAoO6RPDCek+v1BdrijX6EW7Y2J7lcjwsT7qizHvraBr8zqeso7H66p/znWXlSHp5dfD6Z3WszeR//xqde9w/uSebLbMWvL7iCoOGN8oky10BxmCjfr2GRrXRdpF8n5pS5rVb0qpSSESGvmdTQbiSzBR2eDS8nFuglcwR8ghyJEGWrqyNhV4VNSuQ/MFnMMwe2mpvz1T8n0ep6La8YFTV5h8RvV3rBtZWcor/VljSQCwPvj+X2H7DjwQ+kwgjuYm0a6aMoncWt9qeB5emQGPwmxhgkHxtenPXxlmbxir066mv0HVfuxx6BNXUgwrwT5C6YB3bkdYBhtxn8waAf8l4EJ2+Df4quqCRTWf0="
+            secure: "M9K5yymVko83JC7TUKFrIkxUcSvaEj8oPlQrv7q0Y5OtqHYdzFFSKUY4a6Is50PzDpVCf/Q830/NbD75AIIjtTeuT2tJFSw9NcJUu0/1DqSXopyXKXuY6L1R5oDRMwT4E/KvHNIoCACrOkbixfhB2Qdl2N2kJFEAS79KnsRKGBruezhEielCVJ0S+T/c8nQw+BIdwbLlk3Eebfmlt/YmWsHCku0XqHMRcWDk72vOU4AS9WDQMZLPbLach9JeEpk0DSQtnKhJ3m2HnefiqR+zPBZy+aRjerUreHAFiTagoFokPgR7QM0YLLKd+jfWFxNfkua1dsV3nbDEE10PNOkD0di7uTh5tDCFALodw/+/nN8QtV1AYTzxpBhVR3WaP235h1stOiHUCV9wo693iWlPKl8GXKLnU6ylDwyXQHnJ1WPZpmka37Cps/92JxMlaKLi7bDiEWi4YRlmCOeaYl1loZbCbRk3r+0qaLP/12fA0Foyk4cgGihtGa7TOR9yUPNf449pfDlpY4JV0XPUbU45xGhcgLcsAx2G02ku9V3uxd0hvIG0tSvNSLakCcRH83+tl/19sPUp9tKov4g4QMnf4L5D5GjAny8T+H9y+q3TSVMPwJ4obJX+6BPqnzVIrBZFZMz40V43qgo2HLJVNuUlP+AnTR7EUjtuUCc+3DKFfTE="
       script:
         # Wraps the compilation with the Build Wrapper to generate configuration (used
         # later by the SonarQube Scanner) into the "bw-output" folder
