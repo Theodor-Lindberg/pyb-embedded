@@ -11,11 +11,17 @@ branches:
     - master
     - coverity_scan
 
-env:
-  global:
+#env:
+#  global:
    # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
    #   via the "travis encrypt" command using the project repo's public key
-   - secure: "Zv7ysinv55XRZn3wkqCff5n+PRqFNxFZN1G3ZEI2KBh/LJ/g0wNQAGSillJD9s0/UBPvFScTDRoXYhIHt8hciSWGnMy+XWGrXpgbnFH2kW2qRwsZyc/aV+XiuNEk+xb/Z+pH/YaLCtoM3nZNwVXPvQerubkJY7+kBkXv+hBUVHWmbesQRyLnUtwnWU/tTRmYQFjJ4InprkNweFiMK55Z88UQNZaDnnfhaA2IMcmkXK4txTGQpP9Wpe3kO4Ok8dVm+998tkhp8E2x9IoMJRaQ1i4OqxcVcye6+iJE2coFgJT1wZ+pUlwvSQmbSBNvyj2gwynrVhVfIRiKDxi+/N2nANhmMIg7VbM1aoEVaCqgbFpcPBLDXyOQzV+wSqXifjZYqsz0x6KwWsi29xRjw2PNXAulovg2X8qdocG7ok6h8Mu9oIIN5XSKqKd0CwIiyxLsRaNFNBRh6Zhfyek3BWLu5eFTYlF0B2XIcIJVRR+zGQwa/rMXKa5o9AcyIb8RGyCxKCkwHzp3J+uTxvWTtzmsZcSzHGNGum/ly+Agl0BL1fXyV4prT1qkn1wDGgXLl79UzpAAWhhlsAw1nqJNGIqJOIBr4SRiVqjKTi7nQUlYsW2vRRe/VHzcErroeUY+nn6MLPgEsTlGumPMHwlt5OjCJDYY5P/ip3pRHLzdmbq/AOs="
+#   - secure: "Zv7ysinv55XRZn3wkqCff5n+PRqFNxFZN1G3ZEI2KBh/LJ/g0wNQAGSillJD9s0/UBPvFScTDRoXYhIHt8hciSWGnMy+XWGrXpgbnFH2kW2qRwsZyc/aV+XiuNEk+xb/Z+pH/YaLCtoM3nZNwVXPvQerubkJY7+kBkXv+hBUVHWmbesQRyLnUtwnWU/tTRmYQFjJ4InprkNweFiMK55Z88UQNZaDnnfhaA2IMcmkXK4txTGQpP9Wpe3kO4Ok8dVm+998tkhp8E2x9IoMJRaQ1i4OqxcVcye6+iJE2coFgJT1wZ+pUlwvSQmbSBNvyj2gwynrVhVfIRiKDxi+/N2nANhmMIg7VbM1aoEVaCqgbFpcPBLDXyOQzV+wSqXifjZYqsz0x6KwWsi29xRjw2PNXAulovg2X8qdocG7ok6h8Mu9oIIN5XSKqKd0CwIiyxLsRaNFNBRh6Zhfyek3BWLu5eFTYlF0B2XIcIJVRR+zGQwa/rMXKa5o9AcyIb8RGyCxKCkwHzp3J+uTxvWTtzmsZcSzHGNGum/ly+Agl0BL1fXyV4prT1qkn1wDGgXLl79UzpAAWhhlsAw1nqJNGIqJOIBr4SRiVqjKTi7nQUlYsW2vRRe/VHzcErroeUY+nn6MLPgEsTlGumPMHwlt5OjCJDYY5P/ip3pRHLzdmbq/AOs="
+
+addons:
+  sonarcloud:
+    organization: "theodor-lindberg"
+    token:
+      secure: "FELOy7HeRWzg7IzEe6wF/MV/jXQmWkf5gzS1suMSGpq2YTHmL7WL+ASruxLB1dghoSpApDT0BY49aeb0HyMwEHcCRmwf6zoVZ0fdxtUS2DHbRJ8Spo2T9RPCsfVYksN8vXDrwgoGkB6x7K69xKMDxE/T746YPWU4wVSxLgSzjZJ3H/wiBaD5odCZ/sSo9x/g1wkPADbxIHjpwPGEBiwHE90zAODakgsIvlsKjwcoHjPJz4nTtqLCaNvuHOqZOEbRktIbfVBs+jRnhIjI+PgzsFFwRUHWqWEEcaxvNSl+kF+KQrYVkLzjJf0De3CWTI6jKYbMzEERTyOB3jeNtM4yb4jh7FO6lOfWYL1aW+GESbEbVNTsLwd5yTs6cMPnRuqSowlbkQoEL9qeAQKuwW1qA8TJlbdDSZsy+ETohf+VeSfNXNpo3bicziMF/Sxscj/jmLw9KiztvV3dKfXlYC/7L5BjC2Ys/y1HdnVfX/vd5v1RULV4rzOXiMT+iSa3uRTFUV9AX6Hk2kQ9QU6oC3TMTGfdyryAJ4wtWgBRmEPzWXUUk9DLQvieFnEHttrEG5aZf+4Fo4HPhRtebr6ut8POG8tixfcr3mkG4GNETW/OSjhZdbuHy+egzVDU5ILN+QKT8g1vnEfGjNWsQ7XyD5SmnQl0ljUCfrnzJsW1fUssq6o="
 
 matrix:
   fast_finish: true
@@ -61,11 +67,6 @@ matrix:
     - os: linux
       dist: trusty
       env: BUILD_TYPE=Release BUILD_TESTS=FALSE ENABLE_COVERAGE=FALSE TARGET=App TOOLCHAIN=GNU-ARM-Toolchain GEN_DOCS=FALSE
-      addons:
-        sonarcloud:
-          organization: "theodor-lindberg"
-          token:
-            secure: "FELOy7HeRWzg7IzEe6wF/MV/jXQmWkf5gzS1suMSGpq2YTHmL7WL+ASruxLB1dghoSpApDT0BY49aeb0HyMwEHcCRmwf6zoVZ0fdxtUS2DHbRJ8Spo2T9RPCsfVYksN8vXDrwgoGkB6x7K69xKMDxE/T746YPWU4wVSxLgSzjZJ3H/wiBaD5odCZ/sSo9x/g1wkPADbxIHjpwPGEBiwHE90zAODakgsIvlsKjwcoHjPJz4nTtqLCaNvuHOqZOEbRktIbfVBs+jRnhIjI+PgzsFFwRUHWqWEEcaxvNSl+kF+KQrYVkLzjJf0De3CWTI6jKYbMzEERTyOB3jeNtM4yb4jh7FO6lOfWYL1aW+GESbEbVNTsLwd5yTs6cMPnRuqSowlbkQoEL9qeAQKuwW1qA8TJlbdDSZsy+ETohf+VeSfNXNpo3bicziMF/Sxscj/jmLw9KiztvV3dKfXlYC/7L5BjC2Ys/y1HdnVfX/vd5v1RULV4rzOXiMT+iSa3uRTFUV9AX6Hk2kQ9QU6oC3TMTGfdyryAJ4wtWgBRmEPzWXUUk9DLQvieFnEHttrEG5aZf+4Fo4HPhRtebr6ut8POG8tixfcr3mkG4GNETW/OSjhZdbuHy+egzVDU5ILN+QKT8g1vnEfGjNWsQ7XyD5SmnQl0ljUCfrnzJsW1fUssq6o="
       script:
         # Wraps the compilation with the Build Wrapper to generate configuration (used
         # later by the SonarQube Scanner) into the "bw-output" folder
