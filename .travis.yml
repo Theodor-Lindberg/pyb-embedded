@@ -77,6 +77,7 @@ matrix:
       if: branch = master
 
 install:
+  - chmod +x sonar-scanner
   # Set up GNU ARM Embedded Toolchain
   - |
     if [ "${TOOLCHAIN}" == "GNU-ARM-Toolchain" ]; then
