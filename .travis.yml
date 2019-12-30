@@ -63,4 +63,5 @@ before_script:
     fi
   - cmake --version && make --version # Print the versions used
   - mkdir -p build/$TARGET && cd build/$TARGET # Create and enter build directory
+  - mv ../../sonar-project.properties .
   - cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DBUILD_TESTS:BOOL=$BUILD_TESTS -DENABLE_COVERAGE:BOOL=$ENABLE_COVERAGE -DGEN_DOCS:BOOL=$GEN_DOCS -D"CMAKE_TOOLCHAIN_FILE=../../cmake/${TOOLCHAIN}.cmake" ../../
