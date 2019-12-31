@@ -73,6 +73,5 @@ void UsartPins_Config(DRIVER_PORT driver_port) {
 			break;
 		default:
 			 __builtin_unreachable();
-			 break;
 	}
 }

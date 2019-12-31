@@ -278,7 +278,6 @@ static USART_TypeDef* get_type_def(DRIVER_PORT driver_port) {
 			return USART6;
 		default:
 			 __builtin_unreachable();
-			 break;
 	}
 }
 

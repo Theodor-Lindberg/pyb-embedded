@@ -17,7 +17,6 @@ uint8_t* ModbusComLayer::get_response(const uint8_t* package, unsigned& length, 
 			break;
 		case static_cast<uint8_t>(FC::FC05):
 			return new uint8_t[1];
-			break;
 		case static_cast<uint8_t>(FC::FC06):
 			break;
 		case static_cast<uint8_t>(FC::FC15):
