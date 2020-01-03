@@ -70,9 +70,9 @@ matrix:
           - '$HOME/.sonar/cache'
       addons:
         sonarcloud:
-            organization: "theodor-lindberg"
-            token:
-              secure: "gk+Ay/66QgoHCLkHxXE7cAWlQsnxZqoi57QZJXZ3lsBWAgbd3TtE88qAUjer6JsLqVbYfKPploQTTuwsrSaLE+gKdz9pmcCC3rg+16wOkD9p+eO6wqDXch6mu5XREnOiqvnZuqVHTIsNJcE7iH94IzZT5Xifmn+Q7XHVJu5hDzonZYNq04/EykzIn1yIEJLEGJoeUx6njZivtJRFgVJsapBJVGPFvoUagtImjv/2KOy9vnZTdOmTMnODoQoHK011NplHeY2hAVWGcBBMmXMNIiyCz816XXyObtCdeaEI22DMgL+ub67g+eaDVd+eTvC45ICC7HKfwIxZOh97vDJFKGV6lxCAlM3202iillXCBzxo6xVCET+uotDS8W7iVKMOdmu53hGZGF/SvHHIrnZITaoPXe+Dhquq330WioZQ/ZkVRGVLPgXuBbyoq/QL7FW/rw0JMQxQjgnYzcv3JEVmoKastWf1r3GgbVH6n8mw8FEUVYXJw8Mw0HR0J7q/ZF/xUXZJP5OQyw1unCRDllpKvcMANan7VaWllb+vEqux12Och0OPylkWCe6I3uTbSwJzosmzCHh3DufRzC2SgvLs3zVi4pK690HawIZYC0FxnAVCjgs2yo5DNvtuWgaSkPUK86U5KjRqFQJvxwOwgwKdiDxmTBVFrd6ZNIQiwjC448U="
+          organization: "theodor-lindberg"
+          token:
+            secure: "gk+Ay/66QgoHCLkHxXE7cAWlQsnxZqoi57QZJXZ3lsBWAgbd3TtE88qAUjer6JsLqVbYfKPploQTTuwsrSaLE+gKdz9pmcCC3rg+16wOkD9p+eO6wqDXch6mu5XREnOiqvnZuqVHTIsNJcE7iH94IzZT5Xifmn+Q7XHVJu5hDzonZYNq04/EykzIn1yIEJLEGJoeUx6njZivtJRFgVJsapBJVGPFvoUagtImjv/2KOy9vnZTdOmTMnODoQoHK011NplHeY2hAVWGcBBMmXMNIiyCz816XXyObtCdeaEI22DMgL+ub67g+eaDVd+eTvC45ICC7HKfwIxZOh97vDJFKGV6lxCAlM3202iillXCBzxo6xVCET+uotDS8W7iVKMOdmu53hGZGF/SvHHIrnZITaoPXe+Dhquq330WioZQ/ZkVRGVLPgXuBbyoq/QL7FW/rw0JMQxQjgnYzcv3JEVmoKastWf1r3GgbVH6n8mw8FEUVYXJw8Mw0HR0J7q/ZF/xUXZJP5OQyw1unCRDllpKvcMANan7VaWllb+vEqux12Och0OPylkWCe6I3uTbSwJzosmzCHh3DufRzC2SgvLs3zVi4pK690HawIZYC0FxnAVCjgs2yo5DNvtuWgaSkPUK86U5KjRqFQJvxwOwgwKdiDxmTBVFrd6ZNIQiwjC448U="
       if: branch = master
 
 install:
