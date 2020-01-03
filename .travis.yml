@@ -23,27 +23,19 @@ addons:
     token:
       secure: "gk+Ay/66QgoHCLkHxXE7cAWlQsnxZqoi57QZJXZ3lsBWAgbd3TtE88qAUjer6JsLqVbYfKPploQTTuwsrSaLE+gKdz9pmcCC3rg+16wOkD9p+eO6wqDXch6mu5XREnOiqvnZuqVHTIsNJcE7iH94IzZT5Xifmn+Q7XHVJu5hDzonZYNq04/EykzIn1yIEJLEGJoeUx6njZivtJRFgVJsapBJVGPFvoUagtImjv/2KOy9vnZTdOmTMnODoQoHK011NplHeY2hAVWGcBBMmXMNIiyCz816XXyObtCdeaEI22DMgL+ub67g+eaDVd+eTvC45ICC7HKfwIxZOh97vDJFKGV6lxCAlM3202iillXCBzxo6xVCET+uotDS8W7iVKMOdmu53hGZGF/SvHHIrnZITaoPXe+Dhquq330WioZQ/ZkVRGVLPgXuBbyoq/QL7FW/rw0JMQxQjgnYzcv3JEVmoKastWf1r3GgbVH6n8mw8FEUVYXJw8Mw0HR0J7q/ZF/xUXZJP5OQyw1unCRDllpKvcMANan7VaWllb+vEqux12Och0OPylkWCe6I3uTbSwJzosmzCHh3DufRzC2SgvLs3zVi4pK690HawIZYC0FxnAVCjgs2yo5DNvtuWgaSkPUK86U5KjRqFQJvxwOwgwKdiDxmTBVFrd6ZNIQiwjC448U="
 
-matrix:
-  fast_finish: true
-  include:
-    # Main Application Debug
-    - os: linux
-      env: BUILD_TYPE=Debug BUILD_TESTS=FALSE ENABLE_COVERAGE=FALSE TARGET=App TOOLCHAIN=GNU-ARM-Toolchain
-      if: branch != coverity_scan
 
-    # Main Application Release SonarCloud Scan
-    - os: linux
-      dist: trusty
-      env: BUILD_TYPE=Release BUILD_TESTS=FALSE ENABLE_COVERAGE=FALSE TARGET=App TOOLCHAIN=GNU-ARM-Toolchain GEN_DOCS=FALSE
-      script:
-        - build-wrapper-linux-x86-64 --out-dir bw-output make
-        - cd ..
-        - ls
-        - sonar-scanner
-      cache:
-        directories:
-          - '$HOME/.sonar/cache'
-      if: branch = master
+# Main Application Release SonarCloud Scan
+os: linux
+dist: trusty
+env: BUILD_TYPE=Release BUILD_TESTS=FALSE ENABLE_COVERAGE=FALSE TARGET=App TOOLCHAIN=GNU-ARM-Toolchain GEN_DOCS=FALSE
+script:
+  - build-wrapper-linux-x86-64 --out-dir bw-output make
+  - cd ..
+  - ls
+  - sonar-scanner
+cache:
+  directories:
+    - '$HOME/.sonar/cache'
 
 install:
   # Set up GNU ARM Embedded Toolchain
@@ -83,13 +75,6 @@ before_script:
   - cmake --version && make --version # Print the versions used
   - mkdir -p build && cd build # Create and enter build directory
   - cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DBUILD_TESTS:BOOL=$BUILD_TESTS -DENABLE_COVERAGE:BOOL=$ENABLE_COVERAGE -DGEN_DOCS:BOOL=$GEN_DOCS -D"CMAKE_TOOLCHAIN_FILE=../cmake/${TOOLCHAIN}.cmake" ../
-
-script:
-  - make
-  - |
-    if [ "${BUILD_TESTS}" == "TRUE" ]; then
-      ./tests/proj_test
-    fi
 
 after_success:
   - |
