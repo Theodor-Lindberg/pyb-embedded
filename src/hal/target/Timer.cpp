@@ -10,7 +10,7 @@ extern "C" void TIM7_IRQHandler(void) {
 	}
 }
 
-Timer::Timer() : timer_it_hook(nullptr) { }
+Timer::Timer() : TIMx(nullptr), timer_it_hook(nullptr) { }
 
 Timer::Timer(TIMER timer, ITimerHook* const timer_it_hook) : timer_it_hook(timer_it_hook) {
 	switch (timer) {
@@ -50,8 +50,6 @@ Timer::Timer(TIMER timer, ITimerHook* const timer_it_hook) : timer_it_hook(timer
 		default:
 			TIMx = nullptr;
 	}
-
-	TIMx = static_cast<TIM_Def*>(TIM1); // Test for coverity
 	
 	LL_TIM_InitTypeDef init_def;
 	init_def.Autoreload = 4999U;
