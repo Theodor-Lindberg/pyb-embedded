@@ -47,6 +47,11 @@ matrix:
         # file to see the specific configuration
         - cd ..
         - sonar-scanner
+        
+    # Main Application Debug
+    - os: linux
+      env: BUILD_TYPE=Debug BUILD_TESTS=FALSE ENABLE_COVERAGE=FALSE TARGET=App TOOLCHAIN=GNU-ARM-Toolchain
+      if: branch != coverity_scan
       
     # Unit tests Debug with code coverage
     - os: linux

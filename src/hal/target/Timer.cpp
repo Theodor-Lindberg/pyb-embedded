@@ -15,38 +15,40 @@ Timer::Timer() : timer_it_hook(nullptr) { }
 Timer::Timer(TIMER timer, ITimerHook* const timer_it_hook) : timer_it_hook(timer_it_hook) {
 	switch (timer) {
 		case TIMER::TIMER1:
-		TIMx = static_cast<TIM_Def*>(TIM1);
+			TIMx = static_cast<TIM_Def*>(TIM1);
 			break;
 		case TIMER::TIMER2:
-		TIMx = static_cast<TIM_Def*>(TIM2);
+			TIMx = static_cast<TIM_Def*>(TIM2);
 			break;
 		case TIMER::TIMER3:
-		TIMx = static_cast<TIM_Def*>(TIM3);
+			TIMx = static_cast<TIM_Def*>(TIM3);
 			break;
 		case TIMER::TIMER4:
-		TIMx = static_cast<TIM_Def*>(TIM4);
+			TIMx = static_cast<TIM_Def*>(TIM4);
 			break;
 		case TIMER::TIMER5:
-		TIMx = static_cast<TIM_Def*>(TIM5);
+			TIMx = static_cast<TIM_Def*>(TIM5);
 			break;
 		case TIMER::TIMER6:
-		TIMx = static_cast<TIM_Def*>(TIM6);
+			TIMx = static_cast<TIM_Def*>(TIM6);
 			break;
 		case TIMER::TIMER7:
-		TIMx = static_cast<TIM_Def*>(TIM7);
+			TIMx = static_cast<TIM_Def*>(TIM7);
 			break;
 		case TIMER::TIMER8:
-		TIMx = static_cast<TIM_Def*>(TIM8);
+			TIMx = static_cast<TIM_Def*>(TIM8);
 			break;
 		case TIMER::TIMER12:
-		TIMx = static_cast<TIM_Def*>(TIM12);
+			TIMx = static_cast<TIM_Def*>(TIM12);
 			break;
 		case TIMER::TIMER13:
-		TIMx = static_cast<TIM_Def*>(TIM13);
+			TIMx = static_cast<TIM_Def*>(TIM13);
 			break;
 		case TIMER::TIMER14:
-		TIMx = static_cast<TIM_Def*>(TIM14);
+			TIMx = static_cast<TIM_Def*>(TIM14);
 			break;
+		default:
+			TIMx = nullptr;
 	}
 	
 	LL_TIM_InitTypeDef init_def;
