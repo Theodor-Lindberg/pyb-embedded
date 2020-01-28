@@ -25,6 +25,7 @@ matrix:
           notification_email: theodor.lindberg.se@gmail.com
           build_command_prepend: "cov-configure --template --compiler arm-none-eabi-gcc --comptype gcc --xml-option=skip_file:/third_party/"
           build_command: "make"
+          branch_pattern: ci-testing
       if: branch != coverity_scan
     - os: linux
       dist: trusty
