@@ -78,7 +78,7 @@ before_script:
   - mkdir -p build && cd build # Create and enter build directory
   - cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DBUILD_TESTS:BOOL=$BUILD_TESTS -DENABLE_COVERAGE:BOOL=$ENABLE_COVERAGE -DGEN_DOCS:BOOL=$GEN_DOCS -D"CMAKE_TOOLCHAIN_FILE=../cmake/${TOOLCHAIN}.cmake" ../
 
-  script:
+script:
   - make
   - |
     if [ "${BUILD_TESTS}" == "TRUE" ]; then
