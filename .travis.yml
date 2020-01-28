@@ -2,6 +2,7 @@ notifications:
   email: false
 
 sudo: false
+language: minimal
 
 matrix:
   fast_finish: true
