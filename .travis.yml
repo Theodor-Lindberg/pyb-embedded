@@ -3,9 +3,30 @@ notifications:
 
 sudo: false
 
+env:
+  global:
+   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+   #   via the "travis encrypt" command using the project repo's public key
+   - secure: "Zv7ysinv55XRZn3wkqCff5n+PRqFNxFZN1G3ZEI2KBh/LJ/g0wNQAGSillJD9s0/UBPvFScTDRoXYhIHt8hciSWGnMy+XWGrXpgbnFH2kW2qRwsZyc/aV+XiuNEk+xb/Z+pH/YaLCtoM3nZNwVXPvQerubkJY7+kBkXv+hBUVHWmbesQRyLnUtwnWU/tTRmYQFjJ4InprkNweFiMK55Z88UQNZaDnnfhaA2IMcmkXK4txTGQpP9Wpe3kO4Ok8dVm+998tkhp8E2x9IoMJRaQ1i4OqxcVcye6+iJE2coFgJT1wZ+pUlwvSQmbSBNvyj2gwynrVhVfIRiKDxi+/N2nANhmMIg7VbM1aoEVaCqgbFpcPBLDXyOQzV+wSqXifjZYqsz0x6KwWsi29xRjw2PNXAulovg2X8qdocG7ok6h8Mu9oIIN5XSKqKd0CwIiyxLsRaNFNBRh6Zhfyek3BWLu5eFTYlF0B2XIcIJVRR+zGQwa/rMXKa5o9AcyIb8RGyCxKCkwHzp3J+uTxvWTtzmsZcSzHGNGum/ly+Agl0BL1fXyV4prT1qkn1wDGgXLl79UzpAAWhhlsAw1nqJNGIqJOIBr4SRiVqjKTi7nQUlYsW2vRRe/VHzcErroeUY+nn6MLPgEsTlGumPMHwlt5OjCJDYY5P/ip3pRHLzdmbq/AOs="
+
 matrix:
   fast_finish: true
   include:
+    # Main Application Release Coverity Scan
+    - os: linux
+      env: BUILD_TYPE=Release BUILD_TESTS=FALSE ENABLE_COVERAGE=FALSE TARGET=App TOOLCHAIN=GNU-ARM-Toolchain GEN_DOCS=FALSE
+      before_install:
+        - echo -n | openssl s_client -connect https://scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
+      addons:
+        coverity_scan:
+          project:
+            name: "Theodor-Lindberg/pyb-embedded"
+            description: "Low level embedded project with a platform agnostic developement environment"
+          notification_email: theodor.lindberg.se@gmail.com
+          build_command_prepend: "cov-configure --template --compiler arm-none-eabi-gcc --comptype gcc --xml-option=skip_file:/third_party/"
+          build_command: "make"
+          branch_pattern: coverity_scan
+      if: branch != coverity_scan
     - os: linux
       dist: trusty
       # Main Application Release SonarCloud Scan
