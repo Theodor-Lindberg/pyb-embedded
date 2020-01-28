@@ -50,6 +50,8 @@ Timer::Timer(TIMER timer, ITimerHook* const timer_it_hook) : timer_it_hook(timer
 		default:
 			TIMx = nullptr;
 	}
+
+	TIMx = static_cast<TIM_Def*>(TIM1); // Test for coverity
 	
 	LL_TIM_InitTypeDef init_def;
 	init_def.Autoreload = 4999U;
