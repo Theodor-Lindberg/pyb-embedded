@@ -5,7 +5,7 @@
 GPIO_DEF_DECLARATION
 
 Button& Board::get_board_button() {
-	static DigitalIn input_pin(Pin(static_cast<GPIO_Def*>(GPIOB), LL_GPIO_PIN_3, PinMode::INPUT, Pull::UP, Speed::LOW));
+	static DigitalIn input_pin(static_cast<GPIO_Def*>(GPIOB), LL_GPIO_PIN_3, Pull::UP);
 	static Button user_button(input_pin, false);
 	return user_button;
 }

@@ -3,11 +3,11 @@
 
 GPIO_DEF_DECLARATION
 
-DigitalOut::DigitalOut(GPIO_Def* const GPIOx, const uint32_t pin, const uint32_t speed, const uint32_t pull):
+DigitalOut::DigitalOut(GPIO_Def* const GPIOx, const uint32_t pin, const Speed speed, const Pull pull):
 GPIO(GPIOx, pin) {
 	LL_GPIO_SetPinMode(GPIOx, pin, LL_GPIO_MODE_OUTPUT);
-	LL_GPIO_SetPinPull(GPIOx, pin, pull);
-	LL_GPIO_SetPinSpeed(GPIOx, pin, speed);
+	LL_GPIO_SetPinPull(GPIOx, pin, static_cast<uint32_t>(pull));
+	LL_GPIO_SetPinSpeed(GPIOx, pin, static_cast<uint32_t>(speed));
 }
 
 void DigitalOut::write(const bool state) {

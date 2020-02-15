@@ -3,10 +3,10 @@
 
 GPIO_DEF_DECLARATION
 
-DigitalIn::DigitalIn(const Pin pin):
-GPIO(pin.GPIOx, pin.number) {
-	LL_GPIO_SetPinMode(GPIOx, pin.number, static_cast<uint32_t>(PinMode::INPUT));
-	LL_GPIO_SetPinPull(GPIOx, pin.number, static_cast<uint32_t>(pin.pull));
+DigitalIn::DigitalIn(GPIO_Def* const GPIOx, const uint32_t pin, const Pull pull):
+GPIO(GPIOx, pin) {
+	LL_GPIO_SetPinMode(GPIOx, pin, static_cast<uint32_t>(PinMode::INPUT));
+	LL_GPIO_SetPinPull(GPIOx, pin, static_cast<uint32_t>(pull));
 }
 
 bool DigitalIn::read() {

@@ -23,14 +23,3 @@ enum class Speed {
 
 struct GPIO_Def;
 #define GPIO_DEF_DECLARATION struct GPIO_Def : GPIO_TypeDef {};
-
-struct Pin {
-	GPIO_Def* GPIOx;
-	const uint32_t number;
-	const PinMode mode;
-	const Pull pull;
-	const Speed speed;
-	Pin(GPIO_Def* GPIOx, uint32_t number, PinMode mode, Pull pull, Speed speed):
-	GPIOx(GPIOx), number(number), mode(mode), pull(pull), speed(speed) {}
-};
-
