@@ -3,39 +3,64 @@ notifications:
 
 sudo: false
 
-language: minimal
-
-# white list for branches
-branches:
-  only:
-    - master
-    - coverity_scan
-
-#env:
-#  global:
+env:
+  global:
    # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
    #   via the "travis encrypt" command using the project repo's public key
-#   - secure: "Zv7ysinv55XRZn3wkqCff5n+PRqFNxFZN1G3ZEI2KBh/LJ/g0wNQAGSillJD9s0/UBPvFScTDRoXYhIHt8hciSWGnMy+XWGrXpgbnFH2kW2qRwsZyc/aV+XiuNEk+xb/Z+pH/YaLCtoM3nZNwVXPvQerubkJY7+kBkXv+hBUVHWmbesQRyLnUtwnWU/tTRmYQFjJ4InprkNweFiMK55Z88UQNZaDnnfhaA2IMcmkXK4txTGQpP9Wpe3kO4Ok8dVm+998tkhp8E2x9IoMJRaQ1i4OqxcVcye6+iJE2coFgJT1wZ+pUlwvSQmbSBNvyj2gwynrVhVfIRiKDxi+/N2nANhmMIg7VbM1aoEVaCqgbFpcPBLDXyOQzV+wSqXifjZYqsz0x6KwWsi29xRjw2PNXAulovg2X8qdocG7ok6h8Mu9oIIN5XSKqKd0CwIiyxLsRaNFNBRh6Zhfyek3BWLu5eFTYlF0B2XIcIJVRR+zGQwa/rMXKa5o9AcyIb8RGyCxKCkwHzp3J+uTxvWTtzmsZcSzHGNGum/ly+Agl0BL1fXyV4prT1qkn1wDGgXLl79UzpAAWhhlsAw1nqJNGIqJOIBr4SRiVqjKTi7nQUlYsW2vRRe/VHzcErroeUY+nn6MLPgEsTlGumPMHwlt5OjCJDYY5P/ip3pRHLzdmbq/AOs="
+   - secure: "Z6mg8KFX4BOfIt9DiUzoTeRuy/kND63Ih8BGQmsXIHZMyHyi+zGoC1PNCNC+wrH4WN+9ARDlJYwyva4UbZfiXj0an+cE70qqZyU3nBQhSc3Ug+FIjZ0/4PLLT1hYuP6QdChihUtERdeQ7YXWU//+ZcBLITIgCs69zpSlFGwgiN0+130g89EFS7zQ0IYjOQzFCwWTjtci/Mc4dTONXfFVqXD/m40Wd+CZQyoscJGV5b05AdonGbWB5GGiKgbJLAkCq56igGgcesXr03bHwq1VDYlY6dHwTNtY8qYnvyzEWzaCvrmW88ij11oHQleqOSEcYY31j4Ds3ZR+ggWi0FXJ9IjxzeS30HG+o7a32xIxMUf8yZLuuzCcR+zVKE3Y5yenJ/CzSohyhUlv8EuRMvG2yZCzQVHr0XV51N2uSx0G7Yplc9aKe6R0qEtaSwQSY+jcl8/fWtgPowczccysNBvi3FR/xaiBRQ2fh9+8O5tViDyd+gkYTRpRrIhVQZjkgBUZTOzpIUBdQFTBMTzlY8+f0RF1qr7xbmYy6T5KY3fiT5EdXK/1M2aSUY05rKSW71KM8b5MNgsNzX02T8fVTt98VIwczIj9ehLAs15ASr4R39tdKz9q2UiUqlhmEB2xQazuxndcKOMJnkjA5yPxdl3Kt/PLdcuxmlCl0xeQV1pPyTc="
 
-addons:
-  sonarcloud:
-    organization: "theodor-lindberg"
-    token:
-      secure: "gk+Ay/66QgoHCLkHxXE7cAWlQsnxZqoi57QZJXZ3lsBWAgbd3TtE88qAUjer6JsLqVbYfKPploQTTuwsrSaLE+gKdz9pmcCC3rg+16wOkD9p+eO6wqDXch6mu5XREnOiqvnZuqVHTIsNJcE7iH94IzZT5Xifmn+Q7XHVJu5hDzonZYNq04/EykzIn1yIEJLEGJoeUx6njZivtJRFgVJsapBJVGPFvoUagtImjv/2KOy9vnZTdOmTMnODoQoHK011NplHeY2hAVWGcBBMmXMNIiyCz816XXyObtCdeaEI22DMgL+ub67g+eaDVd+eTvC45ICC7HKfwIxZOh97vDJFKGV6lxCAlM3202iillXCBzxo6xVCET+uotDS8W7iVKMOdmu53hGZGF/SvHHIrnZITaoPXe+Dhquq330WioZQ/ZkVRGVLPgXuBbyoq/QL7FW/rw0JMQxQjgnYzcv3JEVmoKastWf1r3GgbVH6n8mw8FEUVYXJw8Mw0HR0J7q/ZF/xUXZJP5OQyw1unCRDllpKvcMANan7VaWllb+vEqux12Och0OPylkWCe6I3uTbSwJzosmzCHh3DufRzC2SgvLs3zVi4pK690HawIZYC0FxnAVCjgs2yo5DNvtuWgaSkPUK86U5KjRqFQJvxwOwgwKdiDxmTBVFrd6ZNIQiwjC448U="
+matrix:
+  fast_finish: true
+  include:
+    # Main Application Release Coverity Scan
+    - os: linux
+      env: BUILD_TYPE=Release BUILD_TESTS=FALSE ENABLE_COVERAGE=FALSE TARGET=App TOOLCHAIN=GNU-ARM-Toolchain GEN_DOCS=FALSE
+      before_install:
+        - echo -n | openssl s_client -connect https://scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
+      addons:
+        coverity_scan:
+          project:
+            name: "Theodor-Lindberg/pyb-embedded"
+            description: "Low level embedded project with a platform agnostic developement environment"
+          notification_email: theodor.lindberg.se@gmail.com
+          build_command_prepend: "cov-configure --template --compiler arm-none-eabi-gcc --comptype gcc --xml-option=skip_file:/third_party/"
+          build_command: "make"
+          branch_pattern: ci-testing
+      if: branch != coverity_scan
 
-
-# Main Application Release SonarCloud Scan
-os: linux
-dist: trusty
-env: BUILD_TYPE=Release BUILD_TESTS=FALSE ENABLE_COVERAGE=FALSE TARGET=App TOOLCHAIN=GNU-ARM-Toolchain GEN_DOCS=FALSE
-script:
-  - build-wrapper-linux-x86-64 --out-dir bw-output make
-  - cd ..
-  - ls
-  - sonar-scanner
-cache:
-  directories:
-    - '$HOME/.sonar/cache'
+    # Main Application Release SonarCloud Scan
+    - os: linux
+      dist: trusty
+      env: BUILD_TYPE=Release BUILD_TESTS=FALSE ENABLE_COVERAGE=FALSE TARGET=App TOOLCHAIN=GNU-ARM-Toolchain GEN_DOCS=FALSE
+      cache:
+        directories:
+          - '$HOME/.sonar/cache'
+      addons:
+        sonarcloud:
+          organization: "theodor-lindberg"
+          token:
+            secure: "gk+Ay/66QgoHCLkHxXE7cAWlQsnxZqoi57QZJXZ3lsBWAgbd3TtE88qAUjer6JsLqVbYfKPploQTTuwsrSaLE+gKdz9pmcCC3rg+16wOkD9p+eO6wqDXch6mu5XREnOiqvnZuqVHTIsNJcE7iH94IzZT5Xifmn+Q7XHVJu5hDzonZYNq04/EykzIn1yIEJLEGJoeUx6njZivtJRFgVJsapBJVGPFvoUagtImjv/2KOy9vnZTdOmTMnODoQoHK011NplHeY2hAVWGcBBMmXMNIiyCz816XXyObtCdeaEI22DMgL+ub67g+eaDVd+eTvC45ICC7HKfwIxZOh97vDJFKGV6lxCAlM3202iillXCBzxo6xVCET+uotDS8W7iVKMOdmu53hGZGF/SvHHIrnZITaoPXe+Dhquq330WioZQ/ZkVRGVLPgXuBbyoq/QL7FW/rw0JMQxQjgnYzcv3JEVmoKastWf1r3GgbVH6n8mw8FEUVYXJw8Mw0HR0J7q/ZF/xUXZJP5OQyw1unCRDllpKvcMANan7VaWllb+vEqux12Och0OPylkWCe6I3uTbSwJzosmzCHh3DufRzC2SgvLs3zVi4pK690HawIZYC0FxnAVCjgs2yo5DNvtuWgaSkPUK86U5KjRqFQJvxwOwgwKdiDxmTBVFrd6ZNIQiwjC448U="
+      script:
+        - build-wrapper-linux-x86-64 --out-dir bw-output make
+        - cd ..
+        - sonar-scanner
+        
+    # Main Application Debug
+    - os: linux
+      env: BUILD_TYPE=Debug BUILD_TESTS=FALSE ENABLE_COVERAGE=FALSE TARGET=App TOOLCHAIN=GNU-ARM-Toolchain
+      if: branch != coverity_scan
+      
+    # Unit tests Debug with code coverage
+    - os: linux
+      env: BUILD_TYPE=Debug BUILD_TESTS=TRUE ENABLE_COVERAGE=TRUE TARGET=Tests TOOLCHAIN=GCC
+      language: minimal
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-7
+      if: branch != coverity_scan
 
 install:
   # Set up GNU ARM Embedded Toolchain
@@ -72,12 +97,18 @@ before_script:
     if [ "${TOOLCHAIN}" == "GNU-ARM-Toolchain" ]; then
       arm-none-eabi-g++ --version
     fi
-  - cmake --version && make --version # Print the versions used
-  - mkdir -p build && cd build # Create and enter build directory
+  - cmake --version && make --version
+  - mkdir -p build && cd build
   - cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DBUILD_TESTS:BOOL=$BUILD_TESTS -DENABLE_COVERAGE:BOOL=$ENABLE_COVERAGE -DGEN_DOCS:BOOL=$GEN_DOCS -D"CMAKE_TOOLCHAIN_FILE=../cmake/${TOOLCHAIN}.cmake" ../
 
+script:
+  - make
+  - |
+    if [ "${BUILD_TESTS}" == "TRUE" ]; then
+      ./tests/proj_test
+    fi
 after_success:
   - |
     if [ "${ENABLE_COVERAGE}" == "TRUE" ]; then
       bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
-    f
+    fi
