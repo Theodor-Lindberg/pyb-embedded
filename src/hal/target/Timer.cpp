@@ -10,8 +10,6 @@ extern "C" void TIM7_IRQHandler(void) {
 	}
 }
 
-Timer::Timer() : TIMx(nullptr), timer_it_hook(nullptr) { }
-
 Timer::Timer(TIMER timer, ITimerHook* const timer_it_hook) : timer_it_hook(timer_it_hook) {
 	switch (timer) {
 		case TIMER::TIMER1:

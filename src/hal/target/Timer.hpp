@@ -26,6 +26,6 @@ class Timer {
 	void reset();
 	private:
 	struct TIM_Def;
-	TIM_Def* TIMx;
-	ITimerHook* const timer_it_hook;
+	TIM_Def* TIMx = nullptr;
+	ITimerHook* const timer_it_hook = nullptr;
 };

@@ -7,11 +7,11 @@
 				"${workspaceFolder}/src/hal/target",
 				"${workspaceFolder}/src/utilities",
 				"${workspaceFolder}/src/modbus",
-				"${workspaceFolder}/libs/cmsis/inc",
-				"${workspaceFolder}/libs/ST/system/inc",
-				"${workspaceFolder}/libs/ST/hal/inc",
-				"${workspaceFolder}/libs/SEGGER/RTT",
-				"${workspaceFolder}/libs/SEGGER/Syscalls"
+				"${workspaceFolder}/third_party/cmsis/inc",
+				"${workspaceFolder}/third_party/ST/system/inc",
+				"${workspaceFolder}/third_party/ST/hal/inc",
+				"${workspaceFolder}/third_party/SEGGER/RTT",
+				"${workspaceFolder}/third_party/SEGGER/Syscalls"
 			],
 			"browse": {
 				"path": [
@@ -23,7 +23,7 @@
 				"STM32F405xx",
 				"USE_FULL_LL_DRIVER"
 			],
-			"compilerPath": "\"C:/Program Files (x86)/GNU Tools Arm Embedded/7 2018-q2-update/bin/arm-none-eabi-g++.exe\" -mcpu=cortex-m4 --specs=nano.specs --specs=nosys.specs",
+			"compilerPath": "\"C:/Program Files (x86)/GNU Tools Arm Embedded/7 2018-q2-update/bin/arm-none-eabi-g++.exe\" -mcpu=cortex-m4 --specs=nano.specs --specs=nosys.specs -DSTM32F405xx",
 			"cStandard": "c11",
 			"cppStandard": "c++17",
 			"intelliSenseMode": "gcc-x64"
