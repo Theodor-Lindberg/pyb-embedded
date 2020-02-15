@@ -4,7 +4,6 @@
 * [PYBv1.1 pinout][pyb_pinout]
 * STM32F405RGT6 datasheet: [STM32F405xx][stm32f405rgt6_datasheet]
 * STM32F405RGT6 reference manual: [RM0090][stm32f405rgt6_manual]
-* USB to RS232 TTL: [VMA440][vma440]
 * Accelerometer: [Freescale MMA7660FC][mma7660fc]
 * LDO voltage regulator: [Microchip MCP1802][mcp1802]  
   

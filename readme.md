@@ -1,9 +1,9 @@
-[![Build Status](https://travis-ci.org/Theodor-Lindberg/pyb-embedded.svg?branch=master)](https://travis-ci.org/Theodor-Lindberg/pyb-embedded)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Theodor-Lindberg_pyb-embedded&metric=alert_status)](https://sonarcloud.io/dashboard?id=Theodor-Lindberg_pyb-embedded)
+[![Build Status](https://travis-ci.org/Theodor-Lindberg/pyb-embedded.svg?branch=master)][build-status]
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Theodor-Lindberg_pyb-embedded&metric=alert_status)][quality-gate]
 [![codecov](https://codecov.io/gh/Theodor-Lindberg/pyb-embedded/branch/master/graph/badge.svg)][codecov]
 [![Coverity Scan Build Status](https://img.shields.io/coverity/scan/19217.svg)][coverity]
 [![Documentation](https://codedocs.xyz/Theodor-Lindberg/pyb-embedded.svg)][codedocs]
-[![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)](https://opensource.org/licenses/MPL-2.0)
+[![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)][license]
 
 ## Table of Contents  
 1. [About](#1-About)
@@ -97,17 +97,24 @@ You are now done and your program should be running.
 To flash and debug from Visual Studio Code the [Cortex Debug-extension][cortex-debug] must be installed. If you don't have the J-Link software in your path variable you can specify it using the `cortex-debug.JLinkGDBServerPath` in the *setting.json* file, note that it has to be the full path to your *JLinkGDBServerCL*.  
   
 ## 4 Continuous Integration  
-The project uses the hosted continuous integration service Travis CI and is triggered when pushing to the `master` and `coverity_scan` branches. Travis builds on the `master` branch the main application in both `Relase` and `Debug`, unit tests with test coverage are also run and uploaded to [Codecov][codecov]. Static code analysis is automatically performed with [Coverity][coverity] when pushing to the `coverity_scan` branch. Documentation generated with *doxygen* is refreshed on [Codedocs][codedocs] with every build. At the moment only builds on Linux are run. 
+The project uses the hosted continuous integration service Travis CI and is triggered when pushing to the `master` and `coverity_scan` branches. Travis builds on the `master` branch the main application in both `Relase` and `Debug`, unit tests with test coverage are also run and uploaded to [Codecov][codecov]. Static code analysis is automatically performed with [SonarCloud][sonarcloud] on the master branch and with [Coverity][coverity] when pushing to the `coverity_scan` branch. Documentation generated with *doxygen* is refreshed on [Codedocs][codedocs] with every build so it is always available online. At the moment only builds on Linux are run.
+### Build Matrix
+| Target | Configuration | SonarCloud | Coverity | Unit Tests | Doxygen | Compiler | CMake | Make | OS |  
+| -----  | :------------:| :---------:| :-------:| :---------:| :-------| :--------| :-----| :----| :--|
+| Main Application | Release |        | [x]      |            |     | GNU ARM 7.3.1| 3.12.3| 4.3  | Linux|
+| Main Application | Release | [x]    |          |            |     | GNU ARM 7.3.1| 3.12.3| 4.3  | Linux|
+| Main Application | Debug   |        |          |            |     | GNU ARM 7.3.1| 3.12.3| 4.3  | Linux|
+| Desktop          | Debug   |        |          | [x]        |     |     GCC 7.4.0| 3.12.3| 4.3  | Linux|
 
 ## 5 Software Revisions  
 This is a list of all the softwares and their versions that I currently use:  
 * Visual Studio Code *1.40.2*  
-    * C/C++ *0.26.2*  
+    * C/C++ *0.26.3*  
     * CMake *0.0.17*
-    * Cmake Tools *1.2.3*
+    * Cmake Tools *1.3.0*
     * Cortex Debug *0.3.4*
-    * Test Explorer UI *2.15.0*
-    * Catch2 and Google Test Explorer *2.7.14*
+    * Test Explorer UI *2.17.0*
+    * Catch2 and Google Test Explorer *2.8.5*
     * Code Runner *0.9.15*
     * Better Comments *2.0.5*
     * Doxygen Documentation Generator *0.5.2*
@@ -126,7 +133,10 @@ This is a list of all the softwares and their versions that I currently use:
 [segger-download]:https://www.segger.com/downloads/jlink/#J-LinkSoftwareAndDocumentationPack
 [cortex-debug]:https://marketplace.visualstudio.com/items?itemName=marus25.cortex-debug
 [cmake-tools]:https://marketplace.visualstudio.com/items?itemName=vector-of-bool.cmake-tools
-[build_status]:https://travis-ci.org/Theodor-Lindberg/pyb-embedded.svg?branch=master
+[build-status]:https://travis-ci.org/Theodor-Lindberg/pyb-embedded
 [codecov]:https://codecov.io/gh/Theodor-Lindberg/pyb-embedded
 [coverity]:https://scan.coverity.com/projects/theodor-lindberg-pyb-embedded
+[sonar-cloud]:https://sonarcloud.io/dashboard?id=Theodor-Lindberg_pyb-embedded
+[quality-gate]:https://sonarcloud.io/dashboard?id=Theodor-Lindberg_pyb-embedded
 [codedocs]:https://codedocs.xyz/Theodor-Lindberg/pyb-embedded/
+[license]:https://opensource.org/licenses/MPL-2.0
