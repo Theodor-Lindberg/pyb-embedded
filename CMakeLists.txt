@@ -34,7 +34,7 @@ if(NOT ${BUILD_TESTS})
   get_filename_component(LINKER_SCRIPT linker/stm32f407vgt.ld ABSOLUTE)
 
   if(${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
-    set(W_FLAGS -Wall -Wextra -Wcast-align -Wunused -Woverloaded-virtual -Wpedantic -Wconversion -Wsign-conversion -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wnull-dereference -Wuseless-cast)
+    set(W_FLAGS -Wall -Wextra -Wcast-align -Wunused -Woverloaded-virtual -Wpedantic -Wconversion -Wsign-conversion -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wnull-dereference -Wuseless-cast -Wold-style-cast -Wredundant-decls -Wundef -Wno-unused)
   endif()
 
   # add libraries

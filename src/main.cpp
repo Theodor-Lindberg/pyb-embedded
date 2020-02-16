@@ -13,7 +13,6 @@ extern "C" void SysTick_Handler(void) {
 
 /* Private function prototypes -----------------------------------------------*/
 
-void SystemClock_Config();
 void DelayMS(volatile uint32_t time);
 
 int main() {
