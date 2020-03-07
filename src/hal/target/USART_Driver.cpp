@@ -2,7 +2,7 @@
 #include "IUsartHook.hpp"
 #include "stm32f4xx_ll_usart.h"
 
-struct SerialDriver::USART_Def : public USART_TypeDef {};
+struct SerialDriver::USART_Def : USART_TypeDef {};
 
 /**
  * @brief Get a singleton instance of a serial driver.

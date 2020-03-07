@@ -10,7 +10,8 @@ set(common_src  hal/${platform}/DigitalOut.cpp
 				modbus/ModbusSlaveCom.cpp
 				modbus/ModbusRequest.cpp)
 
-set(common_inc  hal/${platform}
+set(common_inc  hal
+				hal/${platform}
 				utilities
 				modbus)
 

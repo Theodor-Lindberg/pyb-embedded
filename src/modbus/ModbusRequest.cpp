@@ -19,7 +19,7 @@ ModbusException handle_fc05(const uint8_t *package) {
 		return ModbusException::Illegal_Data_Value;
 	}
 
-	if (coil < 0 || coil >= static_cast<uint16_t>(OUTPUT_COIL::NUMBER_OF_COILS)) {
+	if (coil >= static_cast<uint16_t>(OUTPUT_COIL::NUMBER_OF_COILS)) {
 		return ModbusException::Illegal_Data_Address;
 	}
 

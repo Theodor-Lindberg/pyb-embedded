@@ -1,7 +1,7 @@
 #include "Timer.hpp"
 #include "stm32f4xx_ll_tim.h"
 
-struct Timer::TIM_Def : public TIM_TypeDef {};
+struct Timer::TIM_Def : TIM_TypeDef {};
 
 extern "C" void TIM7_IRQHandler(void) {
 	if (LL_TIM_IsActiveFlag_UPDATE(TIM7) != FlagStatus::RESET) {

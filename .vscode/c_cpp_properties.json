@@ -4,6 +4,7 @@
 			"name": "ARM",
 			"includePath": [
 				"${workspaceFolder}/src",
+				"${workspaceFolder}/src/hal",
 				"${workspaceFolder}/src/hal/target",
 				"${workspaceFolder}/src/utilities",
 				"${workspaceFolder}/src/modbus",
@@ -32,6 +33,7 @@
 			"name": "Desktop",
 			"includePath": [
 				"${workspaceFolder}/src",
+				"${workspaceFolder}/src/hal",
 				"${workspaceFolder}/src/hal/desktop",
 				"${workspaceFolder}/src/utilities",
 				"${workspaceFolder}/src/modbus",
