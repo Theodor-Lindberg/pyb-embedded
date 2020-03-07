@@ -5,6 +5,10 @@
  * @brief Discrete Output Coil
  */
 enum class OUTPUT_COIL : uint16_t {
+	BLUE_BOARD_LED,
+	GREEN_BOARD_LED,
+	YELLOW_BOARD_LED,
+	RED_BOARD_LED,
 	NUMBER_OF_COILS			// The number of discrete output coils
 };
 

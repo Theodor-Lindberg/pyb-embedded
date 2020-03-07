@@ -16,7 +16,8 @@
     3.3 [Flashing Using J-Link Commander](#3.3-Flashing-Using-J-Link-Commander)  
     3.4 [Debugging from Visual Studio Code](#3.4-Debugging-from-Visual-Studio-Code)
 4. [Continuous Integration](#4-Continuous-Integration)
-5. [Software Revisions](#4-Software-Revisions)  
+5. [Important Branches](#4-Important-Branches)
+6. [Software Revisions](#4-Software-Revisions)  
   
 ## 1 About  
 I have not yet decided what the code should do, but the philosophy of the project is to be stable, scalable with good test coverage, continuous integration, documentation and be as independent as possible from operating systems, editors and build tools.
@@ -87,7 +88,7 @@ The *Segger J-Link Software* must be installed and can be downloaded from [here]
 6. Specify `STM32F405RG` as the target device.
 7. Write `S` to connect over SWD.
 8. Choose the default target interface speed (*4000 kHz*).
-9. To flash a hex write `loadfile <path to file>`.
+9. To flash a hex file write `loadfile <path to file>`.
 10. You are now done so you can quit the program by writing `exit`.
 11. Remove the temporary jumper between 3V3 and BOOT0.
 12. Reset the board by either cycling the power or pressing the reset button.  
@@ -106,16 +107,21 @@ The project uses the hosted continuous integration service Travis CI and is trig
 | Main Application | Debug   |        |          |            |     | GNU ARM 7.3.1| 3.12.3| 4.3  | Linux|
 | Desktop          | Debug   |        |          | [x]        |     |     GCC 7.4.0| 3.12.3| 4.3  | Linux|
 
-## 5 Software Revisions  
+## 5 Important Branches
+`master` --> Branch with continous developement.  
+`ci-testing` --> This branch is used when adding new features to the CI.  
+`coverity_scan` --> Since running Coverity takes a long time and is a limited resource this branch should only be merged from master when a lot progress has been made.
+
+## 6 Software Revisions  
 This is a list of all the softwares and their versions that I currently use:  
-* Visual Studio Code *1.40.2*  
+* Visual Studio Code *1.42.1*  
     * C/C++ *0.26.3*  
     * CMake *0.0.17*
-    * Cmake Tools *1.3.0*
+    * Cmake Tools *1.3.1*
     * Cortex Debug *0.3.4*
     * Test Explorer UI *2.17.0*
     * Catch2 and Google Test Explorer *2.8.5*
-    * Code Runner *0.9.15*
+    * Code Runner *0.9.16*
     * Better Comments *2.0.5*
     * Doxygen Documentation Generator *0.5.2*
     * Travis CI Status *1.1.0*

@@ -7,7 +7,8 @@ endif()
 set(common_src  hal/${platform}/DigitalOut.cpp
 				hal/${platform}/DigitalIn.cpp
 				utilities/Button.cpp
-				modbus/ModbusSlaveCom.cpp)
+				modbus/ModbusSlaveCom.cpp
+				modbus/ModbusRequest.cpp)
 
 set(common_inc  hal/${platform}
 				utilities
