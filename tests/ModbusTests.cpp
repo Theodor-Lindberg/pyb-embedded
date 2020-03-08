@@ -102,3 +102,13 @@ TEST_CASE("Modbus RTU Slave ID", "[single-file]") {
 		delete[] response;
 	}
 }
+
+/**
+ * @brief Recognize an invalid checksum.
+ */
+TEST_CASE("Modbus RTU Invalid Checksum", "[single-file]") {
+	uint8_t data[] = {0x11, 0x05, 0x00, 0x01, 0xFF, 0x00, 0xDF, 0xFB};
+	unsigned length = sizeof(data);
+	REQUIRE(nullptr == ModbusComLayer::get_response(data, length, data[ModbusComLayer::ID_IDX]));
+	REQUIRE(length == 0);
+}

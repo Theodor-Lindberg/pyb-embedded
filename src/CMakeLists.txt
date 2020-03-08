@@ -22,7 +22,7 @@ if(NOT ${BUILD_TESTS})
 				utilities/BoardLEDs.cpp
 				utilities/BoardButton.cpp
 				hal/${platform}/HwInitialize.cpp
-				modbus/mb_slave.cpp)
+				modbus/ModbusSlave.cpp)
 		
 	set(includes modbus)
 
