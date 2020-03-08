@@ -27,6 +27,7 @@ uint8_t* ModbusComLayer::get_response(const uint8_t* package, unsigned& length, 
 					response[i] = package[i];
 				return response;
 			}
+			length = 5;
 			return send_exception(ex, fc, mb_id);
 			}
 		case static_cast<uint8_t>(FC::FC06):
@@ -38,7 +39,7 @@ uint8_t* ModbusComLayer::get_response(const uint8_t* package, unsigned& length, 
 }
 
 uint8_t* ModbusComLayer::send_exception(ModbusException ex, uint8_t fc, uint8_t id) {
-	uint8_t* response = new uint8_t[8];
+	uint8_t* response = new uint8_t[5];
 	response[ID_IDX] = id;
 	response[FC_IDX] = fc | static_cast<uint8_t>(ModbusException::Indicator_Mask);
 	response[EX_IDX] = static_cast<uint8_t>(ex);
