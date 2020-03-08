@@ -69,7 +69,6 @@ Timer::Timer(TIMER timer, ITimerHook* const timer_it_hook) : timer_it_hook(timer
 
 void Timer::start() {
 	LL_TIM_SetCounter(TIMx, 0U);
-	//LL_TIM_ClearFlag_UPDATE(TIMx);
 	LL_TIM_EnableCounter(TIMx);
 }
 
