@@ -3,7 +3,7 @@
 
 GPIO_DEF_DECLARATION
 
-DigitalOut& Board::get_board_led(const LED led) {
+DigitalOut& board::get_board_led(const LED led) {
 	switch(led) {
 		case LED::BLUE:
 			static DigitalOut blue_led(static_cast<GPIO_Def*>(GPIOB), LL_GPIO_PIN_4, Speed::LOW, Pull::UP);

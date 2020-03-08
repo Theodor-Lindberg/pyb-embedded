@@ -18,8 +18,7 @@ void DelayMS(volatile uint32_t time);
 int main() {
 	HwInitialize();
 
-	while(1) {
-	}
+	while(true);
 }
 
 /**

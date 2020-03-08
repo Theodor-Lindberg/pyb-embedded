@@ -1,7 +1,7 @@
 #pragma once
 #include "DigitalOut.hpp"
 
-namespace Board {
+namespace board {
 	enum class LED {
 		BLUE, GREEN, YELLOW, RED
 		};

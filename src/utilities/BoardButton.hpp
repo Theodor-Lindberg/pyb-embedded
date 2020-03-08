@@ -1,6 +1,6 @@
 #pragma once
 #include "Button.hpp"
 
-namespace Board {
+namespace board {
 	Button& get_board_button();
 }
