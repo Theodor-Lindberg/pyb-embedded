@@ -26,7 +26,7 @@ matrix:
           build_command_prepend: "cov-configure --template --compiler arm-none-eabi-gcc --comptype gcc --xml-option=skip_file:/third_party/"
           build_command: "make"
           branch_pattern: ci-testing
-      if: branch != coverity_scan
+      if: branch = coverity_scan
 
     # Main Application Release SonarCloud Scan
     - os: linux
@@ -44,7 +44,8 @@ matrix:
         - build-wrapper-linux-x86-64 --out-dir bw-output make
         - cd ..
         - sonar-scanner
-        
+      if: branch != coverity_scan  
+      
     # Main Application Debug
     - os: linux
       env: BUILD_TYPE=Debug BUILD_TESTS=FALSE ENABLE_COVERAGE=FALSE TARGET=App TOOLCHAIN=GNU-ARM-Toolchain
