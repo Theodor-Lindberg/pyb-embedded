@@ -75,3 +75,8 @@ void UsartPins_Config(DRIVER_PORT driver_port) {
 			 __builtin_unreachable();
 	}
 }
+
+void SWO_config() {
+	DBGMCU->CR &= DBGMCU_CR_TRACE_MODE_Msk;	// Select the SWO interface
+	DBGMCU->CR |= DBGMCU_CR_TRACE_IOEN; 	// Enable the TRACE interface
+}

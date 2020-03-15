@@ -15,6 +15,7 @@
     3.2 [Software Setup](#3.2-Software-Setup)  
     3.3 [Flashing Using J-Link Commander](#3.3-Flashing-Using-J-Link-Commander)  
     3.4 [Debugging from Visual Studio Code](#3.4-Debugging-from-Visual-Studio-Code)
+    3.5 [Printing using Segger RTT](#3.4-Printing-using-Segger-RTT)
 4. [Continuous Integration](#4-Continuous-Integration)
 5. [Important Branches](#4-Important-Branches)
 6. [Software Revisions](#4-Software-Revisions)  
@@ -96,16 +97,19 @@ You are now done and your program should be running.
 
 ### 3.4 Debugging from Visual Studio Code  
 To flash and debug from Visual Studio Code the [Cortex Debug-extension][cortex-debug] must be installed. If you don't have the J-Link software in your path variable you can specify it using the `cortex-debug.JLinkGDBServerPath` in the *setting.json* file, note that it has to be the full path to your *JLinkGDBServerCL*.  
+
+### 3.5 Printing using Segger RTT
+Using RTT (Real Time Transfer) from Segger it's possible to print to a host computer and receive input. Simply include `SEGGER_RTT.h`, if you use *J-Link RTT Client* to view the output remember to a new debugging session.   
   
 ## 4 Continuous Integration  
 The project uses the hosted continuous integration service Travis CI and is triggered when pushing to the `master` and `coverity_scan` branches. Travis builds on the `master` branch the main application in both `Relase` and `Debug`, unit tests with test coverage are also run and uploaded to [Codecov][codecov]. Static code analysis is automatically performed with [SonarCloud][sonarcloud] on the master branch and with [Coverity][coverity] when pushing to the `coverity_scan` branch. Documentation generated with *doxygen* is refreshed on [Codedocs][codedocs] with every build so it is always available online. At the moment only builds on Linux are run.
 ### Build Matrix
-| Target | Configuration | SonarCloud | Coverity | Unit Tests | Doxygen | Compiler | CMake | Make | OS |  
-| -----  | :------------:| :---------:| :-------:| :---------:| :-------| :--------| :-----| :----| :--|
-| Main Application | Release |        | [x]      |            |     | GNU ARM 7.3.1| 3.12.3| 4.3  | Linux|
-| Main Application | Release | [x]    |          |            |     | GNU ARM 7.3.1| 3.12.3| 4.3  | Linux|
-| Main Application | Debug   |        |          |            |     | GNU ARM 7.3.1| 3.12.3| 4.3  | Linux|
-| Desktop          | Debug   |        |          | [x]        |     |     GCC 7.4.0| 3.12.3| 4.3  | Linux|
+| Target           | Configuration | SonarCloud | Coverity | Unit Tests | Compiler     | CMake | Make | OS   |  
+| ---------------  | :------------:| :---------:| :-------:| :---------:| :------------| :-----| :----| :----|
+| Main Application | Release       |            | [x]      |            | GNU ARM 7.3.1| 3.12.3| 4.3  | Linux|
+| Main Application | Release       | [x]        |          |            | GNU ARM 7.3.1| 3.12.3| 4.3  | Linux|
+| Main Application | Debug         |            |          |            | GNU ARM 7.3.1| 3.12.3| 4.3  | Linux|
+| Desktop          | Debug         |            |          | [x]        | GCC 7.4.0    | 3.12.3| 4.3  | Linux|
 
 ## 5 Important Branches
 `master` --> Branch with continous developement.  
@@ -118,7 +122,7 @@ This is a list of all the softwares and their versions that I currently use:
     * C/C++ *0.26.3*  
     * CMake *0.0.17*
     * Cmake Tools *1.3.1*
-    * Cortex Debug *0.3.4*
+    * Cortex Debug *0.3.5*
     * Test Explorer UI *2.17.0*
     * Catch2 and Google Test Explorer *2.8.5*
     * Code Runner *0.9.16*

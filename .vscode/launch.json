@@ -26,7 +26,27 @@
 			"type": "cortex-debug",
 			"servertype": "jlink",
 			"interface": "swd",
-			"runToMain": true
+			"runToMain": true,
+			"swoConfig": {
+				"source": "probe",
+				"enabled": true,
+				"cpuFrequency": 168000000,
+				"swoFrequency": 4000000,
+				"ports": [
+					{
+						"port": 0,
+						"label": "Standard Output",
+						"type": "console",
+						"encoding": "ascii"
+					},
+					{
+						"port": 31,
+						"label": "Time Stamps",
+						"type": "binary",
+						"encoding": "signed"
+					}
+				]
+			}
 		}
 	]
 }
