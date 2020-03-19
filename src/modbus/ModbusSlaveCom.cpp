@@ -17,7 +17,6 @@ uint8_t* ModbusComLayer::get_response(const uint8_t* package, unsigned& length, 
 		case static_cast<uint8_t>(FC::FC03):
 		case static_cast<uint8_t>(FC::FC04):
 			return send_exception(ModbusException::Illegal_Function, fc, mb_id);
-		break;
 		case static_cast<uint8_t>(FC::FC05):
 			{
 			ModbusException ex = handle_fc05(package);

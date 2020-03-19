@@ -4,7 +4,7 @@
 #include "IUsartHook.hpp"
 #include "ITimerHook.hpp"
 
-class ModbusSlave : IUsartHook, ITimerHook {
+class ModbusSlave : public IUsartHook, public ITimerHook {
 	public:
 	ModbusSlave(SerialDriver* const serial_driver, TIMER tim);
 	ModbusSlave(SerialDriver* const serial_driver, TIMER tim, uint8_t ID, BAUDRATE baudrate, STOPBITS stop_bits, PARITY parity);

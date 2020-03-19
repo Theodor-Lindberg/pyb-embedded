@@ -6,5 +6,5 @@ namespace board {
 		BLUE, GREEN, YELLOW, RED
 		};
 
-	DigitalOut& get_board_led(const LED led);
+	[[nodiscard]] DigitalOut& get_board_led(const LED led);
 }

@@ -4,8 +4,8 @@
 class ModbusComLayer {
 	public:
 	ModbusComLayer() = default;
-	static uint8_t* get_response(const uint8_t* package, unsigned& length, uint8_t mb_id);
-	static uint16_t calculate_checksum(const uint8_t* package, unsigned length);
+	[[nodiscard]] static uint8_t* get_response(const uint8_t* package, unsigned& length, uint8_t mb_id);
+	[[nodiscard]] static uint16_t calculate_checksum(const uint8_t* package, unsigned length);
 	/**
 	 * @brief Modbus Function Code
 	 */
@@ -19,7 +19,7 @@ class ModbusComLayer {
 		FC15 = 0xFU,	// Force Multiple Coils
 		FC16 = 0x10U	// Preset Multiple Registers
 	};
-	static uint8_t* send_exception(ModbusException ex, uint8_t fc, uint8_t id);
+	[[nodiscard]] static uint8_t* send_exception(ModbusException ex, uint8_t fc, uint8_t id);
 	static constexpr unsigned MIN_PACKAGE_SIZE = 7;
 	static constexpr uint8_t ID_IDX = 0U;
 	static constexpr uint8_t FC_IDX = 1U;

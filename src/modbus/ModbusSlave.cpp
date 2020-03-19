@@ -46,6 +46,12 @@ void ModbusSlave::process_packet() {
 	serial_driver->send_async(response_buffer, 0U, response_length);
 }
 
+/**
+ * @brief Calculate how long the end fram should be based on the chosen baudrate.
+ * 
+ * @param baudrate 
+ * @return uint32_t The time frame in microseconds.
+ */
 uint32_t ModbusSlave::calculate_end_frame(BAUDRATE baudrate) const {
 	return 0;
 }
