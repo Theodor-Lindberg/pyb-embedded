@@ -8,17 +8,17 @@
 ## Table of Contents  
 1. [About](#1-About)
 2. [Configuring And Building The Project](#2-Configuring-And-Building-The-Project)  
-    2.1 [Command Line With Unix Makefiles](#2.1-Command-Line-With-Unix-Makefiles)  
-    2.2 [Visual Studio Code With Unix Makefiles](#2.2-Visual-Studio-Code-With-Unix-Makefiles)
+    2.1 [Command Line With Unix Makefiles](##2.1-Command-Line-With-Unix-Makefiles)  
+    2.2 [Visual Studio Code With Unix Makefiles](##2.2-Visual-Studio-Code-With-Unix-Makefiles)
 3. [Flashing And Debugging](#3-Flashing-And-Debugging)  
-    3.1 [Hardware Setup For SWD](#3.1-Hardware-Setup-For-SWD)  
-    3.2 [Software Setup](#3.2-Software-Setup)  
-    3.3 [Flashing Using J-Link Commander](#3.3-Flashing-Using-J-Link-Commander)  
-    3.4 [Debugging from Visual Studio Code](#3.4-Debugging-from-Visual-Studio-Code)  
-    3.5 [Printing using Segger RTT](#3.4-Printing-using-Segger-RTT)
+    3.1 [Hardware Setup For SWD](##3.1-Hardware-Setup-For-SWD)  
+    3.2 [Software Setup](##3.2-Software-Setup)  
+    3.3 [Flashing Using J-Link Commander](##3.3-Flashing-Using-J-Link-Commander)  
+    3.4 [Debugging from Visual Studio Code](##3.4-Debugging-from-Visual-Studio-Code)  
+    3.5 [Printing using Segger RTT](##3.5-Printing-using-Segger-RTT)
 4. [Continuous Integration](#4-Continuous-Integration)
-5. [Important Branches](#4-Important-Branches)
-6. [Software Revisions](#4-Software-Revisions)  
+5. [Important Branches](#5-Important-Branches)
+6. [Software Revisions](#6-Software-Revisions)  
   
 ## 1 About  
 I have not yet decided what the code should do, but the philosophy of the project is to be stable, scalable with good test coverage, continuous integration, documentation and be as independent as possible from operating systems, editors and build tools.
