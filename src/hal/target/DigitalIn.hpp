@@ -3,6 +3,6 @@
 
 class DigitalIn: public GPIO {
 	public:
-	DigitalIn(GPIO_Def* const GPIOx, const uint32_t pin, const Pull pull);
+	DigitalIn(Port port, const Pin pin, const Pull pull);
 	bool read();
 };

@@ -4,9 +4,9 @@
 class Button {
 	public:
 	Button() = delete;
-	Button(DigitalIn& input_pin, const bool normal_low);
+	Button(DigitalIn& input_pin, bool normal_low);
 	[[nodiscard]] bool is_pressed();
 	private:
-	DigitalIn* input_pin;
+	DigitalIn* const input_pin;
 	const bool normal_low;
 };

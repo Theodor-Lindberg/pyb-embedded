@@ -7,6 +7,8 @@ endif()
 set(common_src  hal/${platform}/DigitalOut.cpp
 				hal/${platform}/DigitalIn.cpp
 				utilities/Button.cpp
+				utilities/BoardLEDs.cpp
+				utilities/BoardButton.cpp
 				modbus/ModbusSlaveCom.cpp
 				modbus/ModbusRequest.cpp)
 
@@ -19,8 +21,7 @@ if(NOT ${BUILD_TESTS})
 	set(sources main.cpp
 				hal/${platform}/USART_Driver.cpp
 				hal/${platform}/Timer.cpp
-				utilities/BoardLEDs.cpp
-				utilities/BoardButton.cpp
+				hal/${platform}/GPIO.cpp
 				hal/${platform}/HwInitialize.cpp
 				modbus/ModbusSlave.cpp)
 		

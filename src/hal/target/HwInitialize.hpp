@@ -41,3 +41,6 @@ void UsartPins_Config(DRIVER_PORT driver_port);
 void Timer_Config();
 
 void SWO_Config();
+
+
+void Enable_GPIO_Clocks();

@@ -1,6 +1,6 @@
 #include "Button.hpp"
 
-Button::Button(DigitalIn& input_pin, const bool normal_low):
+Button::Button(DigitalIn& input_pin, bool normal_low):
 input_pin(&input_pin), normal_low(normal_low)
 {
 }

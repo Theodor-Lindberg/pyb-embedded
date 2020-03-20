@@ -2,6 +2,7 @@
 #include "DigitalOut.hpp"
 #include "HwInitialize.hpp"
 #include "ModbusSlave.hpp"
+#include "BoardButton.hpp"
 
 volatile uint32_t Timing_DelayMS; // Timing delay in millseconds.
 
@@ -18,7 +19,15 @@ void DelayMS(volatile uint32_t time);
 int main() {
 	HwInitialize();
 
-	while(true);
+	Button btn = board::get_board_button();
+	DigitalOut blue_led = board::get_board_led(board::LED::BLUE);
+
+	while(true) {
+		if (btn.is_pressed()) {
+			blue_led.toggle();
+			DelayMS(500);
+		}
+	}
 }
 
 /**

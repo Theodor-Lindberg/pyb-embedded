@@ -21,5 +21,28 @@ enum class Speed {
 	VERY_HIGH
 };
 
-struct GPIO_Def;
-#define GPIO_DEF_DECLARATION struct GPIO_Def : GPIO_TypeDef {};
+enum class Port {
+	A,
+	B,
+	C,
+	D
+};
+
+enum class Pin {
+	PIN0 = 0,
+	PIN1,
+	PIN2,
+	PIN3,
+	PIN4,
+	PIN5,
+	PIN6,
+	PIN7,
+	PIN8,
+	PIN9,
+	PIN10,
+	PIN11,
+	PIN12,
+	PIN13,
+	PIN14,
+	PIN15
+};

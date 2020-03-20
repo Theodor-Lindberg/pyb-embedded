@@ -9,6 +9,7 @@ void HwInitialize() {
 	SystemTick_Config();
 	UsartPins_Config(DRIVER_PORT::USART_6);
 	Timer_Config();
+	Enable_GPIO_Clocks();
 }
 
 void SystemClock_Config() {
@@ -79,4 +80,9 @@ void UsartPins_Config(DRIVER_PORT driver_port) {
 void SWO_config() {
 	DBGMCU->CR &= DBGMCU_CR_TRACE_MODE_Msk;	// Select the SWO interface
 	DBGMCU->CR |= DBGMCU_CR_TRACE_IOEN; 	// Enable the TRACE interface
+}
+
+void Enable_GPIO_Clocks() {
+	RCC->AHB1ENR |= RCC_AHB1ENR_GPIOBEN;
+	RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
 }
