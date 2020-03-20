@@ -12,15 +12,15 @@ class ModbusSlave : public IUsartHook, public ITimerHook {
 	void close();
 	void set_id(uint8_t ID);
 	void process_packet();
-	virtual void rx_it_hook();
-	virtual void timer_it_hook();
+	void rx_it_hook() override;
+	void timer_it_hook() override;
 	private:
 	SerialDriver* const serial_driver;
 	Timer timer;
 	uint8_t mb_id;
 	uint8_t receive_index;
 	uint8_t recieve_buffer[9];
-	uint32_t response_length;
 	uint8_t* response_buffer;
+	uint32_t response_length;
 	uint32_t calculate_end_frame(BAUDRATE baudrate) const;
 };

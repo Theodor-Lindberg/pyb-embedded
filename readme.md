@@ -14,7 +14,7 @@
     3.1 [Hardware Setup For SWD](#3.1-Hardware-Setup-For-SWD)  
     3.2 [Software Setup](#3.2-Software-Setup)  
     3.3 [Flashing Using J-Link Commander](#3.3-Flashing-Using-J-Link-Commander)  
-    3.4 [Debugging from Visual Studio Code](#3.4-Debugging-from-Visual-Studio-Code)
+    3.4 [Debugging from Visual Studio Code](#3.4-Debugging-from-Visual-Studio-Code)  
     3.5 [Printing using Segger RTT](#3.4-Printing-using-Segger-RTT)
 4. [Continuous Integration](#4-Continuous-Integration)
 5. [Important Branches](#4-Important-Branches)
