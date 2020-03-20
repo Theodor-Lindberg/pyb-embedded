@@ -16,16 +16,16 @@ set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
 set(CORE_FLAGS "-mthumb -mcpu=cortex-m4 -mlittle-endian -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb-interwork --specs=nano.specs --specs=nosys.specs")
 
 # compiler: language specific flags
-set(CMAKE_C_FLAGS "${CORE_FLAGS} -fno-builtin -Wall -fdata-sections -ffunction-sections" CACHE INTERNAL "c compiler flags")
-set(CMAKE_C_FLAGS_DEBUG "-O0 -g3 -ggdb" CACHE INTERNAL "c compiler flags: Debug")
+set(CMAKE_C_FLAGS "${CORE_FLAGS} -fno-builtin -fdata-sections -ffunction-sections" CACHE INTERNAL "c compiler flags")
+set(CMAKE_C_FLAGS_DEBUG "-Og -g" CACHE INTERNAL "c compiler flags: Debug")
 set(CMAKE_C_FLAGS_RELEASE "-Os" CACHE INTERNAL "c compiler flags: Release")
 
-set(CMAKE_CXX_FLAGS "${CORE_FLAGS} -fno-rtti -fno-exceptions -fno-builtin -Wall -fdata-sections -ffunction-sections" CACHE INTERNAL "cxx compiler flags")
-set(CMAKE_CXX_FLAGS_DEBUG "-O0 -g3 -ggdb" CACHE INTERNAL "cxx compiler flags: Debug")
+set(CMAKE_CXX_FLAGS "${CORE_FLAGS} -fno-rtti -fno-exceptions -fno-builtin -fdata-sections -ffunction-sections" CACHE INTERNAL "cxx compiler flags")
+set(CMAKE_CXX_FLAGS_DEBUG "-Og -g" CACHE INTERNAL "cxx compiler flags: Debug")
 set(CMAKE_CXX_FLAGS_RELEASE "-Os" CACHE INTERNAL "cxx compiler flags: Release")
 
 set(CMAKE_ASM_FLAGS "${CORE_FLAGS} -D__USES_CXX" CACHE INTERNAL "asm compiler flags")
-set(CMAKE_ASM_FLAGS_DEBUG "-O0 -g3 -ggdb" CACHE INTERNAL "asm compiler flags: Debug")
+set(CMAKE_ASM_FLAGS_DEBUG "-Og -g" CACHE INTERNAL "asm compiler flags: Debug")
 set(CMAKE_ASM_FLAGS_RELEASE "-Os" CACHE INTERNAL "asm compiler flags: Release")
 
 # search for programs in the build host directories

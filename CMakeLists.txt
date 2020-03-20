@@ -34,7 +34,7 @@ if(NOT ${BUILD_TESTS})
   get_filename_component(LINKER_SCRIPT linker/stm32f407vgt.ld ABSOLUTE)
 
   if(${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
-    set(W_FLAGS -Wall -Wextra -Wcast-align -Wunused -Woverloaded-virtual -Wpedantic -Wconversion -Wsign-conversion -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wnull-dereference -Wuseless-cast -Wold-style-cast -Wredundant-decls -Wundef -Wno-unused)
+    set(W_FLAGS -Wpedantic -Wall -Wextra -Wcast-align -Wunused -Wconversion -Wsign-conversion -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wnull-dereference -Wuseless-cast -Wold-style-cast -Wredundant-decls -Wundef -Wno-unused -Wsuggest-final-types -Wsuggest-override -Woverloaded-virtual)
   endif()
 
   # add libraries
@@ -46,7 +46,6 @@ else()
   project(${application_name} C CXX)
 
   if(${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
-    set(W_FLAGS -Wall -Wextra -Wcast-align -Wunused -Woverloaded-virtual -Wpedantic -Wconversion -Wsign-conversion -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wnull-dereference -Wuseless-cast)
     if(${ENABLE_COVERAGE})
       set(TEST_FLAGS --coverage)
       set(CMAKE_CXX_OUTPUT_EXTENSION_REPLACE 1)
