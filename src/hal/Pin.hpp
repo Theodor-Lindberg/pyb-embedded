@@ -14,6 +14,11 @@ enum class Pull {
 	DOWN
 };
 
+enum class OutputType {
+	PUSH_PULL,
+	OPEN_DRAIN
+};
+
 enum class Speed {
 	LOW = 0,
 	MEDIUM,

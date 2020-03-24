@@ -1,12 +1,9 @@
 #pragma once
-#include "Pin.hpp"
+#include "GPIOBase.hpp"
 
-class GPIO {
-	public:
-	GPIO() = delete;
+class GPIO : GPIOBase {
 	protected:
-	GPIO(const Pin pin) :pin(pin) { state = false; };
-	bool state;
-	private:
-	const Pin pin;
+	GPIO(const Port port, const Pin pin);
+	bool state = false;
+	const Port port;
 };

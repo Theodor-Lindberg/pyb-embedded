@@ -1,9 +1,11 @@
 #pragma once
+#include "DigitalIn.hpp"
+#include "DigitalInBase.hpp"
 #include "GPIO.hpp"
 
-class DigitalIn: public GPIO {
+class DigitalIn: public DigitalInBase, public GPIO {
 	public:
-	DigitalIn(const int pin);
-	bool read();
-	void set(bool);
+	DigitalIn(const Port port, const Pin pin, const Pull pull);
+	bool read() final override;
+	void set(const bool);
 };

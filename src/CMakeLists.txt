@@ -4,8 +4,10 @@ else()
 	set(platform target)
 endif()
 
-set(common_src  hal/${platform}/DigitalOut.cpp
+set(common_src  hal/GPIOBase.cpp
+				hal/${platform}/DigitalOut.cpp
 				hal/${platform}/DigitalIn.cpp
+				hal/${platform}/GPIO.cpp
 				utilities/Button.cpp
 				utilities/BoardLEDs.cpp
 				utilities/BoardButton.cpp
@@ -21,7 +23,6 @@ if(NOT ${BUILD_TESTS})
 	set(sources main.cpp
 				hal/${platform}/USART_Driver.cpp
 				hal/${platform}/Timer.cpp
-				hal/${platform}/GPIO.cpp
 				hal/${platform}/HwInitialize.cpp
 				modbus/ModbusSlave.cpp)
 		

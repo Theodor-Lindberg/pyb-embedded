@@ -3,7 +3,7 @@
 
 struct GPIO::GPIO_Def : GPIO_TypeDef {};
 
-GPIO::GPIO(Port port, Pin pin) : pin_number(pin) {
+GPIO::GPIO(Port port, Pin pin) : GPIOBase(pin) {
 	switch (port) {
 		case Port::A:
 			GPIOx = static_cast<GPIO::GPIO_Def*>(GPIOA);

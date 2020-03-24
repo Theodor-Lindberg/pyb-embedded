@@ -1,12 +1,9 @@
 #pragma once
-#include "Pin.hpp"
+#include "GPIOBase.hpp"
 
-class GPIO {
+class GPIO : public GPIOBase {
 	protected:
 	GPIO(Port port, Pin pin);
 	struct GPIO_Def;
 	GPIO_Def* GPIOx;
-	Pin pin_number;
-	public:
-	GPIO() = delete;
 };

@@ -2,7 +2,7 @@
 #include "Button.hpp"
 
 TEST_CASE( "Button pressed active high", "[single-file]" ) {
-    DigitalIn di(1);
+    DigitalIn di(Port::A, Pin::PIN1, Pull::DOWN);
     Button button(di, true);
     REQUIRE(button.is_pressed() == false);
     di.set(true);
@@ -12,7 +12,7 @@ TEST_CASE( "Button pressed active high", "[single-file]" ) {
 }
 
 TEST_CASE( "Button pressed active low", "[single-file]" ) {
-    DigitalIn di(1);
+    DigitalIn di(Port::A, Pin::PIN1, Pull::DOWN);
     di.set(true);
     Button button(di, false);
     REQUIRE(button.is_pressed() == false);
