@@ -1,4 +1,4 @@
-#include "USART_Driver.hpp"
+#include "UsartDriver.hpp"
 #include "IUsartHook.hpp"
 #include "stm32f4xx_ll_usart.h"
 
@@ -252,7 +252,8 @@ void SerialDriver::tc_it() {
 	}
 }
 
-SerialDriver::SerialDriver(USART_Def* const USARTx) : USARTx(USARTx) { }
+SerialDriver::SerialDriver(USART_Def* const USARTx) : USARTx(USARTx) { 
+}
 
 void SerialDriver::wait_ready_to_send() {
 	while (!LL_USART_IsActiveFlag_TC(USARTx));

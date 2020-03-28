@@ -3,8 +3,9 @@
 
 class GPIOBase {
 	protected:
-	GPIOBase(const Pin pin);
+	explicit GPIOBase(const Pin pin);
 	const Pin pin;
 	public:
 	GPIOBase() = delete;
+	virtual ~GPIOBase() = default;
 };
