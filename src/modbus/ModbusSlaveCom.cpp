@@ -1,8 +1,8 @@
 #include "ModbusSlaveCom.hpp"
 #include "ModbusRequest.hpp"
 
-uint8_t* ModbusComLayer::get_response(const uint8_t* package, unsigned& length, uint8_t mb_id) {
-	if ((length < MIN_PACKAGE_SIZE) || ((package[ID_IDX] != BROADCAST_ID) && (package[ID_IDX] != mb_id)) || (false)) {
+uint8_t* ModbusComLayer::get_response(uint8_t* package, unsigned& length, uint8_t mb_id) {
+	if ((length < MIN_PACKAGE_SIZE) || ((package[ID_IDX] != BROADCAST_ID) && (package[ID_IDX] != mb_id))) {
 		length = 0;
 		return nullptr;
 	}
@@ -21,10 +21,7 @@ uint8_t* ModbusComLayer::get_response(const uint8_t* package, unsigned& length, 
 			{
 			ModbusException ex = handle_fc05(package);
 			if (ex == ModbusException::Acknowledge) {
-				uint8_t *response = new uint8_t[length];
-				for (unsigned i = 0; i < length; ++i)
-					response[i] = package[i];
-				return response;
+				return package;
 			}
 			length = 5;
 			return send_exception(ex, fc, mb_id);

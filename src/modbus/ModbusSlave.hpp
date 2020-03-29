@@ -18,9 +18,8 @@ class ModbusSlave : public IUsartHook, public ITimerHook {
 	SerialDriver* const serial_driver;
 	Timer timer;
 	uint8_t mb_id;
-	uint8_t receive_index;
+	uint8_t receive_index = 0;
 	uint8_t recieve_buffer[9];
 	uint8_t* response_buffer;
-	uint32_t response_length;
 	uint32_t calculate_end_frame(BAUDRATE baudrate) const;
 };

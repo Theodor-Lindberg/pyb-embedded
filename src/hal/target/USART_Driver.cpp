@@ -205,9 +205,12 @@ bool SerialDriver::send_async(const uint8_t* data_buffer, uint32_t start, uint32
 	if (is_sending_async()) {	// Only one message can be sent asynchronosly
 		return false;
 	}
-	message_last_index = data_buffer + end - start - 1U;
-	message_to_send = (data_buffer + start);
+	message_last_index = data_buffer + end;
+	message_to_send = data_buffer + start;
 	LL_USART_EnableIT_TC(USARTx);
+	while(!is_sending_async()); // wait for enable
+	write(*(message_to_send));
+	++message_to_send;
 	return true;
 }
 
@@ -242,13 +245,16 @@ bool SerialDriver::set_baudrate(BAUDRATE baudrate) {
 void SerialDriver::rx_callback() {
 	usart_it_hook->rx_it_hook();
 }
-
+static int cnt = 0;
 void SerialDriver::tc_it() {
+	
 	if (message_to_send == message_last_index) {
 		LL_USART_DisableIT_TC(USARTx);
 	}
 	else {
-		write(*(message_to_send++));
+		write(*(message_to_send));
+		++message_to_send;
+		cnt++;
 	}
 }
 
@@ -263,7 +269,7 @@ uint8_t SerialDriver::read() {
 	return LL_USART_ReceiveData8(USARTx);
 }
 
-static USART_TypeDef* get_type_def(DRIVER_PORT driver_port) {
+static constexpr USART_TypeDef* get_type_def(DRIVER_PORT driver_port) {
 		switch(driver_port) {
 		case DRIVER_PORT::USART_1:
 			return USART1;
@@ -282,7 +288,7 @@ static USART_TypeDef* get_type_def(DRIVER_PORT driver_port) {
 	}
 }
 
-void handle_interrupt(DRIVER_PORT driver_port) {
+inline void handle_interrupt(DRIVER_PORT driver_port) {
 	USART_TypeDef* usart = get_type_def(driver_port);
 
 	if (LL_USART_IsActiveFlag_RXNE(usart)) {
@@ -295,5 +301,8 @@ void handle_interrupt(DRIVER_PORT driver_port) {
 
 extern "C" void USART6_IRQHandler(void) {
 	handle_interrupt(DRIVER_PORT::USART_6);
-	NVIC_ClearPendingIRQ(USART6_IRQn);
+}
+
+extern "C" void HardFault_Handler(void) {
+	while(true);
 }

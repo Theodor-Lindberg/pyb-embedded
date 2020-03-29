@@ -1,5 +1,6 @@
 #include "ModbusRequest.hpp"
 #include "ModbusRegisters.hpp"
+#include "BoardLEDs.hpp"
 
 /**
  * @brief Handle the 'Force single Coil' Request
@@ -36,12 +37,16 @@ ModbusException handle_fc05(const uint8_t *package) {
 ModbusException force_single_coil(OUTPUT_COIL coil, bool status) {
 	switch(coil) {
 		case OUTPUT_COIL::BLUE_BOARD_LED:
+			board::get_board_led(board::LED::BLUE).write(status);
 			return ModbusException::Acknowledge;
 		case OUTPUT_COIL::GREEN_BOARD_LED:
+			board::get_board_led(board::LED::GREEN).write(status);
 			return ModbusException::Acknowledge;
 		case OUTPUT_COIL::YELLOW_BOARD_LED:
+			board::get_board_led(board::LED::YELLOW).write(status);
 			return ModbusException::Acknowledge;
 		case OUTPUT_COIL::RED_BOARD_LED:
+			board::get_board_led(board::LED::RED).write(status);
 			return ModbusException::Acknowledge;
 		default:
 			return ModbusException::Illegal_Data_Address;

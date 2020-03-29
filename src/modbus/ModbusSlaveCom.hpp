@@ -4,7 +4,7 @@
 class ModbusComLayer {
 	public:
 	ModbusComLayer() = default;
-	[[nodiscard]] static uint8_t* get_response(const uint8_t* package, unsigned& length, uint8_t mb_id);
+	[[nodiscard]] static uint8_t* get_response(uint8_t* package, unsigned& length, uint8_t mb_id);
 	[[nodiscard]] static uint16_t calculate_checksum(const uint8_t* package, unsigned length);
 	/**
 	 * @brief Modbus Function Code

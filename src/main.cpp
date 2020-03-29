@@ -18,16 +18,14 @@ void DelayMS(volatile uint32_t time);
 
 int main() {
 	HwInitialize();
-
-	Button btn = board::get_board_button();
 	DigitalOut blue_led = board::get_board_led(board::LED::BLUE);
+	blue_led.write(false);
+	SerialDriver *serial = SerialDriver::get_instance(DRIVER_PORT::USART_6);
+	ModbusSlave modbus_slave(serial, TIMER::TIMER14, 17, BAUDRATE::RATE_9600, STOPBITS::SB_1, PARITY::NONE);
+	modbus_slave.open();
 
-	while(true) {
-		if (btn.is_pressed()) {
-			blue_led.toggle();
-			DelayMS(500);
-		}
-	}
+	while (true);
+	
 }
 
 /**

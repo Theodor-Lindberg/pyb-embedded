@@ -3,13 +3,13 @@
 #include "ModbusSlaveCom.hpp"
 
 ModbusSlave::ModbusSlave(SerialDriver* const serial_driver, TIMER tim, uint8_t id, BAUDRATE baudrate, STOPBITS stop_bits, PARITY parity) :
-serial_driver(serial_driver), timer(Timer(tim, this)), mb_id(id), receive_index(0U) {
+serial_driver(serial_driver), timer(Timer(tim, this)), mb_id(id) {
 	timer.set_interval(calculate_end_frame(baudrate));
 	serial_driver->initialize(baudrate, DIRECTION::RX_TX, DATAWIDTH::B8, stop_bits, parity, HWCONTROL::NONE, OVERSAMPLING::B16, this);
 }
 
 ModbusSlave::ModbusSlave(SerialDriver* const serial_driver, TIMER tim) :
-	serial_driver(serial_driver), timer(Timer(tim, this)), receive_index(0U) {
+	serial_driver(serial_driver), timer(Timer(tim, this)) {
 
 }
 
@@ -29,9 +29,12 @@ void ModbusSlave::set_id(uint8_t ID) {
 
 void ModbusSlave::rx_it_hook() {
 	uint8_t received_byte = serial_driver->read();
+	//SEGGER_RTT_PutChar(0, received_byte);
 	recieve_buffer[receive_index++] = received_byte;
+	if (receive_index == 8) {
+		timer_it_hook();
+	}
 	timer.reset();
-	timer.start();
 }
 
 void ModbusSlave::timer_it_hook() {
@@ -42,8 +45,9 @@ void ModbusSlave::timer_it_hook() {
 
 void ModbusSlave::process_packet() {
 	unsigned receive_length = receive_index;
+	receive_index = 0;
 	response_buffer = ModbusComLayer::get_response(recieve_buffer, receive_length, mb_id);
-	serial_driver->send_async(response_buffer, 0U, response_length);
+	serial_driver->send_async(response_buffer, 0U, receive_length);
 }
 
 /**

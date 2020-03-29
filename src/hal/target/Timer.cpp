@@ -11,6 +11,7 @@ extern "C" void TIM7_IRQHandler(void) {
 }
 
 Timer::Timer(TIMER timer, ITimerHook* const timer_it_hook) : timer_it_hook(timer_it_hook) {
+	return;
 	switch (timer) {
 		case TIMER::TIMER1:
 			TIMx = static_cast<TIM_Def*>(TIM1);
@@ -68,12 +69,12 @@ Timer::Timer(TIMER timer, ITimerHook* const timer_it_hook) : timer_it_hook(timer
 }
 
 void Timer::start() {
-	LL_TIM_SetCounter(TIMx, 0U);
-	LL_TIM_EnableCounter(TIMx);
+	/*LL_TIM_SetCounter(TIMx, 0U);
+	LL_TIM_EnableCounter(TIMx);*/
 }
 
 void Timer::stop() {
-	LL_TIM_DisableCounter(TIMx);
+	//LL_TIM_DisableCounter(TIMx);
 }
 
 void Timer::set_interval(uint32_t ms) {
