@@ -1,6 +1,7 @@
 #include "catch.hpp"
 #include "ModbusSlaveCom.hpp"
-#include <iostream>
+#include <algorithm>
+
 
 /**
  * @brief Force Single Coil
@@ -15,65 +16,69 @@ TEST_CASE("Modbus RTU Slave Function Code 5", "[single-file]") {
 	 * FF00: The status to write ( FF00 = ON,  0000 = OFF )
 	 * DF6A: The CRC (cyclic redundancy check) for error checking.
 	 */
-	uint8_t data[] = {0x11, 0x05, 0x00, 0x01, 0xFF, 0x00, 0xDF, 0x6A};
-	unsigned length = sizeof(data)/sizeof(uint8_t);
-	uint8_t* response = ModbusComLayer::get_response(data, length, 0x11);
-	uint16_t crc;
+	uint8_t expected[8] = {0x11, 0x05, 0x00, 0x01, 0xFF, 0x00, 0xDF, 0x6A};
+	uint8_t buffer[8];
+	std::copy(std::begin(expected), std::end(expected), std::begin(buffer));
+	unsigned length = sizeof(buffer)/sizeof(uint8_t);
+	unsigned buffer_size = ModbusComLayer::generate_response(buffer, length, buffer[ModbusComLayer::ID_IDX]);
 
 	SECTION("Turn Coil ON") {
-		REQUIRE(length == sizeof(data));
-		for (unsigned i = 0; i < length; ++i) {
-			REQUIRE(response[i] == data[i]);
+		REQUIRE(length == buffer_size);
+		for (unsigned i = 0; i < buffer_size; ++i) {
+			REQUIRE(buffer[i] == expected[i]);
 		}	
 	}
 
 	SECTION("Turn Coil OFF") {
-		data[4] = 0x00; // Turn coil off
-		crc = ModbusComLayer::calculate_checksum(data, length-2);
-		data[length - 2] = crc & 0x00FF; // Low byte first
-		data[length - 1] = crc >> 8;
-		response = ModbusComLayer::get_response(data, length, data[0]);
+		expected[4] = 0x00; // Turn coil off
+		uint16_t crc = ModbusComLayer::calculate_checksum(expected, length-2);
+		expected[length - 2] = crc & 0x00FF; // Low byte first
+		expected[length - 1] = crc >> 8;
+		std::copy(std::begin(expected), std::end(expected), std::begin(buffer));
+		buffer_size = ModbusComLayer::generate_response(buffer, length, buffer[ModbusComLayer::ID_IDX]);
 
-		REQUIRE(length == sizeof(data));
+		REQUIRE(buffer_size == length);
 		for (unsigned i = 0; i < length; ++i) {
-			REQUIRE(response[i] == data[i]);
+			REQUIRE(buffer[i] == expected[i]);
 		}
 	}
 
 	SECTION("Illegal Data Address") {
-		data[2] = 4; // Illegal Data Address
-		crc = ModbusComLayer::calculate_checksum(data, length-2);
-		data[length - 2] = crc & 0x00FF; // Low byte first
-		data[length - 1] = crc >> 8;
-		response = ModbusComLayer::get_response(data, length, data[0]);
+		expected[2] = 4; // Illegal Data Address
+		uint16_t crc = ModbusComLayer::calculate_checksum(expected, length-2);
+		expected[length - 2] = crc & 0x00FF; // Low byte first
+		expected[length - 1] = crc >> 8;
+		std::copy(std::begin(expected), std::end(expected), std::begin(buffer));
+		buffer_size = ModbusComLayer::generate_response(buffer, length, buffer[ModbusComLayer::ID_IDX]);
 
-		REQUIRE(length == 5);
-		for (unsigned i = 0; i < length - 2; ++i) {
+		REQUIRE(buffer_size == 5);
+		for (unsigned i = 0; i < buffer_size - 2; ++i) {
 			if (i == static_cast<uint8_t>(ModbusComLayer::EX_IDX)) {
-				REQUIRE(response[i] == static_cast<uint8_t>(ModbusException::Illegal_Data_Address));
+				REQUIRE(buffer[i] == static_cast<uint8_t>(ModbusException::Illegal_Data_Address));
 			} else if (i == ModbusComLayer::FC_IDX) {
-				REQUIRE(response[i] == (0x80 | data[i]));
+				REQUIRE(buffer[i] == (0x80 | expected[i]));
 			} else {
-				REQUIRE(response[i] == data[i]);
+				REQUIRE(buffer[i] == expected[i]);
 			}
 		}
 	}
 	
 	SECTION("Illegal Data Value") {
-		data[4] = 4; // Illegal Data Address
-		crc = ModbusComLayer::calculate_checksum(data, length-2);
-		data[length - 2] = crc & 0x00FF; // Low byte first
-		data[length - 1] = crc >> 8;
-		response = ModbusComLayer::get_response(data, length, data[0]);
+		expected[4] = 4; // Illegal Data Value
+		uint16_t crc = ModbusComLayer::calculate_checksum(expected, length-2);
+		expected[length - 2] = crc & 0x00FF; // Low byte first
+		expected[length - 1] = crc >> 8;
+		std::copy(std::begin(expected), std::end(expected), std::begin(buffer));
+		buffer_size = ModbusComLayer::generate_response(buffer, length, buffer[ModbusComLayer::ID_IDX]);
 
-		REQUIRE(length == 5);
-		for (unsigned i = 0; i < length - 2; ++i) {
+		REQUIRE(buffer_size == 5);
+		for (unsigned i = 0; i < buffer_size - 2; ++i) {
 			if (i == ModbusComLayer::EX_IDX) {
-				REQUIRE(response[i] == static_cast<uint8_t>(ModbusException::Illegal_Data_Value));
+				REQUIRE(buffer[i] == static_cast<uint8_t>(ModbusException::Illegal_Data_Value));
 			} else if (i == static_cast<uint8_t>(ModbusComLayer::FC_IDX)) {
-				REQUIRE(response[i] == (0x80 | data[i]));
+				REQUIRE(buffer[i] == (0x80 | expected[i]));
 			} else {
-				REQUIRE(response[i] == data[i]);
+				REQUIRE(buffer[i] == expected[i]);
 			}
 		}
 	}
@@ -84,7 +89,8 @@ TEST_CASE("Modbus RTU Slave Function Code 5", "[single-file]") {
  */
 TEST_CASE("Modbus RTU Slave ID", "[single-file]") {
 	constexpr uint8_t real_id = !ModbusComLayer::BROADCAST_ID;
-	uint8_t package[] = {0x00, 0x05, 0x04, 0x01, 0x04, 0x00, 0x00, 0x00};
+	uint8_t package[8] = {0x00, 0x05, 0x04, 0x01, 0x04, 0x00, 0x00, 0x00};
+	uint8_t buffer[8];
 
 	for (uint8_t id = 0; id < 0xFF; ++id) {
 		unsigned length = sizeof(package)/sizeof(uint8_t);
@@ -92,14 +98,13 @@ TEST_CASE("Modbus RTU Slave ID", "[single-file]") {
 		uint16_t crc = ModbusComLayer::calculate_checksum(package, length-2);
 		package[length - 2] = crc & 0x00FF; // Low byte first
 		package[length - 1] = crc >> 8;
-		uint8_t* response = ModbusComLayer::get_response(package, length, real_id);
+		std::copy(std::begin(package), std::end(package), std::begin(buffer));
+		unsigned buffer_size = ModbusComLayer::generate_response(buffer, length, real_id);
 		if ((id == ModbusComLayer::BROADCAST_ID) || (id == real_id)) {
-			REQUIRE(response != nullptr);
+			REQUIRE(buffer_size != 0);
 		} else {
-			REQUIRE(response == nullptr);
-			REQUIRE(length == 0);
+			REQUIRE(buffer_size == 0);
 		}
-		delete[] response;
 	}
 }
 
@@ -108,7 +113,5 @@ TEST_CASE("Modbus RTU Slave ID", "[single-file]") {
  */
 TEST_CASE("Modbus RTU Invalid Checksum", "[single-file]") {
 	uint8_t data[] = {0x11, 0x05, 0x00, 0x01, 0xFF, 0x00, 0xDF, 0xFB};
-	unsigned length = sizeof(data);
-	REQUIRE(nullptr == ModbusComLayer::get_response(data, length, data[ModbusComLayer::ID_IDX]));
-	REQUIRE(length == 0);
+	REQUIRE(0 == ModbusComLayer::generate_response(data, sizeof(data), data[ModbusComLayer::ID_IDX]));
 }

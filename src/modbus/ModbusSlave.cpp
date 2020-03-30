@@ -28,9 +28,7 @@ void ModbusSlave::set_id(uint8_t ID) {
 }
 
 void ModbusSlave::rx_it_hook() {
-	uint8_t received_byte = serial_driver->read();
-	//SEGGER_RTT_PutChar(0, received_byte);
-	recieve_buffer[receive_index++] = received_byte;
+	buffer[receive_index++] = serial_driver->read();
 	if (receive_index == 8) {
 		timer_it_hook();
 	}
@@ -44,10 +42,9 @@ void ModbusSlave::timer_it_hook() {
 }
 
 void ModbusSlave::process_packet() {
-	unsigned receive_length = receive_index;
+	unsigned length = ModbusComLayer::generate_response(buffer, receive_index, mb_id);
+	serial_driver->send_async(buffer, 0U, length);
 	receive_index = 0;
-	response_buffer = ModbusComLayer::get_response(recieve_buffer, receive_length, mb_id);
-	serial_driver->send_async(response_buffer, 0U, receive_length);
 }
 
 /**

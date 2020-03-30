@@ -1,46 +1,40 @@
 #include "ModbusSlaveCom.hpp"
 #include "ModbusRequest.hpp"
 
-uint8_t* ModbusComLayer::get_response(uint8_t* package, unsigned& length, uint8_t mb_id) {
-	if ((length < MIN_PACKAGE_SIZE) || ((package[ID_IDX] != BROADCAST_ID) && (package[ID_IDX] != mb_id))) {
-		length = 0;
-		return nullptr;
+unsigned ModbusComLayer::generate_response(uint8_t* package, unsigned length, uint8_t mb_id) {
+	if ((length < MIN_PACKAGE_SIZE) || ((package[ID_IDX] != BROADCAST_ID) && (package[ID_IDX] != mb_id)) || calculate_checksum(package, length)) {
+		return 0;
 	}
-	if (calculate_checksum(package, length)) {
-		length = 0;
-		return nullptr;
-	}
-	uint8_t fc = package[FC_IDX];
-	switch (fc) {
+
+	switch (package[FC_IDX]) {
 		case static_cast<uint8_t>(FC::FC01):
 		case static_cast<uint8_t>(FC::FC02):
 		case static_cast<uint8_t>(FC::FC03):
 		case static_cast<uint8_t>(FC::FC04):
-			return send_exception(ModbusException::Illegal_Function, fc, mb_id);
+			set_exception(ModbusException::Illegal_Function, package);
+			return 5;
 		case static_cast<uint8_t>(FC::FC05):
 			{
 			ModbusException ex = handle_fc05(package);
-			if (ex == ModbusException::Acknowledge) {
-				return package;
+			if (ex != ModbusException::Acknowledge) {
+				set_exception(ex, package);
+				return 5;
 			}
-			length = 5;
-			return send_exception(ex, fc, mb_id);
+			return 8;
 			}
 		case static_cast<uint8_t>(FC::FC06):
 		case static_cast<uint8_t>(FC::FC15):
 		case static_cast<uint8_t>(FC::FC16):
 		default:
-			return send_exception(ModbusException::Illegal_Function, package[FC_IDX], mb_id);
+			set_exception(ModbusException::Illegal_Function, package);
+			return 5;
 	}
 }
 
-uint8_t* ModbusComLayer::send_exception(ModbusException ex, uint8_t fc, uint8_t id) {
-	uint8_t* response = new uint8_t[5];
-	response[ID_IDX] = id;
-	response[FC_IDX] = fc | static_cast<uint8_t>(ModbusException::Indicator_Mask);
-	response[EX_IDX] = static_cast<uint8_t>(ex);
-	*(reinterpret_cast<uint16_t*>(&response[EX_IDX + 1])) = calculate_checksum(response, EX_IDX + 1);
-	return response;
+void ModbusComLayer::set_exception(ModbusException ex, uint8_t* package) {
+	package[FC_IDX] |= static_cast<uint8_t>(ModbusException::Indicator_Mask);
+	package[EX_IDX] = static_cast<uint8_t>(ex);
+	*(reinterpret_cast<uint16_t*>(&package[EX_IDX + 1])) = calculate_checksum(package, EX_IDX + 1);
 }
 
 /**
