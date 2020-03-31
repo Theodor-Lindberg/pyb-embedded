@@ -19,3 +19,8 @@ void DigitalOut::write(const bool state) {
 void DigitalOut::toggle() {
 	LL_GPIO_TogglePin(reinterpret_cast<GPIO_TypeDef*>(GPIOx), static_cast<uint32_t>(1 << static_cast<uint32_t>(pin)));
 }
+
+bool DigitalOut::is_set() {
+	return static_cast<bool>(LL_GPIO_IsOutputPinSet(reinterpret_cast<GPIO_TypeDef*>(GPIOx), static_cast<uint32_t>(1 << static_cast<uint32_t>(pin))));
+}
+

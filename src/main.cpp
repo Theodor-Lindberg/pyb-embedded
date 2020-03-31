@@ -24,8 +24,12 @@ int main() {
 	ModbusSlave modbus_slave(serial, TIMER::TIMER14, 17, BAUDRATE::RATE_9600, STOPBITS::SB_1, PARITY::NONE);
 	modbus_slave.open();
 
-	while (true);
-	
+	while (true) {
+		if (blue_led.is_set()) {
+			DelayMS(2000);
+			blue_led.write(false);
+		}
+	}
 }
 
 /**

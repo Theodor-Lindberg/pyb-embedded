@@ -12,3 +12,7 @@ void DigitalOut::write(const bool state) {
 void DigitalOut::toggle() {
 	state ^= true;
 }
+
+bool DigitalOut::is_set() {
+	return state;
+}
