@@ -12,8 +12,8 @@ class ModbusSlave : public IUsartHook, public ITimerHook {
 	void close();
 	void set_id(uint8_t ID);
 	void process_packet();
-	void rx_it_hook() override;
-	void timer_it_hook() override;
+	void rx_it_hook() final override;
+	void timer_it_hook() final override;
 	private:
 	SerialDriver* const serial_driver;
 	Timer timer;

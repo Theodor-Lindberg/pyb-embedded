@@ -1,11 +1,9 @@
 #pragma once
 #include "ModbusExceptions.hpp"
 
-class ModbusComLayer {
-	public:
-	ModbusComLayer() = default;
-	[[nodiscard]] static unsigned generate_response(uint8_t* package, unsigned length, uint8_t mb_id);
-	[[nodiscard]] static uint16_t calculate_checksum(const uint8_t* package, unsigned length);
+namespace ModbusComLayer {
+	[[nodiscard]] unsigned generate_response(uint8_t* package, unsigned length, uint8_t mb_id);
+	[[nodiscard]] uint16_t calculate_checksum(const uint8_t* package, unsigned length);
 	/**
 	 * @brief Modbus Function Code
 	 */
@@ -19,10 +17,10 @@ class ModbusComLayer {
 		FC15 = 0xFU,	// Force Multiple Coils
 		FC16 = 0x10U	// Preset Multiple Registers
 	};
-	static void set_exception(ModbusException ex, uint8_t* package);
-	static constexpr unsigned MIN_PACKAGE_SIZE = 7;
-	static constexpr uint8_t ID_IDX = 0U;
-	static constexpr uint8_t FC_IDX = 1U;
-	static constexpr uint8_t EX_IDX = 2U;
-	static constexpr uint8_t BROADCAST_ID = 0U;
-};
+	void set_exception(ModbusException ex, uint8_t* package);
+	constexpr unsigned MIN_PACKAGE_SIZE = 7;
+	constexpr uint8_t ID_IDX = 0U;
+	constexpr uint8_t FC_IDX = 1U;
+	constexpr uint8_t EX_IDX = 2U;
+	constexpr uint8_t BROADCAST_ID = 0U;
+}

@@ -44,7 +44,6 @@ void ModbusSlave::timer_it_hook() {
 void ModbusSlave::process_packet() {
 	unsigned length = ModbusComLayer::generate_response(buffer, receive_index, mb_id);
 	serial_driver->send_async(buffer, 0U, length);
-	receive_index = 0;
 }
 
 /**
