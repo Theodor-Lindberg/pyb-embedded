@@ -2,8 +2,6 @@
 #include "ModbusExceptions.hpp"
 
 namespace ModbusComLayer {
-	[[nodiscard]] unsigned generate_response(uint8_t* package, unsigned length, uint8_t mb_id);
-	[[nodiscard]] uint16_t calculate_checksum(const uint8_t* package, unsigned length);
 	/**
 	 * @brief Modbus Function Code
 	 */
@@ -17,6 +15,9 @@ namespace ModbusComLayer {
 		FC15 = 0xFU,	// Force Multiple Coils
 		FC16 = 0x10U	// Preset Multiple Registers
 	};
+	[[nodiscard]] unsigned generate_response(uint8_t* package, unsigned length, uint8_t mb_id);
+	[[nodiscard]] uint16_t calculate_checksum(const uint8_t* package, unsigned length);
+	void set_checksum(uint8_t* package, unsigned length);
 	void set_exception(ModbusException ex, uint8_t* package);
 	constexpr unsigned MIN_PACKAGE_SIZE = 7;
 	constexpr uint8_t ID_IDX = 0U;

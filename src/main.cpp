@@ -25,10 +25,6 @@ int main() {
 	modbus_slave.open();
 
 	while (true) {
-		if (blue_led.is_set()) {
-			DelayMS(2000);
-			blue_led.write(false);
-		}
 	}
 }
 

@@ -2,6 +2,27 @@
 #include "ModbusSlaveCom.hpp"
 #include <algorithm>
 
+TEST_CASE("Modbus RTU Slave Function Code 1", "[single-file]") {
+	/**
+	 * 11 01 0001 0001 DF6A
+	 * @brief This command is writing the contents of boolean variable  # 1073 to ON to the slave device with address 17.
+	 * 11: The Slave Address (11 hex = address17 )
+	 * 01: The Function Code 1 (Read Coil Status)
+	 * 0001: The Data Address of the first coil to read. (coil# 2 - 1 = 1 = 0x01 hex).
+	 * 0001: The total number of coils requested.
+	 * xxxx: The CRC (cyclic redundancy check) for error checking.
+	 */
+	uint8_t package[8] = {0x11, 0x01, 0x00, 0x01, 0x00, 0x01, 0x00, 0x00};
+	ModbusComLayer::set_checksum(package, 8);
+	uint8_t buffer[8];
+	std::copy(std::begin(package), std::end(package), std::begin(buffer));
+	unsigned length = sizeof(buffer)/sizeof(uint8_t);
+	unsigned buffer_size = ModbusComLayer::generate_response(buffer, length, package[ModbusComLayer::ID_IDX]);
+	SECTION("Correct length") {
+		REQUIRE(buffer_size == 6);
+	}
+}
+
 
 /**
  * @brief Force Single Coil
@@ -31,9 +52,7 @@ TEST_CASE("Modbus RTU Slave Function Code 5", "[single-file]") {
 
 	SECTION("Turn Coil OFF") {
 		expected[4] = 0x00; // Turn coil off
-		uint16_t crc = ModbusComLayer::calculate_checksum(expected, length-2);
-		expected[length - 2] = crc & 0x00FF; // Low byte first
-		expected[length - 1] = crc >> 8;
+		ModbusComLayer::set_checksum(expected, length);
 		std::copy(std::begin(expected), std::end(expected), std::begin(buffer));
 		buffer_size = ModbusComLayer::generate_response(buffer, length, buffer[ModbusComLayer::ID_IDX]);
 
@@ -45,9 +64,7 @@ TEST_CASE("Modbus RTU Slave Function Code 5", "[single-file]") {
 
 	SECTION("Illegal Data Address") {
 		expected[2] = 4; // Illegal Data Address
-		uint16_t crc = ModbusComLayer::calculate_checksum(expected, length-2);
-		expected[length - 2] = crc & 0x00FF; // Low byte first
-		expected[length - 1] = crc >> 8;
+		ModbusComLayer::set_checksum(expected, length);
 		std::copy(std::begin(expected), std::end(expected), std::begin(buffer));
 		buffer_size = ModbusComLayer::generate_response(buffer, length, buffer[ModbusComLayer::ID_IDX]);
 
@@ -65,9 +82,7 @@ TEST_CASE("Modbus RTU Slave Function Code 5", "[single-file]") {
 	
 	SECTION("Illegal Data Value") {
 		expected[4] = 4; // Illegal Data Value
-		uint16_t crc = ModbusComLayer::calculate_checksum(expected, length-2);
-		expected[length - 2] = crc & 0x00FF; // Low byte first
-		expected[length - 1] = crc >> 8;
+		ModbusComLayer::set_checksum(expected, length);
 		std::copy(std::begin(expected), std::end(expected), std::begin(buffer));
 		buffer_size = ModbusComLayer::generate_response(buffer, length, buffer[ModbusComLayer::ID_IDX]);
 
@@ -95,9 +110,7 @@ TEST_CASE("Modbus RTU Slave ID", "[single-file]") {
 	for (uint8_t id = 0; id < 0xFF; ++id) {
 		unsigned length = sizeof(package)/sizeof(uint8_t);
 		package[ModbusComLayer::ID_IDX] = id;
-		uint16_t crc = ModbusComLayer::calculate_checksum(package, length-2);
-		package[length - 2] = crc & 0x00FF; // Low byte first
-		package[length - 1] = crc >> 8;
+		ModbusComLayer::set_checksum(package, length);
 		std::copy(std::begin(package), std::end(package), std::begin(buffer));
 		unsigned buffer_size = ModbusComLayer::generate_response(buffer, length, real_id);
 		if ((id == ModbusComLayer::BROADCAST_ID) || (id == real_id)) {

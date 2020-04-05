@@ -9,6 +9,15 @@ namespace ModbusComLayer {
 
 		switch (package[FC_IDX]) {
 			case static_cast<uint8_t>(FC::FC01):
+			{
+				ModbusException ex = handle_fc01(package, length);
+				if (ex != ModbusException::Acknowledge) {
+					set_exception(ex, package);
+					return 5;
+				}
+				set_checksum(package, length);
+				return length;
+			}
 			case static_cast<uint8_t>(FC::FC02):
 			case static_cast<uint8_t>(FC::FC03):
 			case static_cast<uint8_t>(FC::FC04):
@@ -32,10 +41,16 @@ namespace ModbusComLayer {
 		}
 	}
 
+	void set_checksum(uint8_t* package, unsigned length) {
+		uint16_t crc = ModbusComLayer::calculate_checksum(package, length-2);
+		package[length - 2] = crc & 0x00FF; // Low byte first
+		package[length - 1] = crc >> 8;
+	}
+
 	void set_exception(ModbusException ex, uint8_t* package) {
 		package[FC_IDX] |= static_cast<uint8_t>(ModbusException::Indicator_Mask);
 		package[EX_IDX] = static_cast<uint8_t>(ex);
-		*(reinterpret_cast<uint16_t*>(&package[EX_IDX + 1])) = calculate_checksum(package, EX_IDX + 1);
+		set_checksum(package, 5);
 	}
 
 	/**
