@@ -20,7 +20,7 @@ ModbusException handle_fc01(uint8_t *package, unsigned& length) {
 	for (auto i = 0; i < package[2]; ++i) {
 		package[3 + i] = 0;
 	}
-	bool status;
+	bool status = false;
 	ModbusException ex;
 	for (uint16_t i =  0; i < coils_to_read; ++i) {
 		ex = read_single_coil(static_cast<OUTPUT_COIL>(coil + i), status);

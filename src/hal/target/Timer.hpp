@@ -20,6 +20,7 @@ class Timer {
 	public:
 	Timer();
 	Timer(TIMER timer, ITimerHook* const timer_it_hook);
+	void enable();
 	void start();
 	void stop();
 	void set_interval(uint32_t ms);

@@ -11,7 +11,6 @@ extern "C" void TIM7_IRQHandler(void) {
 }
 
 Timer::Timer(TIMER timer, ITimerHook* const timer_it_hook) : timer_it_hook(timer_it_hook) {
-	return;
 	switch (timer) {
 		case TIMER::TIMER1:
 			TIMx = static_cast<TIM_Def*>(TIM1);
@@ -49,7 +48,9 @@ Timer::Timer(TIMER timer, ITimerHook* const timer_it_hook) : timer_it_hook(timer
 		default:
 			TIMx = nullptr;
 	}
-	
+}
+
+void Timer::enable() {
 	LL_TIM_InitTypeDef init_def;
 	init_def.Autoreload = 4999U;
 	init_def.CounterMode = LL_TIM_COUNTERMODE_UP;
