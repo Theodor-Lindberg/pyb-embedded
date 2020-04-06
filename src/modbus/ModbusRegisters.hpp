@@ -16,10 +16,6 @@ enum class OUTPUT_COIL : uint16_t {
  * @brief Discrete Input Contact
  */
 enum class INPUT_CONTACT : uint16_t {
-	BLUE_BOARD_LED		= 0x0000,
-	GREEN_BOARD_LED 	= 0x0001,
-	YELLOW_BOARD_LED 	= 0x0002,
-	RED_BOARD_LED 		= 0x0003,
 	NUMBER_OF_CONTACTS		// The number of discrete input contacts
 };
 

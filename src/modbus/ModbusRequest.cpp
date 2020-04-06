@@ -21,9 +21,12 @@ ModbusException handle_fc01(uint8_t *package, unsigned& length) {
 		package[3 + i] = 0;
 	}
 	bool status;
-
+	ModbusException ex;
 	for (uint16_t i =  0; i < coils_to_read; ++i) {
-		read_single_coil(static_cast<INPUT_CONTACT>(coil + i), status);
+		ex = read_single_coil(static_cast<OUTPUT_COIL>(coil + i), status);
+		if (ex != ModbusException::Acknowledge) {
+			return ex;
+		}
 		package[3 + i / 8] |= status << (i % 8);
 	}
 	length = 5 + package[2]; // addr + fc + number of bytes + actual data + crc
@@ -89,18 +92,18 @@ ModbusException force_single_coil(OUTPUT_COIL coil, bool status) {
  * @param status Set to true when coil coil is ON, otherwise false.
  * @return ModbusException 
  */
-ModbusException read_single_coil(INPUT_CONTACT coil, bool& status) {
+ModbusException read_single_coil(OUTPUT_COIL coil, bool& status) {
 	switch(coil) {
-		case INPUT_CONTACT::BLUE_BOARD_LED:
+		case OUTPUT_COIL::BLUE_BOARD_LED:
 			status = board::get_board_led(board::LED::BLUE).is_set();
 			return ModbusException::Acknowledge;
-		case INPUT_CONTACT::GREEN_BOARD_LED:
+		case OUTPUT_COIL::GREEN_BOARD_LED:
 			board::get_board_led(board::LED::GREEN).is_set();
 			return ModbusException::Acknowledge;
-		case INPUT_CONTACT::YELLOW_BOARD_LED:
+		case OUTPUT_COIL::YELLOW_BOARD_LED:
 			board::get_board_led(board::LED::YELLOW).is_set();
 			return ModbusException::Acknowledge;
-		case INPUT_CONTACT::RED_BOARD_LED:
+		case OUTPUT_COIL::RED_BOARD_LED:
 			board::get_board_led(board::LED::RED).is_set();
 			return ModbusException::Acknowledge;
 		default:
