@@ -30,7 +30,8 @@ enum class Port {
 	A,
 	B,
 	C,
-	D
+	D,
+	NUM_PORTS
 };
 
 enum class Pin {
@@ -49,5 +50,6 @@ enum class Pin {
 	PIN12,
 	PIN13,
 	PIN14,
-	PIN15
+	PIN15,
+	NUM_PINS
 };

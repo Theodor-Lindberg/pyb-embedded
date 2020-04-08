@@ -98,7 +98,7 @@ if(NOT ${BUILD_TESTS})
 
 else()        
 	set(lib app_lib)
-	add_library(${lib} ${common_src})
+	add_library(${lib} ${common_src} ./hal/desktop/GPIOState.cpp)
 	target_include_directories(${lib} PUBLIC ${common_inc})
 	target_compile_options(${lib} PRIVATE ${W_FLAGS} ${TEST_FLAGS})
 endif()

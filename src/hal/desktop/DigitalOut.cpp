@@ -6,13 +6,13 @@ DigitalOut::DigitalOut(const Port port, const Pin pin, const Speed speed, const 
 	GPIO(port, pin) { }
 
 void DigitalOut::write(const bool state) {
-	this->state = state;
+	pin_states[static_cast<uint32_t>(port)][static_cast<uint32_t>(pin)] = state;
 }
 
 void DigitalOut::toggle() {
-	state ^= true;
+	pin_states[static_cast<uint32_t>(port)][static_cast<uint32_t>(pin)] ^= true;
 }
 
 bool DigitalOut::is_set() {
-	return state;
+	return pin_states[static_cast<uint32_t>(port)][static_cast<uint32_t>(pin)];
 }
